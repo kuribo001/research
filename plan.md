@@ -87,13 +87,17 @@ Completed in the repository:
   - `downloads/earthquake_samples/extracted_stations.csv`
 - earthquake sample coverage index:
   - `docs/jma_earthquake_sample_index.md`
+- earthquake parser scaffolding and implementations:
+  - `com/twins/crawler/parsers/earthquake/`
 
 Current practical status:
 
 - schema and DTO groundwork is ready
-- fixture coverage is strong enough to start parser implementation
+- fixture coverage is strong enough for broad parser implementation
 - sample indexing is now complete
-- the next bottleneck is parser family scaffolding and dispatcher design
+- phase 1 parser implementation is complete
+- EEW parser implementation is also in place
+- the remaining implementation gap is Nankai / notice families and later regression tests
 
 ## Design Principles
 
@@ -154,6 +158,18 @@ Use one parser per message family:
 - `EarthquakeNoticeParser`
 
 The dispatcher should map `message_code -> parser family`.
+
+Current implementation style:
+
+- DOM-based XML parsing using JDK `DocumentBuilderFactory`
+- one dispatcher plus parser-family classes
+- shared parsing helpers in `JmaXml`
+- shared extraction logic in `AbstractEarthquakeParser`
+- Lambda-friendly singleton facade in `EarthquakeParsingService`
+
+Current parser package:
+
+- `com/twins/crawler/parsers/earthquake/`
 
 ## Sample Strategy
 
@@ -234,6 +250,18 @@ Reason:
 
 Phase 1 must also include `取消` handling wherever the official sample pack provides such cases.
 
+Current status:
+
+- implemented
+- current dispatcher covers all phase 1 message codes:
+  - `VXSE51`
+  - `VXSE52`
+  - `VXSE53`
+  - `VXSE56`
+  - `VXSE60`
+  - `VXSE61`
+  - `VXSE62`
+
 ## Earthquake DTO Model
 
 DTOs are now created by domain output, not by raw XML node.
@@ -302,6 +330,72 @@ Current note:
 - the schema is considered ready for parser implementation
 - some refinements may still be added later for stricter idempotency or richer read models
 
+## Parser Progress
+
+Implemented parser infrastructure:
+
+- `EarthquakeMessageFamily`
+- `EarthquakeParser`
+- `EarthquakeParserDispatcher`
+- `EarthquakeParserException`
+- `EarthquakeParsingService`
+- `JmaXml`
+- `AbstractEarthquakeParser`
+
+Implemented parser families:
+
+- `EewParser`
+  - covers `VXSE42`, `VXSE43`, `VXSE44`, `VXSE45`
+- `SeismicIntensityParser`
+  - covers `VXSE51`
+- `HypocenterParser`
+  - covers `VXSE52`
+- `HypocenterSeismicParser`
+  - covers `VXSE53`
+- `EarthquakeActivityParser`
+  - covers `VXSE56`
+- `EarthquakeCountParser`
+  - covers `VXSE60`
+- `HypocenterUpdateParser`
+  - covers `VXSE61`
+- `LongPeriodGroundMotionParser`
+  - covers `VXSE62`
+
+Remaining parser families:
+
+- `NankaiParser`
+  - `VYSE50`
+  - `VYSE51`
+  - `VYSE52`
+- `SubsequentEarthquakeAdvisoryParser`
+  - `VYSE60`
+- `EarthquakeNoticeParser`
+  - `VZSE40`
+
+Still missing due to fixture gap:
+
+- `VXSE47`
+
+## Lambda Readiness
+
+The current parser layer has been hardened for AWS Lambda style execution.
+
+Implemented Lambda-oriented safeguards:
+
+- secure XML parser configuration in `JmaXml`
+  - `DOCTYPE` disabled
+  - external entity loading disabled
+  - external DTD loading disabled
+- parser dispatcher is immutable after construction
+- duplicate parser registration is rejected at startup
+- null / blank input guards exist in parser entry flow
+- coordinate parsing supports both decimal degree and degree-minute formats
+- `EarthquakeParsingService` provides a singleton dispatcher suitable for Lambda warm starts
+
+Current recommendation for Lambda entry usage:
+
+- call `EarthquakeParsingService.parse(messageCode, xml)`
+
 ## Versioning and Lifecycle Rules
 
 Earthquake messages for the same event may arrive in sequence:
@@ -343,12 +437,15 @@ Completed fixture work:
 
 Recommended next step:
 
-1. create parser tests per family
-2. ensure at least one `発表` case per family
-3. ensure `取消` cases are covered where available
-4. validate DTO mapping
-5. validate SQL-ready normalized output
-6. run regression tests against downloaded real-world XML
+1. implement `VYSE50`, `VYSE51`, `VYSE52`
+2. implement `VYSE60`
+3. implement `VZSE40`
+4. create parser tests per family
+5. ensure at least one `発表` case per family
+6. ensure `取消` cases are covered where available
+7. validate DTO mapping
+8. validate SQL-ready normalized output
+9. run regression tests against downloaded real-world XML
 
 Current observed fixture advantage:
 
@@ -384,21 +481,22 @@ Because `VXSE42/43/44/45` already exist in the official sample pack, they can be
 - [x] Earthquake DTO design
 - [x] Earthquake SQL draft
 - [x] Earthquake sample index for official and real-world fixtures
-- [ ] Message family dispatcher design
-- [ ] Phase 1 parser interfaces
+- [x] Message family dispatcher design
+- [x] Phase 1 parser interfaces
 - [ ] Parser tests for `VXSE51/52/53/56/60/61/62`
 - [ ] Cancellation-case coverage from official sample pack
 - [ ] Lifecycle/versioning rules documented in code
 - [ ] Phase 2 extension plan refined after phase 1
+- [x] Lambda-safe parser hardening for current families
 
 ## Next Recommended Action
 
 The most practical next implementation step is:
 
-1. create a message family dispatcher design
-2. scaffold parser interfaces for `VXSE52` and `VXSE53`
-3. implement `VXSE52` and `VXSE53` first
-4. expand to `VXSE51`, `VXSE61`, `VXSE62`, `VXSE60`, `VXSE56`
-5. add parser tests using the fixtures listed in `docs/jma_earthquake_sample_index.md`
+1. implement `VYSE50`, `VYSE51`, and `VYSE52`
+2. implement `VYSE60`
+3. implement `VZSE40`
+4. add parser tests using the fixtures listed in `docs/jma_earthquake_sample_index.md`
+5. validate Lambda integration path with `EarthquakeParsingService`
 
-These two message families will define the base event model for the rest of the earthquake pipeline.
+The core earthquake families are now in place, so the next milestone is completing the special-information and notice families.

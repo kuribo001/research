@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://192.168.100.150:3306/project_local
+    username: app_admin
+    password: Anhnha123!@#
+  sql:
+    init:
+      mode: always

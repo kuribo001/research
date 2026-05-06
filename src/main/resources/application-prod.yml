@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://prod-db:3306/project_production
+    username: prod_user
+    password: prod_password

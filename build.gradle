@@ -1,0 +1,73 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.0'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.company'
+version = '0.0.1-SNAPSHOT'
+description = 'Backend skeleton following the modular architecture guideline.'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-batch'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9'
+
+    compileOnly 'org.projectlombok:lombok:1.18.38'
+    annotationProcessor 'org.projectlombok:lombok:1.18.38'
+
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.38'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.38'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.register('run') {
+    group = 'application'
+    description = 'Alias for bootRun'
+    dependsOn tasks.named('bootRun')
+}
+
+tasks.register('runLocal') {
+    group = 'application'
+    description = 'Run the application with the local profile'
+    doFirst {
+        tasks.named('bootRun').get().systemProperty('spring.profiles.active', 'local')
+    }
+    dependsOn tasks.named('bootRun')
+}
+
+tasks.register('runDevelop') {
+    group = 'application'
+    description = 'Run the application with the develop profile'
+    doFirst {
+        tasks.named('bootRun').get().systemProperty('spring.profiles.active', 'develop')
+    }
+    dependsOn tasks.named('bootRun')
+}
+
+tasks.register('runProd') {
+    group = 'application'
+    description = 'Run the application with the prod profile'
+    doFirst {
+        tasks.named('bootRun').get().systemProperty('spring.profiles.active', 'prod')
+    }
+    dependsOn tasks.named('bootRun')
+}

@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://develop-db:3306/project_develop
+    username: develop_user
+    password: develop_password

@@ -38,7 +38,10 @@ public final class EarthquakeParserDispatcher {
             new EarthquakeActivityParser(),
             new EarthquakeCountParser(),
             new HypocenterUpdateParser(),
-            new LongPeriodGroundMotionParser()
+            new LongPeriodGroundMotionParser(),
+            new NankaiParser(),
+            new SubsequentEarthquakeAdvisoryParser(),
+            new EarthquakeNoticeParser()
         ));
     }
 

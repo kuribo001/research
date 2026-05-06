@@ -97,7 +97,8 @@ Current practical status:
 - sample indexing is now complete
 - phase 1 parser implementation is complete
 - EEW parser implementation is also in place
-- the remaining implementation gap is Nankai / notice families and later regression tests
+- Nankai / advisory / notice parser implementation is also in place
+- the remaining implementation gap is production verification, regression tests, and Lambda handler wiring
 
 ## Design Principles
 
@@ -363,14 +364,7 @@ Implemented parser families:
 
 Remaining parser families:
 
-- `NankaiParser`
-  - `VYSE50`
-  - `VYSE51`
-  - `VYSE52`
-- `SubsequentEarthquakeAdvisoryParser`
-  - `VYSE60`
-- `EarthquakeNoticeParser`
-  - `VZSE40`
+- none for the currently sample-backed earthquake message codes
 
 Still missing due to fixture gap:
 
@@ -437,15 +431,15 @@ Completed fixture work:
 
 Recommended next step:
 
-1. implement `VYSE50`, `VYSE51`, `VYSE52`
-2. implement `VYSE60`
-3. implement `VZSE40`
-4. create parser tests per family
-5. ensure at least one `発表` case per family
-6. ensure `取消` cases are covered where available
-7. validate DTO mapping
-8. validate SQL-ready normalized output
-9. run regression tests against downloaded real-world XML
+1. create parser tests per family
+2. ensure at least one `発表` case per family
+3. ensure `取消` cases are covered where available
+4. validate DTO mapping
+5. validate SQL-ready normalized output
+6. run regression tests against downloaded real-world XML
+7. add a concrete AWS Lambda handler using `EarthquakeParsingService`
+8. define operational logging and failure-handling behavior for Lambda
+9. decide whether to introduce a provisional path for `VXSE47` before a fixture is obtained
 
 Current observed fixture advantage:
 
@@ -486,17 +480,19 @@ Because `VXSE42/43/44/45` already exist in the official sample pack, they can be
 - [ ] Parser tests for `VXSE51/52/53/56/60/61/62`
 - [ ] Cancellation-case coverage from official sample pack
 - [ ] Lifecycle/versioning rules documented in code
-- [ ] Phase 2 extension plan refined after phase 1
+- [x] Phase 2 extension plan refined after phase 1
 - [x] Lambda-safe parser hardening for current families
+- [ ] AWS Lambda handler integration
+- [ ] End-to-end verification for sample-backed message codes
 
 ## Next Recommended Action
 
 The most practical next implementation step is:
 
-1. implement `VYSE50`, `VYSE51`, and `VYSE52`
-2. implement `VYSE60`
-3. implement `VZSE40`
-4. add parser tests using the fixtures listed in `docs/jma_earthquake_sample_index.md`
-5. validate Lambda integration path with `EarthquakeParsingService`
+1. add parser verification using the fixtures listed in `docs/jma_earthquake_sample_index.md`
+2. validate normalized DTO output against the SQL model
+3. add a concrete Lambda handler using `EarthquakeParsingService`
+4. define operational logging and failure handling
+5. revisit `VXSE47` when an official or real-world fixture is available
 
-The core earthquake families are now in place, so the next milestone is completing the special-information and notice families.
+The core earthquake families are now in place, so the next milestone is verification and Lambda operationalization.

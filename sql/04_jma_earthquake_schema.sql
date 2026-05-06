@@ -132,6 +132,17 @@ CREATE INDEX IF NOT EXISTS idx_eq_intensity_area_source
 CREATE INDEX IF NOT EXISTS idx_eq_intensity_area_code
     ON jma_earthquake_intensity_area (area_code);
 
+CREATE UNIQUE INDEX IF NOT EXISTS uq_eq_intensity_area_dedup
+    ON jma_earthquake_intensity_area (
+        earthquake_event_id,
+        source_type,
+        COALESCE(area_code, ''),
+        COALESCE(area_name, ''),
+        COALESCE(intensity, ''),
+        COALESCE(long_period_class, ''),
+        COALESCE(sort_order, -1)
+    );
+
 -- =========================================================
 -- 4. Municipality / city intensity
 -- Used by VXSE53 and VXSE47 detailed body content
@@ -168,6 +179,17 @@ CREATE INDEX IF NOT EXISTS idx_eq_municipality_city_code
 
 CREATE INDEX IF NOT EXISTS idx_eq_municipality_area_code
     ON jma_earthquake_municipality_intensity (area_code);
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_eq_municipality_intensity_dedup
+    ON jma_earthquake_municipality_intensity (
+        earthquake_event_id,
+        source_type,
+        COALESCE(city_code, ''),
+        COALESCE(city_name, ''),
+        COALESCE(intensity, ''),
+        COALESCE(long_period_class, ''),
+        COALESCE(revise_type, '')
+    );
 
 -- =========================================================
 -- 5. Station intensity
@@ -215,6 +237,19 @@ CREATE INDEX IF NOT EXISTS idx_eq_station_type
 CREATE INDEX IF NOT EXISTS idx_eq_station_source
     ON jma_earthquake_station_intensity (source_type);
 
+CREATE UNIQUE INDEX IF NOT EXISTS uq_eq_station_intensity_dedup
+    ON jma_earthquake_station_intensity (
+        earthquake_event_id,
+        station_type,
+        source_type,
+        station_code,
+        COALESCE(intensity, ''),
+        COALESCE(observation_status, ''),
+        COALESCE(realtime_intensity_text, ''),
+        COALESCE(long_period_class, ''),
+        COALESCE(revise_type, '')
+    );
+
 -- =========================================================
 -- 6. Long-period observation metrics per station
 -- Used by VXSE62 numeric long-period bands
@@ -239,6 +274,16 @@ CREATE INDEX IF NOT EXISTS idx_long_period_metric_station
 
 CREATE INDEX IF NOT EXISTS idx_long_period_metric_kind
     ON jma_long_period_station_metric (metric_kind);
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_long_period_metric_dedup
+    ON jma_long_period_station_metric (
+        station_intensity_id,
+        metric_kind,
+        COALESCE(periodic_band, ''),
+        COALESCE(period_unit, ''),
+        COALESCE(value_text, ''),
+        COALESCE(unit, '')
+    );
 
 -- =========================================================
 -- 7. Narrative / commentary
@@ -300,6 +345,18 @@ CREATE INDEX IF NOT EXISTS idx_eew_forecast_area_scope
 
 CREATE INDEX IF NOT EXISTS idx_eew_forecast_area_code
     ON jma_eew_forecast_area (area_code);
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_eew_forecast_area_dedup
+    ON jma_eew_forecast_area (
+        earthquake_event_id,
+        info_scope,
+        COALESCE(prefecture_code, ''),
+        COALESCE(area_code, ''),
+        COALESCE(kind_code, ''),
+        COALESCE(last_kind_code, ''),
+        COALESCE(category_kind_code, ''),
+        COALESCE(arrival_time, TIMESTAMPTZ 'epoch')
+    );
 
 -- =========================================================
 -- 9. EEW warning text / trigger metadata
@@ -364,6 +421,14 @@ CREATE TABLE IF NOT EXISTS jma_earthquake_special_text_block (
 CREATE INDEX IF NOT EXISTS idx_eq_special_text_block_event
     ON jma_earthquake_special_text_block (earthquake_event_id);
 
+CREATE UNIQUE INDEX IF NOT EXISTS uq_eq_special_text_block_dedup
+    ON jma_earthquake_special_text_block (
+        earthquake_event_id,
+        block_type,
+        COALESCE(block_title, ''),
+        COALESCE(sort_order, -1)
+    );
+
 -- =========================================================
 -- 12. Generic notice / bulletin items
 -- Used by VZSE40 and similar notice families
@@ -386,6 +451,15 @@ CREATE TABLE IF NOT EXISTS jma_earthquake_notice_item (
 CREATE INDEX IF NOT EXISTS idx_eq_notice_item_event
     ON jma_earthquake_notice_item (earthquake_event_id);
 
+CREATE UNIQUE INDEX IF NOT EXISTS uq_eq_notice_item_dedup
+    ON jma_earthquake_notice_item (
+        earthquake_event_id,
+        COALESCE(notice_kind, ''),
+        COALESCE(notice_title, ''),
+        COALESCE(area_code, ''),
+        COALESCE(sort_order, -1)
+    );
+
 -- =========================================================
 -- 13. Earthquake count detail
 -- Used by VXSE60
@@ -407,6 +481,15 @@ CREATE TABLE IF NOT EXISTS jma_earthquake_count_item (
 
 CREATE INDEX IF NOT EXISTS idx_eq_count_item_event
     ON jma_earthquake_count_item (earthquake_event_id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_eq_count_item_dedup
+    ON jma_earthquake_count_item (
+        earthquake_event_id,
+        item_type,
+        COALESCE(start_time, TIMESTAMPTZ 'epoch'),
+        COALESCE(end_time, TIMESTAMPTZ 'epoch'),
+        COALESCE(sort_order, -1)
+    );
 
 -- =========================================================
 -- 14. Event counter / read model support

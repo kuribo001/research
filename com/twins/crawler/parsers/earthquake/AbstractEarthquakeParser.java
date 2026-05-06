@@ -7,6 +7,9 @@ import com.twins.crawler.dtos.EarthquakeEventEnvelope;
 import com.twins.crawler.dtos.EarthquakeHypocenter;
 import com.twins.crawler.dtos.EarthquakeIntensityArea;
 import com.twins.crawler.dtos.EarthquakeMunicipalityIntensity;
+import com.twins.crawler.dtos.EarthquakeNoticeItem;
+import com.twins.crawler.dtos.EarthquakeSpecialInformation;
+import com.twins.crawler.dtos.EarthquakeSpecialTextBlock;
 import com.twins.crawler.dtos.EarthquakeStationIntensity;
 import com.twins.crawler.dtos.EewDetail;
 import com.twins.crawler.dtos.EewForecastArea;
@@ -50,9 +53,13 @@ abstract class AbstractEarthquakeParser implements EarthquakeParser {
         OffsetDateTime targetDateTime = JmaXml.parseOffsetDateTime(JmaXml.directChildText(head, "TargetDateTime"));
         OffsetDateTime eventAt = earthquake == null ? null : JmaXml.parseOffsetDateTime(JmaXml.directChildText(earthquake, "OriginTime"));
         OffsetDateTime eventAtUtc = eventAt == null ? null : eventAt.withOffsetSameInstant(ZoneOffset.UTC);
+        String eventTimePrecision = eventAt == null ? null : "second";
         String headlineText = JmaXml.directChildText(JmaXml.directChild(head, "Headline"), "Text");
         Double magnitude = JmaXml.parseDouble(JmaXml.directChildText(JmaXml.firstDescendant(earthquake, "Magnitude"), null));
         String magnitudeType = JmaXml.attributeValue(JmaXml.firstDescendant(earthquake, "Magnitude"), "type");
+        String maxIntensity = JmaXml.directChildText(JmaXml.firstDescendant(body, "Intensity"), "MaxInt");
+        String domesticTsunami = JmaXml.directChildText(JmaXml.firstDescendant(body, "DomesticTsunami"), null);
+        String foreignTsunami = JmaXml.directChildText(JmaXml.firstDescendant(body, "ForeignTsunami"), null);
 
         return new EarthquakeEvent(
             reportHead,
@@ -63,14 +70,14 @@ abstract class AbstractEarthquakeParser implements EarthquakeParser {
             targetDateTime,
             eventAt,
             eventAtUtc,
-            null,
+            eventTimePrecision,
             headlineText,
             JmaXml.directChildText(head, "NextAdvisory"),
             magnitude,
             magnitudeType,
-            JmaXml.directChildText(JmaXml.firstDescendant(body, "Intensity"), "MaxInt"),
-            null,
-            null,
+            maxIntensity,
+            domesticTsunami,
+            foreignTsunami,
             "取消".equals(reportHead.infoType())
         );
     }
@@ -126,25 +133,44 @@ abstract class AbstractEarthquakeParser implements EarthquakeParser {
         }
 
         Element forecastComment = JmaXml.firstDescendant(comments, "ForecastComment");
+        Element varComment = JmaXml.firstDescendant(comments, "VarComment");
+        Element warningComment = JmaXml.firstDescendant(comments, "WarningComment");
+        String forecastText = JmaXml.directChildText(forecastComment, "Text");
+        String varCommentText = JmaXml.directChildText(varComment, "Text");
+        String warningText = JmaXml.directChildText(warningComment, "Text");
+        String warningCode = JmaXml.directChildText(warningComment, "Code");
+        String uri = JmaXml.directChildText(comments, "URI");
+
         return new EarthquakeComment(
             null,
             JmaXml.directChildText(comments, "FreeFormComment"),
-            JmaXml.directChildText(comments, "URI"),
-            JmaXml.directChildText(forecastComment, "Text"),
-            JmaXml.directChildText(forecastComment, "Text"),
+            joinText(varCommentText, uri),
+            forecastText != null && forecastText.contains("津波") ? forecastText : null,
+            forecastText,
             null,
-            null,
-            JmaXml.directChildText(forecastComment, "Code")
+            warningText,
+            warningCode
         );
     }
 
     protected EarthquakeComment parseNarrativeComment(Document document) {
         Element body = JmaXml.requiredDirectChild(document.getDocumentElement(), "Body");
+        Element earthquakeInfo = JmaXml.firstDescendant(body, "EarthquakeInfo");
         EarthquakeComment base = parseComment(document);
-        String bodyText = JmaXml.directChildText(body, "Text");
-        String additionalText = JmaXml.directChildText(body, "NextAdvisory");
+        String bodyText = firstNonBlank(
+            JmaXml.directChildText(body, "Text"),
+            JmaXml.directChildText(earthquakeInfo, "Text")
+        );
+        String additionalText = joinText(
+            JmaXml.directChildText(body, "NextAdvisory"),
+            base == null ? null : base.additionalText()
+        );
+        String appendix = firstNonBlank(
+            JmaXml.directChildText(earthquakeInfo, "Appendix"),
+            base == null ? null : base.appendix()
+        );
 
-        if (base == null && bodyText == null && additionalText == null) {
+        if (base == null && bodyText == null && additionalText == null && appendix == null) {
             return null;
         }
 
@@ -155,7 +181,7 @@ abstract class AbstractEarthquakeParser implements EarthquakeParser {
                 additionalText,
                 null,
                 null,
-                null,
+                appendix,
                 null,
                 null
             );
@@ -164,10 +190,10 @@ abstract class AbstractEarthquakeParser implements EarthquakeParser {
         return new EarthquakeComment(
             bodyText,
             base.freeText(),
-            additionalText != null ? additionalText : base.additionalText(),
+            additionalText,
             base.tsunamiComment(),
             base.forecastComment(),
-            base.appendix(),
+            appendix,
             base.warningCommentText(),
             base.warningCommentCode()
         );
@@ -215,6 +241,87 @@ abstract class AbstractEarthquakeParser implements EarthquakeParser {
                 JmaXml.parseInteger(JmaXml.directChildText(item, "Number")),
                 JmaXml.parseInteger(JmaXml.directChildText(item, "FeltNumber")),
                 sortOrder++
+            ));
+        }
+        return items;
+    }
+
+    protected EarthquakeSpecialInformation parseSpecialInformation(Document document) {
+        Element head = JmaXml.requiredDirectChild(document.getDocumentElement(), "Head");
+        Element body = JmaXml.requiredDirectChild(document.getDocumentElement(), "Body");
+        Element earthquakeInfo = JmaXml.firstDescendant(body, "EarthquakeInfo");
+        if (earthquakeInfo == null) {
+            return null;
+        }
+
+        Element infoSerial = JmaXml.directChild(earthquakeInfo, "InfoSerial");
+        return new EarthquakeSpecialInformation(
+            JmaXml.directChildText(earthquakeInfo, "InfoKind"),
+            null,
+            null,
+            JmaXml.directChildText(infoSerial, "Name"),
+            JmaXml.directChildText(infoSerial, "Code"),
+            JmaXml.directChildText(head, "InfoType"),
+            JmaXml.attributeValue(earthquakeInfo, "type"),
+            JmaXml.directChildText(body, "NextAdvisory")
+        );
+    }
+
+    protected List<EarthquakeSpecialTextBlock> parseSpecialTextBlocks(Document document) {
+        List<EarthquakeSpecialTextBlock> blocks = new ArrayList<>();
+        Element body = JmaXml.requiredDirectChild(document.getDocumentElement(), "Body");
+        Element earthquakeInfo = JmaXml.firstDescendant(body, "EarthquakeInfo");
+
+        int sortOrder = 1;
+        if (earthquakeInfo != null) {
+            String text = JmaXml.directChildText(earthquakeInfo, "Text");
+            if (text != null) {
+                blocks.add(new EarthquakeSpecialTextBlock(
+                    "main_text",
+                    JmaXml.directChildText(earthquakeInfo, "InfoKind"),
+                    sortOrder++,
+                    text
+                ));
+            }
+
+            String appendix = JmaXml.directChildText(earthquakeInfo, "Appendix");
+            if (appendix != null) {
+                blocks.add(new EarthquakeSpecialTextBlock(
+                    "appendix",
+                    "Appendix",
+                    sortOrder++,
+                    appendix
+                ));
+            }
+        }
+
+        String nextAdvisory = JmaXml.directChildText(body, "NextAdvisory");
+        if (nextAdvisory != null) {
+            blocks.add(new EarthquakeSpecialTextBlock(
+                "next_advisory",
+                "NextAdvisory",
+                sortOrder,
+                nextAdvisory
+            ));
+        }
+        return blocks;
+    }
+
+    protected List<EarthquakeNoticeItem> parseNoticeItems(Document document) {
+        List<EarthquakeNoticeItem> items = new ArrayList<>();
+        Element report = document.getDocumentElement();
+        Element head = JmaXml.requiredDirectChild(report, "Head");
+        Element body = JmaXml.requiredDirectChild(report, "Body");
+
+        String noticeText = JmaXml.directChildText(body, "Text");
+        if (noticeText != null) {
+            items.add(new EarthquakeNoticeItem(
+                JmaXml.directChildText(head, "InfoKind"),
+                JmaXml.directChildText(head, "Title"),
+                noticeText,
+                null,
+                null,
+                1
             ));
         }
         return items;
@@ -269,6 +376,10 @@ abstract class AbstractEarthquakeParser implements EarthquakeParser {
         for (Element prefecture : JmaXml.directChildren(forecast, "Pref")) {
             String prefectureName = JmaXml.directChildText(prefecture, "Name");
             String prefectureCode = JmaXml.directChildText(prefecture, "Code");
+            Element globalForecastInt = JmaXml.directChild(forecast, "ForecastInt");
+            Element globalForecastLgInt = JmaXml.directChild(forecast, "ForecastLgInt");
+            String forecastMaxIntensity = rangeText(globalForecastInt);
+            String forecastMaxLongPeriodClass = rangeText(globalForecastLgInt);
             for (Element area : JmaXml.directChildren(prefecture, "Area")) {
                 Element category = JmaXml.directChild(area, "Category");
                 Element kind = JmaXml.directChild(category, "Kind");
@@ -291,8 +402,8 @@ abstract class AbstractEarthquakeParser implements EarthquakeParser {
                     JmaXml.directChildText(forecastInt, "To"),
                     JmaXml.directChildText(forecastLgInt, "From"),
                     JmaXml.directChildText(forecastLgInt, "To"),
-                    null,
-                    null,
+                    forecastMaxIntensity,
+                    forecastMaxLongPeriodClass,
                     JmaXml.directChildText(area, "Condition"),
                     JmaXml.parseOffsetDateTime(JmaXml.directChildText(area, "ArrivalTime"))
                 ));
@@ -488,5 +599,42 @@ abstract class AbstractEarthquakeParser implements EarthquakeParser {
 
     protected Set<String> singletonCode(String messageCode) {
         return Set.of(messageCode);
+    }
+
+    private String joinText(String... values) {
+        List<String> parts = new ArrayList<>();
+        for (String value : values) {
+            if (value != null && !value.isBlank()) {
+                parts.add(value.trim());
+            }
+        }
+        return parts.isEmpty() ? null : String.join("\n", parts);
+    }
+
+    private String firstNonBlank(String... values) {
+        for (String value : values) {
+            if (value != null && !value.isBlank()) {
+                return value;
+            }
+        }
+        return null;
+    }
+
+    private String rangeText(Element rangeElement) {
+        if (rangeElement == null) {
+            return null;
+        }
+        String from = JmaXml.directChildText(rangeElement, "From");
+        String to = JmaXml.directChildText(rangeElement, "To");
+        if (from == null && to == null) {
+            return null;
+        }
+        if (from == null) {
+            return to;
+        }
+        if (to == null || from.equals(to)) {
+            return from;
+        }
+        return from + "-" + to;
     }
 }

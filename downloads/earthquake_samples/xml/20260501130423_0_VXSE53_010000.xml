@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://xml.kishou.go.jp/jmaxml1/" xmlns:jmx="http://xml.kishou.go.jp/jmaxml1/">
+<Control>
+<Title>震源・震度に関する情報</Title>
+<DateTime>2026-05-01T13:04:23Z</DateTime>
+<Status>通常</Status>
+<EditorialOffice>気象庁本庁</EditorialOffice>
+<PublishingOffice>気象庁</PublishingOffice>
+</Control>
+<Head xmlns="http://xml.kishou.go.jp/jmaxml1/informationBasis1/">
+<Title>震源・震度情報</Title>
+<ReportDateTime>2026-05-01T22:04:00+09:00</ReportDateTime>
+<TargetDateTime>2026-05-01T22:04:00+09:00</TargetDateTime>
+<EventID>20260501220045</EventID>
+<InfoType>発表</InfoType>
+<Serial>1</Serial>
+<InfoKind>地震情報</InfoKind>
+<InfoKindVersion>1.0_1</InfoKindVersion>
+<Headline>
+<Text>　１日２２時００分ころ、地震がありました。</Text>
+</Headline>
+</Head>
+<Body xmlns="http://xml.kishou.go.jp/jmaxml1/body/seismology1/" xmlns:jmx_eb="http://xml.kishou.go.jp/jmaxml1/elementBasis1/">
+<Earthquake>
+<OriginTime>2026-05-01T22:00:00+09:00</OriginTime>
+<ArrivalTime>2026-05-01T22:00:00+09:00</ArrivalTime>
+<Hypocenter>
+<Area>
+<Name>茨城県沖</Name>
+<Code type="震央地名">471</Code>
+<jmx_eb:Coordinate description="北緯３６．０度　東経１４１．７度　深さ　２０ｋｍ" >+36.0+141.7-20000/</jmx_eb:Coordinate>
+</Area>
+</Hypocenter>
+<jmx_eb:Magnitude type="Mj" description="Ｍ５．０">5.0</jmx_eb:Magnitude>
+</Earthquake>
+<Intensity>
+<Observation>
+<CodeDefine>
+<Type xpath="Pref/Code">地震情報／都道府県等</Type>
+<Type xpath="Pref/Area/Code">地震情報／細分区域</Type>
+<Type xpath="Pref/Area/City/Code">気象・地震・火山情報／市町村等</Type>
+<Type xpath="Pref/Area/City/IntensityStation/Code">震度観測点</Type>
+</CodeDefine>
+<MaxInt>1</MaxInt>
+<Pref><Name>福島県</Name><Code>07</Code><MaxInt>1</MaxInt>
+<Area><Name>福島県中通り</Name><Code>250</Code><MaxInt>1</MaxInt>
+<City><Name>郡山市</Name><Code>0720300</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>郡山市開成＊</Name><Code>0720320</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>郡山市湖南町＊</Name><Code>0720321</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>白河市</Name><Code>0720500</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>白河市郭内</Name><Code>0720500</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>白河市新白河＊</Name><Code>0720520</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>天栄村</Name><Code>0734400</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>天栄村下松本＊</Name><Code>0734431</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>棚倉町</Name><Code>0748100</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>棚倉町棚倉中居野</Name><Code>0748101</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>浅川町</Name><Code>0750400</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>浅川町浅川＊</Name><Code>0750430</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+<Area><Name>福島県浜通り</Name><Code>251</Code><MaxInt>1</MaxInt>
+<City><Name>いわき市</Name><Code>0720400</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>いわき市小名浜</Name><Code>0720400</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>いわき市三和町</Name><Code>0720401</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>いわき市平四ツ波＊</Name><Code>0720420</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>いわき市錦町＊</Name><Code>0720421</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+</Pref>
+<Pref><Name>茨城県</Name><Code>08</Code><MaxInt>1</MaxInt>
+<Area><Name>茨城県北部</Name><Code>300</Code><MaxInt>1</MaxInt>
+<City><Name>日立市</Name><Code>0820200</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>日立市助川小学校＊</Name><Code>0820220</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>高萩市</Name><Code>0821400</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>高萩市安良川＊</Name><Code>0821420</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>北茨城市</Name><Code>0821500</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>北茨城市磯原町＊</Name><Code>0821530</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>笠間市</Name><Code>0821600</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>笠間市石井＊</Name><Code>0821620</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>ひたちなか市</Name><Code>0822100</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>ひたちなか市南神敷台＊</Name><Code>0822120</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+<Area><Name>茨城県南部</Name><Code>301</Code><MaxInt>1</MaxInt>
+<City><Name>石岡市</Name><Code>0820500</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>石岡市柿岡</Name><Code>0820500</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>茨城鹿嶋市</Name><Code>0822200</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>茨城鹿嶋市鉢形</Name><Code>0822201</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>茨城鹿嶋市宮中＊</Name><Code>0822220</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>潮来市</Name><Code>0822300</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>潮来市堀之内</Name><Code>0822300</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>筑西市</Name><Code>0822700</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>筑西市舟生</Name><Code>0822700</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>鉾田市</Name><Code>0823400</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>鉾田市鉾田</Name><Code>0823400</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+</Pref>
+<Pref><Name>千葉県</Name><Code>12</Code><MaxInt>1</MaxInt>
+<Area><Name>千葉県北東部</Name><Code>340</Code><MaxInt>1</MaxInt>
+<City><Name>銚子市</Name><Code>1220200</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>銚子市川口町</Name><Code>1220200</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>銚子市小畑新町</Name><Code>1220202</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>香取市</Name><Code>1223600</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>香取市佐原平田</Name><Code>1223602</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>多古町</Name><Code>1234700</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>多古町多古</Name><Code>1234700</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+</Pref>
+</Observation>
+</Intensity>
+<Comments>
+<ForecastComment codeType="固定付加文">
+<Text>この地震による津波の心配はありません。</Text>
+<Code>0215</Code>
+</ForecastComment>
+<VarComment codeType="固定付加文">
+<Text>＊印は気象庁以外の震度観測点についての情報です。</Text>
+<Code>0262</Code>
+</VarComment>
+</Comments>
+</Body>
+</Report>

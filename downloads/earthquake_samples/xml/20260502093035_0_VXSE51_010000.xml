@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://xml.kishou.go.jp/jmaxml1/" xmlns:jmx="http://xml.kishou.go.jp/jmaxml1/">
+<Control>
+<Title>震度速報</Title>
+<DateTime>2026-05-02T09:30:34Z</DateTime>
+<Status>通常</Status>
+<EditorialOffice>気象庁本庁</EditorialOffice>
+<PublishingOffice>気象庁</PublishingOffice>
+</Control>
+<Head xmlns="http://xml.kishou.go.jp/jmaxml1/informationBasis1/">
+<Title>震度速報</Title>
+<ReportDateTime>2026-05-02T18:30:00+09:00</ReportDateTime>
+<TargetDateTime>2026-05-02T18:28:00+09:00</TargetDateTime>
+<EventID>20260502182850</EventID>
+<InfoType>発表</InfoType>
+<Serial></Serial>
+<InfoKind>震度速報</InfoKind>
+<InfoKindVersion>1.0_1</InfoKindVersion>
+<Headline>
+<Text>　２日１８時２８分ころ、地震による強い揺れを感じました。震度３以上が観測された地域をお知らせします。</Text>
+<Information type="震度速報">
+<Item>
+<Kind><Name>震度４</Name></Kind>
+<Areas codeType="地震情報／細分区域">
+<Area><Name>三重県南部</Name><Code>462</Code></Area>
+<Area><Name>奈良県</Name><Code>540</Code></Area>
+<Area><Name>和歌山県北部</Name><Code>550</Code></Area>
+<Area><Name>和歌山県南部</Name><Code>551</Code></Area>
+</Areas>
+</Item>
+<Item>
+<Kind><Name>震度３</Name></Kind>
+<Areas codeType="地震情報／細分区域">
+<Area><Name>愛知県東部</Name><Code>450</Code></Area>
+<Area><Name>愛知県西部</Name><Code>451</Code></Area>
+<Area><Name>三重県北部</Name><Code>460</Code></Area>
+<Area><Name>三重県中部</Name><Code>461</Code></Area>
+<Area><Name>滋賀県北部</Name><Code>500</Code></Area>
+<Area><Name>滋賀県南部</Name><Code>501</Code></Area>
+<Area><Name>京都府南部</Name><Code>511</Code></Area>
+<Area><Name>大阪府北部</Name><Code>520</Code></Area>
+<Area><Name>大阪府南部</Name><Code>521</Code></Area>
+<Area><Name>兵庫県北部</Name><Code>530</Code></Area>
+<Area><Name>兵庫県南東部</Name><Code>531</Code></Area>
+<Area><Name>兵庫県淡路島</Name><Code>535</Code></Area>
+<Area><Name>徳島県北部</Name><Code>600</Code></Area>
+<Area><Name>徳島県南部</Name><Code>601</Code></Area>
+<Area><Name>香川県東部</Name><Code>610</Code></Area>
+</Areas>
+</Item>
+</Information>
+</Headline>
+</Head>
+<Body xmlns="http://xml.kishou.go.jp/jmaxml1/body/seismology1/" xmlns:jmx_eb="http://xml.kishou.go.jp/jmaxml1/elementBasis1/">
+<Intensity>
+<Observation>
+<CodeDefine>
+<Type xpath="Pref/Code">地震情報／都道府県等</Type>
+<Type xpath="Pref/Area/Code">地震情報／細分区域</Type>
+</CodeDefine>
+<MaxInt>4</MaxInt>
+<Pref>
+<Name>三重県</Name><Code>24</Code><MaxInt>4</MaxInt>
+<Area><Name>三重県南部</Name><Code>462</Code><MaxInt>4</MaxInt></Area>
+<Area><Name>三重県北部</Name><Code>460</Code><MaxInt>3</MaxInt></Area>
+<Area><Name>三重県中部</Name><Code>461</Code><MaxInt>3</MaxInt></Area>
+</Pref>
+<Pref>
+<Name>奈良県</Name><Code>29</Code><MaxInt>4</MaxInt>
+<Area><Name>奈良県</Name><Code>540</Code><MaxInt>4</MaxInt></Area>
+</Pref>
+<Pref>
+<Name>和歌山県</Name><Code>30</Code><MaxInt>4</MaxInt>
+<Area><Name>和歌山県北部</Name><Code>550</Code><MaxInt>4</MaxInt></Area>
+<Area><Name>和歌山県南部</Name><Code>551</Code><MaxInt>4</MaxInt></Area>
+</Pref>
+<Pref>
+<Name>愛知県</Name><Code>23</Code><MaxInt>3</MaxInt>
+<Area><Name>愛知県東部</Name><Code>450</Code><MaxInt>3</MaxInt></Area>
+<Area><Name>愛知県西部</Name><Code>451</Code><MaxInt>3</MaxInt></Area>
+</Pref>
+<Pref>
+<Name>滋賀県</Name><Code>25</Code><MaxInt>3</MaxInt>
+<Area><Name>滋賀県北部</Name><Code>500</Code><MaxInt>3</MaxInt></Area>
+<Area><Name>滋賀県南部</Name><Code>501</Code><MaxInt>3</MaxInt></Area>
+</Pref>
+<Pref>
+<Name>京都府</Name><Code>26</Code><MaxInt>3</MaxInt>
+<Area><Name>京都府南部</Name><Code>511</Code><MaxInt>3</MaxInt></Area>
+</Pref>
+<Pref>
+<Name>大阪府</Name><Code>27</Code><MaxInt>3</MaxInt>
+<Area><Name>大阪府北部</Name><Code>520</Code><MaxInt>3</MaxInt></Area>
+<Area><Name>大阪府南部</Name><Code>521</Code><MaxInt>3</MaxInt></Area>
+</Pref>
+<Pref>
+<Name>兵庫県</Name><Code>28</Code><MaxInt>3</MaxInt>
+<Area><Name>兵庫県北部</Name><Code>530</Code><MaxInt>3</MaxInt></Area>
+<Area><Name>兵庫県南東部</Name><Code>531</Code><MaxInt>3</MaxInt></Area>
+<Area><Name>兵庫県淡路島</Name><Code>535</Code><MaxInt>3</MaxInt></Area>
+</Pref>
+<Pref>
+<Name>徳島県</Name><Code>36</Code><MaxInt>3</MaxInt>
+<Area><Name>徳島県北部</Name><Code>600</Code><MaxInt>3</MaxInt></Area>
+<Area><Name>徳島県南部</Name><Code>601</Code><MaxInt>3</MaxInt></Area>
+</Pref>
+<Pref>
+<Name>香川県</Name><Code>37</Code><MaxInt>3</MaxInt>
+<Area><Name>香川県東部</Name><Code>610</Code><MaxInt>3</MaxInt></Area>
+</Pref>
+</Observation>
+</Intensity>
+<Comments>
+<ForecastComment codeType="固定付加文">
+<Text>今後の情報に注意してください。</Text>
+<Code>0217</Code>
+</ForecastComment>
+</Comments>
+</Body>
+</Report>

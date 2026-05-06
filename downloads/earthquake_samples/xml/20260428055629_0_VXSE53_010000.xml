@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://xml.kishou.go.jp/jmaxml1/" xmlns:jmx="http://xml.kishou.go.jp/jmaxml1/">
+<Control>
+<Title>震源・震度に関する情報</Title>
+<DateTime>2026-04-28T05:56:29Z</DateTime>
+<Status>通常</Status>
+<EditorialOffice>気象庁本庁</EditorialOffice>
+<PublishingOffice>気象庁</PublishingOffice>
+</Control>
+<Head xmlns="http://xml.kishou.go.jp/jmaxml1/informationBasis1/">
+<Title>震源・震度情報</Title>
+<ReportDateTime>2026-04-28T14:56:00+09:00</ReportDateTime>
+<TargetDateTime>2026-04-28T14:56:00+09:00</TargetDateTime>
+<EventID>20260428145344</EventID>
+<InfoType>発表</InfoType>
+<Serial>1</Serial>
+<InfoKind>地震情報</InfoKind>
+<InfoKindVersion>1.0_1</InfoKindVersion>
+<Headline>
+<Text>２８日１４時５３分ころ、地震がありました。</Text>
+</Headline>
+</Head>
+<Body xmlns="http://xml.kishou.go.jp/jmaxml1/body/seismology1/" xmlns:jmx_eb="http://xml.kishou.go.jp/jmaxml1/elementBasis1/">
+<Earthquake>
+<OriginTime>2026-04-28T14:53:00+09:00</OriginTime>
+<ArrivalTime>2026-04-28T14:53:00+09:00</ArrivalTime>
+<Hypocenter>
+<Area>
+<Name>福井県沖</Name>
+<Code type="震央地名">493</Code>
+<jmx_eb:Coordinate description="北緯３６．２度　東経１３５．９度　深さ　１０ｋｍ" >+36.2+135.9-10000/</jmx_eb:Coordinate>
+</Area>
+</Hypocenter>
+<jmx_eb:Magnitude type="Mj" description="Ｍ３．６">3.6</jmx_eb:Magnitude>
+</Earthquake>
+<Intensity>
+<Observation>
+<CodeDefine>
+<Type xpath="Pref/Code">地震情報／都道府県等</Type>
+<Type xpath="Pref/Area/Code">地震情報／細分区域</Type>
+<Type xpath="Pref/Area/City/Code">気象・地震・火山情報／市町村等</Type>
+<Type xpath="Pref/Area/City/IntensityStation/Code">震度観測点</Type>
+</CodeDefine>
+<MaxInt>2</MaxInt>
+<Pref><Name>福井県</Name><Code>18</Code><MaxInt>2</MaxInt>
+<Area><Name>福井県嶺北</Name><Code>400</Code><MaxInt>2</MaxInt>
+<City><Name>福井坂井市</Name><Code>1821000</Code><MaxInt>2</MaxInt>
+<IntensityStation><Name>福井坂井市三国町陣ケ岡</Name><Code>1821001</Code><Int>2</Int></IntensityStation>
+<IntensityStation><Name>福井坂井市三国町中央＊</Name><Code>1821022</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>福井市</Name><Code>1820100</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>福井市蒲生町＊</Name><Code>1820121</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>福井市原目町＊</Name><Code>1820122</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>福井市茱崎町＊</Name><Code>1820137</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>鯖江市</Name><Code>1820700</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>鯖江市水落町＊</Name><Code>1820731</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>あわら市</Name><Code>1820800</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>あわら市国影＊</Name><Code>1820833</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>越前市</Name><Code>1820900</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>越前市粟田部＊</Name><Code>1820932</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>越前町</Name><Code>1842300</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>越前町織田＊</Name><Code>1842334</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>越前町江波＊</Name><Code>1842335</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>越前町西田中＊</Name><Code>1842337</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+</Pref>
+<Pref><Name>石川県</Name><Code>17</Code><MaxInt>1</MaxInt>
+<Area><Name>石川県加賀</Name><Code>391</Code><MaxInt>1</MaxInt>
+<City><Name>小松市</Name><Code>1720300</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>小松市小馬出町</Name><Code>1720300</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>加賀市</Name><Code>1720600</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>加賀市直下町</Name><Code>1720600</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>白山市</Name><Code>1721000</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>白山市別宮町＊</Name><Code>1721020</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+</Pref>
+</Observation>
+</Intensity>
+<Comments>
+<ForecastComment codeType="固定付加文">
+<Text>この地震による津波の心配はありません。</Text>
+<Code>0215</Code>
+</ForecastComment>
+<VarComment codeType="固定付加文">
+<Text>＊印は気象庁以外の震度観測点についての情報です。</Text>
+<Code>0262</Code>
+</VarComment>
+</Comments>
+</Body>
+</Report>

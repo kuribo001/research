@@ -1,0 +1,209 @@
+package com.twins.crawler.dtos;
+
+/** * Alert / warning level. */ public record AlertKind( String code, String name ) { }
+
+public record AshArea( String code, String name ) { }
+
+public record AshForecast( String type, OffsetDateTime startTime, OffsetDateTime endTime, List<AshForecastItem> items ) { }
+
+public record AshForecastItem( String kindName, List<AshArea> areas, String polygon // raw polygon string (WKT-like) ) { }
+
+public record ColorPlume( String directionText, Integer heightAboveCraterM, Integer heightAslFt ) { }
+
+public record Comments( String forecastComment, String varComment ) { }
+
+public record Crater( String name, String coordinate ) { }
+
+public record FeedEntry( String entryId, // <entry><id> String title, // <entry><title> String content, // <entry><content> String authorName, // <entry><author><name> String detailUrl, // <entry><link @href> String messageCode, // Parsed from detailUrl (VFVO53, VXSE53...) OffsetDateTime updatedAt // <entry><updated> ) {}
+
+public record FeedEntryRef( String entryId, // <entry><id> String detailUrl // <entry><link @href> ) { }
+
+public record ParsedCoordinate( double latitude, double longitude, Integer elevation ) { }
+
+public record ReportHead( String infoKind, // InfoKind String infoType, // InfoType String eventId, // EventID OffsetDateTime issuedAt // DateTime or ReportDateTime ) { }
+
+public record Volcano( String code, String name, String coordinate, // raw coordinate string AlertKind currentKind, AlertKind lastKind, Crater crater ) { }
+
+public record VolcanoActivity( String activityText // raw text, Japanese ) { }
+
+public record VolcanoEvent( ReportHead head, OffsetDateTime eventAt, OffsetDateTime eventAtUtc, Volcano volcano, VolcanoActivity activity, VolcanoObservation observation, VolcanoInfoContent infoContent, Comments comments ) { }
+
+public record VolcanoEventEnvelope( VolcanoEvent event, List<AshForecast> ashForecasts ) {}
+
+public record VolcanoInfoContent( String headline, String activity, String prevention, String nextAdvisory, String appendix ) { }
+
+public record VolcanoObservation( ColorPlume colorPlume, WindAboveCrater windAboveCrater, String otherObservation ) { }
+
+public record WindAboveCrater( OffsetDateTime dateTime, List<WindLayer> elements ) { }
+
+public record WindLayer( Integer altitudeM, String direction, Integer speedMs ) { }
+
+-- ========================================================= -- JMA Volcano Feed - Initial Database Schema -- ========================================================= -- PostgreSQL -- =========================================================
+
+-- ========================================================= -- 1. Atom Feed Entry (eqvol / eqvol_l) -- ========================================================= CREATE TABLE IF NOT EXISTS jma_feed_entry ( entry_id TEXT PRIMARY KEY, title TEXT, content TEXT, author_name TEXT, detail_url TEXT NOT NULL, message_code TEXT, status TEXT DEFAULT 'NEW', s3_status BOOLEAN DEFAULT false, feed_updated_at TIMESTAMPTZ, crawled_at TIMESTAMPTZ DEFAULT now() );
+
+CREATE INDEX IF NOT EXISTS idx_feed_message_code ON jma_feed_entry (message_code);
+
+CREATE INDEX IF NOT EXISTS idx_feed_updated_at ON jma_feed_entry (feed_updated_at);
+
+-- ========================================================= -- 2. Volcano Event (core / head) -- ========================================================= CREATE TABLE IF NOT EXISTS jma_volcano_event ( event_id TEXT PRIMARY KEY, entry_id TEXT UNIQUE,
+
+info_kind               TEXT,
+info_type               TEXT,
+issued_at               TIMESTAMPTZ,
+event_time              TIMESTAMPTZ,
+event_time_utc          TIMESTAMPTZ,
+
+volcano_code            TEXT,
+volcano_name            TEXT,
+
+alert_kind_code         TEXT,
+alert_kind_name         TEXT,
+last_alert_kind_code    TEXT,
+last_alert_kind_name    TEXT,
+
+created_at              TIMESTAMPTZ DEFAULT now(),
+
+CONSTRAINT fk_event_entry
+FOREIGN KEY (entry_id)
+REFERENCES jma_feed_entry(entry_id)
+ON DELETE SET NULL
+);
+CREATE INDEX IF NOT EXISTS idx_event_volcano_code ON jma_volcano_event (volcano_code);
+
+CREATE INDEX IF NOT EXISTS idx_event_time ON jma_volcano_event (event_time);
+
+-- ========================================================= -- 3. Volcano Geometry / Crater -- ========================================================= CREATE TABLE IF NOT EXISTS jma_volcano_geometry ( event_id TEXT PRIMARY KEY, volcano_code TEXT, volcano_coord TEXT, crater_name TEXT, crater_coord TEXT,
+
+CONSTRAINT fk_geometry_event
+FOREIGN KEY (event_id)
+REFERENCES jma_volcano_event(event_id)
+ON DELETE CASCADE
+);
+-- ========================================================= -- 4. Volcano Observation (plume / wind / other) -- ========================================================= CREATE TABLE IF NOT EXISTS jma_volcano_observation ( event_id TEXT PRIMARY KEY,
+
+plume_direction_text            TEXT,
+plume_height_above_crater_m     INTEGER,
+plume_height_asl_ft             INTEGER,
+
+wind_observation_time           TIMESTAMPTZ,
+other_observation               TEXT,
+
+CONSTRAINT fk_observation_event
+FOREIGN KEY (event_id)
+REFERENCES jma_volcano_event(event_id)
+ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS jma_volcano_wind_layer ( id BIGSERIAL PRIMARY KEY, event_id TEXT NOT NULL,
+
+altitude_m      INTEGER,
+direction       TEXT,
+speed_ms        INTEGER,
+
+CONSTRAINT fk_wind_event
+FOREIGN KEY (event_id)
+REFERENCES jma_volcano_event(event_id)
+ON DELETE CASCADE
+);
+CREATE INDEX IF NOT EXISTS idx_wind_event_id ON jma_volcano_wind_layer (event_id);
+
+-- ========================================================= -- 5. Ash Forecast -- ========================================================= CREATE TABLE IF NOT EXISTS jma_ash_forecast ( id BIGSERIAL PRIMARY KEY, event_id TEXT NOT NULL,
+
+forecast_type   TEXT,
+start_time      TIMESTAMPTZ,
+end_time        TIMESTAMPTZ,
+
+CONSTRAINT fk_ash_forecast_event
+FOREIGN KEY (event_id)
+REFERENCES jma_volcano_event(event_id)
+ON DELETE CASCADE
+);
+CREATE INDEX IF NOT EXISTS idx_ash_forecast_event ON jma_ash_forecast (event_id);
+
+CREATE TABLE IF NOT EXISTS jma_ash_forecast_item ( id BIGSERIAL PRIMARY KEY, forecast_id BIGINT NOT NULL,
+
+kind_name       TEXT,
+polygon         TEXT,
+
+CONSTRAINT fk_ash_item_forecast
+FOREIGN KEY (forecast_id)
+REFERENCES jma_ash_forecast(id)
+ON DELETE CASCADE
+);
+CREATE INDEX IF NOT EXISTS idx_ash_item_forecast ON jma_ash_forecast_item (forecast_id);
+
+CREATE TABLE IF NOT EXISTS jma_ash_forecast_area ( id BIGSERIAL PRIMARY KEY, item_id BIGINT NOT NULL,
+
+area_code       TEXT,
+area_name       TEXT,
+
+CONSTRAINT fk_ash_area_item
+FOREIGN KEY (item_id)
+REFERENCES jma_ash_forecast_item(id)
+ON DELETE CASCADE
+);
+CREATE INDEX IF NOT EXISTS idx_ash_area_item ON jma_ash_forecast_area (item_id);
+
+-- ========================================================= -- 6. Volcano Info Content (narrative) -- ========================================================= CREATE TABLE IF NOT EXISTS jma_volcano_info_content ( event_id TEXT PRIMARY KEY,
+
+headline        TEXT,
+activity        TEXT,
+prevention      TEXT,
+next_advisory   TEXT,
+appendix        TEXT,
+
+CONSTRAINT fk_info_content_event
+FOREIGN KEY (event_id)
+REFERENCES jma_volcano_event(event_id)
+ON DELETE CASCADE
+);
+-- ========================================================= -- 7. Comments -- ========================================================= CREATE TABLE IF NOT EXISTS jma_volcano_comments ( event_id TEXT PRIMARY KEY,
+
+forecast_comment    TEXT,
+var_comment         TEXT,
+
+CONSTRAINT fk_comments_event
+FOREIGN KEY (event_id)
+REFERENCES jma_volcano_event(event_id)
+ON DELETE CASCADE
+);
+-- ========================================================= -- 8. READ MODEL: Volcano Master (UI step 1) -- ========================================================= CREATE TABLE IF NOT EXISTS jma_volcano_master ( volcano_code TEXT PRIMARY KEY, volcano_name TEXT NOT NULL, volcano_coord TEXT, first_seen_at TIMESTAMPTZ, last_seen_at TIMESTAMPTZ );
+
+CREATE INDEX IF NOT EXISTS idx_jma_volcano_master_name ON jma_volcano_master (volcano_name);
+
+-- ========================================================= -- 9. READ MODEL: Volcano Event Type (UI step 2) -- ========================================================= CREATE TABLE IF NOT EXISTS jma_volcano_event_type ( volcano_code TEXT NOT NULL, info_kind TEXT NOT NULL, message_code TEXT, first_seen_at TIMESTAMPTZ, last_seen_at TIMESTAMPTZ, PRIMARY KEY (volcano_code, info_kind) );
+
+CREATE INDEX IF NOT EXISTS idx_event_type_volcano ON jma_volcano_event_type (volcano_code);
+
+-- ========================================================= -- 10. READ MODEL: Volcano Event Counter (UI badges / sorting) -- ========================================================= CREATE TABLE IF NOT EXISTS jma_volcano_event_counter ( volcano_code TEXT NOT NULL, info_kind TEXT NOT NULL, total_events BIGINT NOT NULL DEFAULT 0, latest_event_at TIMESTAMPTZ, PRIMARY KEY (volcano_code, info_kind) );
+
+CREATE INDEX IF NOT EXISTS idx_event_counter_volcano ON jma_volcano_event_counter (volcano_code);
+
+-- ========================================================= -- 11. FACT LOOKUP INDEX (list events, no DISTINCT) -- ========================================================= CREATE INDEX IF NOT EXISTS idx_event_lookup ON jma_volcano_event (volcano_code, info_kind, event_time DESC);
+
+-- ========================================================= -- MIGRATION PART 1 -- add coordinate column -- =========================================================
+
+ALTER TABLE jma_volcano_geometry ADD COLUMN IF NOT EXISTS vol_lat DOUBLE PRECISION, ADD COLUMN IF NOT EXISTS vol_lon DOUBLE PRECISION, ADD COLUMN IF NOT EXISTS vol_ele INTEGER,
+
+ADD COLUMN IF NOT EXISTS crater_lat   DOUBLE PRECISION,
+ADD COLUMN IF NOT EXISTS crater_lon  DOUBLE PRECISION,
+ADD COLUMN IF NOT EXISTS crater_ele  DOUBLE PRECISION;
+ALTER TABLE jma_volcano_master ADD COLUMN IF NOT EXISTS vol_lat DOUBLE PRECISION, ADD COLUMN IF NOT EXISTS vol_lon DOUBLE PRECISION, ADD COLUMN IF NOT EXISTS vol_ele INTEGER;
+
+-- ========================================================= -- MIGRATION PART 2 -- Performance indexes for CZML & API -- =========================================================
+
+-- Wind layers: fast ordered fetch by altitude CREATE INDEX IF NOT EXISTS idx_wind_event_altitude ON jma_volcano_wind_layer (event_id, altitude_m);
+
+-- Ash forecasts: fast timeline fetch CREATE INDEX IF NOT EXISTS idx_ash_forecast_event_time ON jma_ash_forecast (event_id, start_time);
+
+-- Ash items: optional filter by kind CREATE INDEX IF NOT EXISTS idx_ash_item_forecast_kind ON jma_ash_forecast_item (forecast_id, kind_name);
+
+https://www.data.jma.go.jp/developer/xml/data/20260426224647_0_VXSE51_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260426202639_0_VXSE51_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260426202539_0_VXSE51_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260422000304_0_VXSE51_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260422174408_0_VXSE51_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260429074647_0_VXSE51_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260501172106_0_VXSE51_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260426165902_0_VXSE51_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260502093035_0_VXSE51_010000.xml
+
+https://www.data.jma.go.jp/developer/xml/data/20260422000431_0_VXSE52_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260422174509_0_VXSE52_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260429074748_0_VXSE52_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260501172209_0_VXSE52_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260426202750_0_VXSE52_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260426224742_0_VXSE52_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260426170029_0_VXSE52_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260502093215_0_VXSE52_010000.xml
+
+https://www.data.jma.go.jp/developer/xml/data/20260425124448_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260425035921_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260430093445_0_VXSE53_270000.xml https://www.data.jma.go.jp/developer/xml/data/20260426224826_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260426202909_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260423183306_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260423145643_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260423144241_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260426120303_0_VXSE53_270000.xml https://www.data.jma.go.jp/developer/xml/data/20260430112537_0_VXSE53_270000.xml https://www.data.jma.go.jp/developer/xml/data/20260423100357_0_VXSE53_270000.xml https://www.data.jma.go.jp/developer/xml/data/20260423094319_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260425225041_0_VXSE53_270000.xml https://www.data.jma.go.jp/developer/xml/data/20260425221848_0_VXSE53_270000.xml https://www.data.jma.go.jp/developer/xml/data/20260425204524_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260423064624_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260423064504_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260430132335_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260423003722_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260423003318_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260423001146_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260422000523_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260425044743_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260422133855_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260422122227_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260422120922_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260422082719_0_VXSE53_270000.xml https://www.data.jma.go.jp/developer/xml/data/20260421184832_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260424143634_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260422042953_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260421170845_0_VXSE53_270000.xml https://www.data.jma.go.jp/developer/xml/data/20260424051700_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260421163347_0_VXSE53_270000.xml https://www.data.jma.go.jp/developer/xml/data/20260421162147_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260421153146_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260421150216_0_VXSE53_270000.xml https://www.data.jma.go.jp/developer/xml/data/20260421134228_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260421110200_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260430181826_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260423225636_0_VXSE53_270000.xml https://www.data.jma.go.jp/developer/xml/data/20260428101839_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260430215101_0_VXSE53_270000.xml https://www.data.jma.go.jp/developer/xml/data/20260502224848_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260503191742_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260427230457_0_VXSE53_270000.xml https://www.data.jma.go.jp/developer/xml/data/20260501124349_0_VXSE53_270000.xml https://www.data.jma.go.jp/developer/xml/data/20260503025331_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260503201711_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260422193524_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260422175042_0_VXSE53_270000.xml https://www.data.jma.go.jp/developer/xml/data/20260422174759_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260422174620_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260429030805_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260501130423_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260503144507_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260504045414_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260429074838_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260503162227_0_VXSE53_270000.xml https://www.data.jma.go.jp/developer/xml/data/20260504074118_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260427143818_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260501172333_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260427142707_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260428072926_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260428055629_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260427182821_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260427162435_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260427144126_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260427093505_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260426170127_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260426160250_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260501185018_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260426064754_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260501194015_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260430084227_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260502041732_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260430084724_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260502063157_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260430171548_0_VXSE53_270000.xml https://www.data.jma.go.jp/developer/xml/data/20260502094219_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260502093353_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260502122655_0_VXSE53_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260502221513_0_VXSE53_010000.xml
+
+https://www.data.jma.go.jp/developer/xml/data/20260426223022_0_VXSE61_010000.xml https://www.data.jma.go.jp/developer/xml/data/20260426203422_0_VXSE62_010000.xml
+
+https://xml.kishou.go.jp/tec_material.html

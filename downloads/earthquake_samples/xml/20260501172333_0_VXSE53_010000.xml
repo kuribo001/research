@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://xml.kishou.go.jp/jmaxml1/" xmlns:jmx="http://xml.kishou.go.jp/jmaxml1/">
+<Control>
+<Title>震源・震度に関する情報</Title>
+<DateTime>2026-05-01T17:23:33Z</DateTime>
+<Status>通常</Status>
+<EditorialOffice>気象庁本庁</EditorialOffice>
+<PublishingOffice>気象庁</PublishingOffice>
+</Control>
+<Head xmlns="http://xml.kishou.go.jp/jmaxml1/informationBasis1/">
+<Title>震源・震度情報</Title>
+<ReportDateTime>2026-05-02T02:23:00+09:00</ReportDateTime>
+<TargetDateTime>2026-05-02T02:23:00+09:00</TargetDateTime>
+<EventID>20260502021933</EventID>
+<InfoType>発表</InfoType>
+<Serial>1</Serial>
+<InfoKind>地震情報</InfoKind>
+<InfoKindVersion>1.0_1</InfoKindVersion>
+<Headline>
+<Text>　２日０２時１９分ころ、地震がありました。</Text>
+<Information type="震源・震度に関する情報（細分区域）">
+<Item>
+<Kind><Name>震度３</Name></Kind>
+<Areas codeType="地震情報／細分区域">
+<Area><Name>釧路地方中南部</Name><Code>161</Code></Area>
+<Area><Name>根室地方南部</Name><Code>167</Code></Area>
+</Areas>
+</Item>
+</Information>
+<Information type="震源・震度に関する情報（市町村等）">
+<Item>
+<Kind><Name>震度３</Name></Kind>
+<Areas codeType="気象・地震・火山情報／市町村等">
+<Area><Name>根室市</Name><Code>0122300</Code></Area>
+<Area><Name>浜中町</Name><Code>0166300</Code></Area>
+</Areas>
+</Item>
+</Information>
+</Headline>
+</Head>
+<Body xmlns="http://xml.kishou.go.jp/jmaxml1/body/seismology1/" xmlns:jmx_eb="http://xml.kishou.go.jp/jmaxml1/elementBasis1/">
+<Earthquake>
+<OriginTime>2026-05-02T02:19:00+09:00</OriginTime>
+<ArrivalTime>2026-05-02T02:19:00+09:00</ArrivalTime>
+<Hypocenter>
+<Area>
+<Name>釧路沖</Name>
+<Code type="震央地名">190</Code>
+<jmx_eb:Coordinate description="北緯４２．９度　東経１４５．５度　深さ　４０ｋｍ" >+42.9+145.5-40000/</jmx_eb:Coordinate>
+</Area>
+</Hypocenter>
+<jmx_eb:Magnitude type="Mj" description="Ｍ４．７">4.7</jmx_eb:Magnitude>
+</Earthquake>
+<Intensity>
+<Observation>
+<CodeDefine>
+<Type xpath="Pref/Code">地震情報／都道府県等</Type>
+<Type xpath="Pref/Area/Code">地震情報／細分区域</Type>
+<Type xpath="Pref/Area/City/Code">気象・地震・火山情報／市町村等</Type>
+<Type xpath="Pref/Area/City/IntensityStation/Code">震度観測点</Type>
+</CodeDefine>
+<MaxInt>3</MaxInt>
+<Pref><Name>北海道</Name><Code>01</Code><MaxInt>3</MaxInt>
+<Area><Name>釧路地方中南部</Name><Code>161</Code><MaxInt>3</MaxInt>
+<City><Name>浜中町</Name><Code>0166300</Code><MaxInt>3</MaxInt>
+<IntensityStation><Name>浜中町茶内＊</Name><Code>0166321</Code><Int>3</Int></IntensityStation>
+<IntensityStation><Name>浜中町湯沸</Name><Code>0166300</Code><Int>2</Int></IntensityStation>
+</City>
+<City><Name>標茶町</Name><Code>0166400</Code><MaxInt>2</MaxInt>
+<IntensityStation><Name>標茶町塘路＊</Name><Code>0166421</Code><Int>2</Int></IntensityStation>
+<IntensityStation><Name>標茶町川上＊</Name><Code>0166420</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>釧路市</Name><Code>0120600</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>釧路市幸町</Name><Code>0120601</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>釧路市黒金町＊</Name><Code>0120620</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>釧路市阿寒町中央＊</Name><Code>0120621</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>釧路町</Name><Code>0166100</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>釧路町別保＊</Name><Code>0166131</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>厚岸町</Name><Code>0166200</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>厚岸町尾幌</Name><Code>0166200</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>厚岸町真栄＊</Name><Code>0166220</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>鶴居村</Name><Code>0166700</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>鶴居村鶴居東＊</Name><Code>0166720</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>白糠町</Name><Code>0166800</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>白糠町西１条＊</Name><Code>0166820</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+<Area><Name>根室地方南部</Name><Code>167</Code><MaxInt>3</MaxInt>
+<City><Name>根室市</Name><Code>0122300</Code><MaxInt>3</MaxInt>
+<IntensityStation><Name>根室市牧の内＊</Name><Code>0122320</Code><Int>3</Int></IntensityStation>
+<IntensityStation><Name>根室市厚床＊</Name><Code>0122321</Code><Int>3</Int></IntensityStation>
+<IntensityStation><Name>根室市弥栄</Name><Code>0122300</Code><Int>2</Int></IntensityStation>
+<IntensityStation><Name>根室市落石東＊</Name><Code>0122322</Code><Int>2</Int></IntensityStation>
+<IntensityStation><Name>根室市珸瑤瑁＊</Name><Code>0122323</Code><Int>2</Int></IntensityStation>
+<IntensityStation><Name>根室市豊里</Name><Code>0122301</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+<Area><Name>根室地方北部</Name><Code>165</Code><MaxInt>2</MaxInt>
+<City><Name>標津町</Name><Code>0169300</Code><MaxInt>2</MaxInt>
+<IntensityStation><Name>標津町北２条＊</Name><Code>0169320</Code><Int>2</Int></IntensityStation>
+<IntensityStation><Name>標津町薫別＊</Name><Code>0169321</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>中標津町</Name><Code>0169200</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>中標津町養老牛</Name><Code>0169200</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>中標津町丸山＊</Name><Code>0169220</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>羅臼町</Name><Code>0169400</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>羅臼町岬町＊</Name><Code>0169421</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+<Area><Name>根室地方中部</Name><Code>166</Code><MaxInt>2</MaxInt>
+<City><Name>別海町</Name><Code>0169100</Code><MaxInt>2</MaxInt>
+<IntensityStation><Name>別海町常盤</Name><Code>0169100</Code><Int>2</Int></IntensityStation>
+<IntensityStation><Name>別海町西春別＊</Name><Code>0169120</Code><Int>2</Int></IntensityStation>
+<IntensityStation><Name>別海町本別海＊</Name><Code>0169122</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+<Area><Name>十勝地方北部</Name><Code>155</Code><MaxInt>1</MaxInt>
+<City><Name>新得町</Name><Code>0163500</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>新得町２条＊</Name><Code>0163520</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+<Area><Name>十勝地方中部</Name><Code>156</Code><MaxInt>1</MaxInt>
+<City><Name>十勝池田町</Name><Code>0164400</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>十勝池田町西１条＊</Name><Code>0164420</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>浦幌町</Name><Code>0164900</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>浦幌町桜町＊</Name><Code>0164920</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+<Area><Name>釧路地方北部</Name><Code>160</Code><MaxInt>1</MaxInt>
+<City><Name>弟子屈町</Name><Code>0166500</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>弟子屈町弟子屈＊</Name><Code>0166520</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+</Pref>
+</Observation>
+</Intensity>
+<Comments>
+<ForecastComment codeType="固定付加文">
+<Text>この地震による津波の心配はありません。</Text>
+<Code>0215</Code>
+</ForecastComment>
+<VarComment codeType="固定付加文">
+<Text>＊印は気象庁以外の震度観測点についての情報です。</Text>
+<Code>0262</Code>
+</VarComment>
+</Comments>
+</Body>
+</Report>

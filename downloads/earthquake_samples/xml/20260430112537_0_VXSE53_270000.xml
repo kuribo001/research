@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://xml.kishou.go.jp/jmaxml1/" xmlns:jmx="http://xml.kishou.go.jp/jmaxml1/">
+<Control>
+<Title>震源・震度に関する情報</Title>
+<DateTime>2026-04-30T11:25:37Z</DateTime>
+<Status>通常</Status>
+<EditorialOffice>大阪管区気象台</EditorialOffice>
+<PublishingOffice>気象庁</PublishingOffice>
+</Control>
+<Head xmlns="http://xml.kishou.go.jp/jmaxml1/informationBasis1/">
+<Title>震源・震度情報</Title>
+<ReportDateTime>2026-04-30T20:25:00+09:00</ReportDateTime>
+<TargetDateTime>2026-04-30T20:25:00+09:00</TargetDateTime>
+<EventID>20260430202305</EventID>
+<InfoType>発表</InfoType>
+<Serial>1</Serial>
+<InfoKind>地震情報</InfoKind>
+<InfoKindVersion>1.0_1</InfoKindVersion>
+<Headline>
+<Text>３０日２０時２３分ころ、地震がありました。</Text>
+</Headline>
+</Head>
+<Body xmlns="http://xml.kishou.go.jp/jmaxml1/body/seismology1/" xmlns:jmx_eb="http://xml.kishou.go.jp/jmaxml1/elementBasis1/">
+<Earthquake>
+<OriginTime>2026-04-30T20:23:00+09:00</OriginTime>
+<ArrivalTime>2026-04-30T20:23:00+09:00</ArrivalTime>
+<Hypocenter>
+<Area>
+<Name>山口県中部</Name>
+<Code type="震央地名">704</Code>
+<jmx_eb:Coordinate description="北緯３４．１度　東経１３１．５度　深さ　２０ｋｍ" >+34.1+131.5-20000/</jmx_eb:Coordinate>
+</Area>
+</Hypocenter>
+<jmx_eb:Magnitude type="Mj" description="Ｍ３．７">3.7</jmx_eb:Magnitude>
+</Earthquake>
+<Intensity>
+<Observation>
+<CodeDefine>
+<Type xpath="Pref/Code">地震情報／都道府県等</Type>
+<Type xpath="Pref/Area/Code">地震情報／細分区域</Type>
+<Type xpath="Pref/Area/City/Code">気象・地震・火山情報／市町村等</Type>
+<Type xpath="Pref/Area/City/IntensityStation/Code">震度観測点</Type>
+</CodeDefine>
+<MaxInt>2</MaxInt>
+<Pref><Name>山口県</Name><Code>35</Code><MaxInt>2</MaxInt>
+<Area><Name>山口県中部</Name><Code>704</Code><MaxInt>2</MaxInt>
+<City><Name>山口市</Name><Code>3520300</Code><MaxInt>2</MaxInt>
+<IntensityStation><Name>山口市前町</Name><Code>3520302</Code><Int>2</Int></IntensityStation>
+<IntensityStation><Name>山口市小郡下郷＊</Name><Code>3520341</Code><Int>2</Int></IntensityStation>
+<IntensityStation><Name>山口市阿知須＊</Name><Code>3520348</Code><Int>2</Int></IntensityStation>
+<IntensityStation><Name>山口市徳地堀＊</Name><Code>3520349</Code><Int>2</Int></IntensityStation>
+<IntensityStation><Name>山口市大殿大路＊</Name><Code>3520350</Code><Int>2</Int></IntensityStation>
+<IntensityStation><Name>山口市秋穂二島＊</Name><Code>3520322</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>山口市秋穂東＊</Name><Code>3520340</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>山口市阿東徳佐＊</Name><Code>3520346</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>防府市</Name><Code>3520600</Code><MaxInt>2</MaxInt>
+<IntensityStation><Name>防府市寿</Name><Code>3520601</Code><Int>2</Int></IntensityStation>
+<IntensityStation><Name>防府市西浦＊</Name><Code>3520621</Code><Int>2</Int></IntensityStation>
+</City>
+<City><Name>下松市</Name><Code>3520700</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>下松市大手町＊</Name><Code>3520732</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>周南市</Name><Code>3521500</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>周南市桜馬場通り＊</Name><Code>3521522</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>周南市富田＊</Name><Code>3521542</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>周南市鹿野上＊</Name><Code>3521543</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+<Area><Name>山口県北部</Name><Code>700</Code><MaxInt>1</MaxInt>
+<City><Name>萩市</Name><Code>3520400</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>萩市土原</Name><Code>3520401</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>萩市川上＊</Name><Code>3520432</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>萩市下田万＊</Name><Code>3520433</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>萩市江向＊</Name><Code>3520438</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>萩市須佐＊</Name><Code>3520440</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>萩市明木＊</Name><Code>3520441</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>萩市福井＊</Name><Code>3520442</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>長門市</Name><Code>3521100</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>長門市三隅＊</Name><Code>3521136</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>美祢市</Name><Code>3521300</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>美祢市大嶺町＊</Name><Code>3521335</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>美祢市美東町大田＊</Name><Code>3521336</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>美祢市秋芳町秋吉＊</Name><Code>3521337</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+<Area><Name>山口県西部</Name><Code>702</Code><MaxInt>1</MaxInt>
+<City><Name>宇部市</Name><Code>3520200</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>宇部市東須恵＊</Name><Code>3520220</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>山陽小野田市</Name><Code>3521600</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>山陽小野田市日の出＊</Name><Code>3521632</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>山陽小野田市鴨庄＊</Name><Code>3521633</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+<Area><Name>山口県東部</Name><Code>703</Code><MaxInt>1</MaxInt>
+<City><Name>岩国市</Name><Code>3520800</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>岩国市本郷町本郷＊</Name><Code>3520847</Code><Int>1</Int></IntensityStation>
+</City>
+<City><Name>光市</Name><Code>3521000</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>光市中央＊</Name><Code>3521034</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+</Pref>
+<Pref><Name>島根県</Name><Code>32</Code><MaxInt>1</MaxInt>
+<Area><Name>島根県西部</Name><Code>571</Code><MaxInt>1</MaxInt>
+<City><Name>吉賀町</Name><Code>3250500</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>吉賀町柿木村柿木＊</Name><Code>3250533</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+</Pref>
+</Observation>
+</Intensity>
+<Comments>
+<ForecastComment codeType="固定付加文">
+<Text>この地震による津波の心配はありません。</Text>
+<Code>0215</Code>
+</ForecastComment>
+<VarComment codeType="固定付加文">
+<Text>＊印は気象庁以外の震度観測点についての情報です。</Text>
+<Code>0262</Code>
+</VarComment>
+</Comments>
+</Body>
+</Report>

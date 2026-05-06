@@ -1,0 +1,2 @@
+https://www.data.jma.go.jp/developer/xml/data/20260426223022_0_VXSE61_010000.xml
+https://www.data.jma.go.jp/developer/xml/data/20260426203422_0_VXSE62_010000.xml

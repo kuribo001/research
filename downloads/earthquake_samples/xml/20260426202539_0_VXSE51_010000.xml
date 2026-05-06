@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://xml.kishou.go.jp/jmaxml1/" xmlns:jmx="http://xml.kishou.go.jp/jmaxml1/">
+<Control>
+<Title>震度速報</Title>
+<DateTime>2026-04-26T20:25:38Z</DateTime>
+<Status>通常</Status>
+<EditorialOffice>気象庁本庁</EditorialOffice>
+<PublishingOffice>気象庁</PublishingOffice>
+</Control>
+<Head xmlns="http://xml.kishou.go.jp/jmaxml1/informationBasis1/">
+<Title>震度速報</Title>
+<ReportDateTime>2026-04-27T05:25:00+09:00</ReportDateTime>
+<TargetDateTime>2026-04-27T05:24:00+09:00</TargetDateTime>
+<EventID>20260427052408</EventID>
+<InfoType>発表</InfoType>
+<Serial></Serial>
+<InfoKind>震度速報</InfoKind>
+<InfoKindVersion>1.0_1</InfoKindVersion>
+<Headline>
+<Text>２７日０５時２４分ころ、地震による強い揺れを感じました。震度３以上が観測された地域をお知らせします。</Text>
+<Information type="震度速報">
+<Item>
+<Kind><Name>震度５強</Name></Kind>
+<Areas codeType="地震情報／細分区域">
+<Area><Name>十勝地方中部</Name><Code>156</Code></Area>
+</Areas>
+</Item>
+<Item>
+<Kind><Name>震度５弱</Name></Kind>
+<Areas codeType="地震情報／細分区域">
+<Area><Name>日高地方中部</Name><Code>151</Code></Area>
+</Areas>
+</Item>
+<Item>
+<Kind><Name>震度４</Name></Kind>
+<Areas codeType="地震情報／細分区域">
+<Area><Name>石狩地方北部</Name><Code>100</Code></Area>
+<Area><Name>石狩地方南部</Name><Code>102</Code></Area>
+<Area><Name>渡島地方東部</Name><Code>106</Code></Area>
+<Area><Name>空知地方南部</Name><Code>122</Code></Area>
+<Area><Name>胆振地方中東部</Name><Code>146</Code></Area>
+<Area><Name>日高地方西部</Name><Code>150</Code></Area>
+<Area><Name>日高地方東部</Name><Code>152</Code></Area>
+<Area><Name>十勝地方北部</Name><Code>155</Code></Area>
+<Area><Name>十勝地方南部</Name><Code>157</Code></Area>
+<Area><Name>釧路地方中南部</Name><Code>161</Code></Area>
+</Areas>
+</Item>
+<Item>
+<Kind><Name>震度３</Name></Kind>
+<Areas codeType="地震情報／細分区域">
+<Area><Name>石狩地方中部</Name><Code>101</Code></Area>
+<Area><Name>後志地方北部</Name><Code>115</Code></Area>
+<Area><Name>空知地方中部</Name><Code>121</Code></Area>
+<Area><Name>上川地方南部</Name><Code>127</Code></Area>
+<Area><Name>北見地方</Name><Code>141</Code></Area>
+<Area><Name>胆振地方西部</Name><Code>145</Code></Area>
+<Area><Name>釧路地方北部</Name><Code>160</Code></Area>
+<Area><Name>根室地方中部</Name><Code>166</Code></Area>
+<Area><Name>根室地方南部</Name><Code>167</Code></Area>
+<Area><Name>青森県三八上北</Name><Code>202</Code></Area>
+<Area><Name>青森県下北</Name><Code>203</Code></Area>
+</Areas>
+</Item>
+</Information>
+</Headline>
+</Head>
+<Body xmlns="http://xml.kishou.go.jp/jmaxml1/body/seismology1/" xmlns:jmx_eb="http://xml.kishou.go.jp/jmaxml1/elementBasis1/">
+<Intensity>
+<Observation>
+<CodeDefine>
+<Type xpath="Pref/Code">地震情報／都道府県等</Type>
+<Type xpath="Pref/Area/Code">地震情報／細分区域</Type>
+</CodeDefine>
+<MaxInt>5+</MaxInt>
+<Pref>
+<Name>北海道</Name><Code>01</Code><MaxInt>5+</MaxInt>
+<Area><Name>十勝地方中部</Name><Code>156</Code><MaxInt>5+</MaxInt></Area>
+<Area><Name>日高地方中部</Name><Code>151</Code><MaxInt>5-</MaxInt></Area>
+<Area><Name>石狩地方北部</Name><Code>100</Code><MaxInt>4</MaxInt></Area>
+<Area><Name>石狩地方南部</Name><Code>102</Code><MaxInt>4</MaxInt></Area>
+<Area><Name>渡島地方東部</Name><Code>106</Code><MaxInt>4</MaxInt></Area>
+<Area><Name>空知地方南部</Name><Code>122</Code><MaxInt>4</MaxInt></Area>
+<Area><Name>胆振地方中東部</Name><Code>146</Code><MaxInt>4</MaxInt></Area>
+<Area><Name>日高地方西部</Name><Code>150</Code><MaxInt>4</MaxInt></Area>
+<Area><Name>日高地方東部</Name><Code>152</Code><MaxInt>4</MaxInt></Area>
+<Area><Name>十勝地方北部</Name><Code>155</Code><MaxInt>4</MaxInt></Area>
+<Area><Name>十勝地方南部</Name><Code>157</Code><MaxInt>4</MaxInt></Area>
+<Area><Name>釧路地方中南部</Name><Code>161</Code><MaxInt>4</MaxInt></Area>
+<Area><Name>石狩地方中部</Name><Code>101</Code><MaxInt>3</MaxInt></Area>
+<Area><Name>後志地方北部</Name><Code>115</Code><MaxInt>3</MaxInt></Area>
+<Area><Name>空知地方中部</Name><Code>121</Code><MaxInt>3</MaxInt></Area>
+<Area><Name>上川地方南部</Name><Code>127</Code><MaxInt>3</MaxInt></Area>
+<Area><Name>北見地方</Name><Code>141</Code><MaxInt>3</MaxInt></Area>
+<Area><Name>胆振地方西部</Name><Code>145</Code><MaxInt>3</MaxInt></Area>
+<Area><Name>釧路地方北部</Name><Code>160</Code><MaxInt>3</MaxInt></Area>
+<Area><Name>根室地方中部</Name><Code>166</Code><MaxInt>3</MaxInt></Area>
+<Area><Name>根室地方南部</Name><Code>167</Code><MaxInt>3</MaxInt></Area>
+</Pref>
+<Pref>
+<Name>青森県</Name><Code>02</Code><MaxInt>3</MaxInt>
+<Area><Name>青森県三八上北</Name><Code>202</Code><MaxInt>3</MaxInt></Area>
+<Area><Name>青森県下北</Name><Code>203</Code><MaxInt>3</MaxInt></Area>
+</Pref>
+</Observation>
+</Intensity>
+<Comments>
+<ForecastComment codeType="固定付加文">
+<Text>今後の情報に注意してください。</Text>
+<Code>0217</Code>
+</ForecastComment>
+</Comments>
+</Body>
+</Report>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://xml.kishou.go.jp/jmaxml1/" xmlns:jmx="http://xml.kishou.go.jp/jmaxml1/">
+<Control>
+<Title>震源・震度に関する情報</Title>
+<DateTime>2026-05-03T16:22:27Z</DateTime>
+<Status>通常</Status>
+<EditorialOffice>大阪管区気象台</EditorialOffice>
+<PublishingOffice>気象庁</PublishingOffice>
+</Control>
+<Head xmlns="http://xml.kishou.go.jp/jmaxml1/informationBasis1/">
+<Title>震源・震度情報</Title>
+<ReportDateTime>2026-05-04T01:22:00+09:00</ReportDateTime>
+<TargetDateTime>2026-05-04T01:22:00+09:00</TargetDateTime>
+<EventID>20260504011913</EventID>
+<InfoType>発表</InfoType>
+<Serial>1</Serial>
+<InfoKind>地震情報</InfoKind>
+<InfoKindVersion>1.0_1</InfoKindVersion>
+<Headline>
+<Text>　４日０１時１９分ころ、地震がありました。</Text>
+</Headline>
+</Head>
+<Body xmlns="http://xml.kishou.go.jp/jmaxml1/body/seismology1/" xmlns:jmx_eb="http://xml.kishou.go.jp/jmaxml1/elementBasis1/">
+<Earthquake>
+<OriginTime>2026-05-04T01:18:00+09:00</OriginTime>
+<ArrivalTime>2026-05-04T01:19:00+09:00</ArrivalTime>
+<Hypocenter>
+<Area>
+<Name>与那国島近海</Name>
+<Code type="震央地名">857</Code>
+<jmx_eb:Coordinate description="北緯２４．９度　東経１２３．２度　深さ１２０ｋｍ" >+24.9+123.2-120000/</jmx_eb:Coordinate>
+</Area>
+</Hypocenter>
+<jmx_eb:Magnitude type="Mj" description="Ｍ４．８">4.8</jmx_eb:Magnitude>
+</Earthquake>
+<Intensity>
+<Observation>
+<CodeDefine>
+<Type xpath="Pref/Code">地震情報／都道府県等</Type>
+<Type xpath="Pref/Area/Code">地震情報／細分区域</Type>
+<Type xpath="Pref/Area/City/Code">気象・地震・火山情報／市町村等</Type>
+<Type xpath="Pref/Area/City/IntensityStation/Code">震度観測点</Type>
+</CodeDefine>
+<MaxInt>2</MaxInt>
+<Pref><Name>沖縄県</Name><Code>47</Code><MaxInt>2</MaxInt>
+<Area><Name>沖縄県石垣島</Name><Code>805</Code><MaxInt>2</MaxInt>
+<City><Name>石垣市</Name><Code>4720700</Code><MaxInt>2</MaxInt>
+<IntensityStation><Name>石垣市平久保</Name><Code>4720702</Code><Int>2</Int></IntensityStation>
+<IntensityStation><Name>石垣市新栄町＊</Name><Code>4720720</Code><Int>2</Int></IntensityStation>
+<IntensityStation><Name>石垣市登野城</Name><Code>4720700</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>石垣市新川</Name><Code>4720701</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>石垣市伊原間＊</Name><Code>4720721</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>石垣市真栄里＊</Name><Code>4720731</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+<Area><Name>沖縄県宮古島</Name><Code>804</Code><MaxInt>1</MaxInt>
+<City><Name>多良間村</Name><Code>4737500</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>多良間村塩川</Name><Code>4737500</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+<Area><Name>沖縄県西表島</Name><Code>807</Code><MaxInt>1</MaxInt>
+<City><Name>竹富町</Name><Code>4738100</Code><MaxInt>1</MaxInt>
+<IntensityStation><Name>竹富町大原</Name><Code>4738104</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>竹富町黒島</Name><Code>4738105</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>竹富町上原小学校</Name><Code>4738112</Code><Int>1</Int></IntensityStation>
+<IntensityStation><Name>竹富町上原青年会館＊</Name><Code>4738120</Code><Int>1</Int></IntensityStation>
+</City>
+</Area>
+</Pref>
+</Observation>
+</Intensity>
+<Comments>
+<ForecastComment codeType="固定付加文">
+<Text>この地震による津波の心配はありません。</Text>
+<Code>0215</Code>
+</ForecastComment>
+<VarComment codeType="固定付加文">
+<Text>＊印は気象庁以外の震度観測点についての情報です。</Text>
+<Code>0262</Code>
+</VarComment>
+</Comments>
+</Body>
+</Report>

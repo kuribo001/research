@@ -17,6 +17,8 @@ The project already contains:
   - `sql/03_jma_volcano_performance_indexes.sql`
 - earthquake research notes and code mapping:
   - `docs/jma_earthquake_message_codes.md`
+- earthquake sample inventory:
+  - `docs/jma_earthquake_sample_index.md`
 - downloaded real-world earthquake XML samples:
   - `downloads/earthquake_samples/xml/`
   - `downloads/earthquake_samples/extracted_stations.md`
@@ -56,6 +58,42 @@ Key sample coverage already available:
   - `VZSE40`
 
 This means the project is no longer blocked by lack of earthquake fixtures. The next step is to extend the model from volcano messages to earthquake messages using both official fixtures and real-world XML.
+
+## Progress Snapshot
+
+Completed in the repository:
+
+- earthquake SQL migrations:
+  - `sql/04_jma_earthquake_schema.sql`
+  - `sql/05_jma_earthquake_read_models.sql`
+  - `sql/06_jma_earthquake_family_indexes.sql`
+- earthquake DTOs under:
+  - `com/twins/crawler/dtos/EarthquakeEvent.java`
+  - `com/twins/crawler/dtos/EarthquakeEventEnvelope.java`
+  - `com/twins/crawler/dtos/EarthquakeHypocenter.java`
+  - `com/twins/crawler/dtos/EarthquakeIntensityArea.java`
+  - `com/twins/crawler/dtos/EarthquakeMunicipalityIntensity.java`
+  - `com/twins/crawler/dtos/EarthquakeStationIntensity.java`
+  - `com/twins/crawler/dtos/LongPeriodStationMetric.java`
+  - `com/twins/crawler/dtos/EarthquakeComment.java`
+  - `com/twins/crawler/dtos/EewForecastArea.java`
+  - `com/twins/crawler/dtos/EewDetail.java`
+  - `com/twins/crawler/dtos/EarthquakeSpecialInformation.java`
+  - `com/twins/crawler/dtos/EarthquakeSpecialTextBlock.java`
+  - `com/twins/crawler/dtos/EarthquakeNoticeItem.java`
+  - `com/twins/crawler/dtos/EarthquakeCountItem.java`
+- station extraction from downloaded XML:
+  - `downloads/earthquake_samples/extracted_stations.md`
+  - `downloads/earthquake_samples/extracted_stations.csv`
+- earthquake sample coverage index:
+  - `docs/jma_earthquake_sample_index.md`
+
+Current practical status:
+
+- schema and DTO groundwork is ready
+- fixture coverage is strong enough to start parser implementation
+- sample indexing is now complete
+- the next bottleneck is parser family scaffolding and dispatcher design
 
 ## Design Principles
 
@@ -121,6 +159,10 @@ The dispatcher should map `message_code -> parser family`.
 
 Use two fixture tiers:
 
+Reference inventory:
+
+- `docs/jma_earthquake_sample_index.md`
+
 ### Tier A: official JMA sample pack
 
 Primary use:
@@ -149,6 +191,13 @@ Primary location:
 Important note:
 
 The official sample pack should be considered the main fixture source for initial implementation, and the downloaded XML set should be considered the realism check.
+
+Current fixture conclusion:
+
+- `VXSE52`, `VXSE53`, `VXSE51`, `VXSE61`, and `VXSE62` already have both official and real-world samples
+- `VXSE56` and `VXSE60` have official coverage including `取消`
+- EEW and Nankai families are well-covered by official samples
+- `VXSE47` is still missing from both sample sources
 
 ## Phase 1 Scope
 
@@ -185,82 +234,73 @@ Reason:
 
 Phase 1 must also include `取消` handling wherever the official sample pack provides such cases.
 
-## Suggested Earthquake DTOs
+## Earthquake DTO Model
 
-Create DTOs by domain output, not by raw XML node.
+DTOs are now created by domain output, not by raw XML node.
 
-Suggested DTO set:
+Implemented DTO set:
 
 - `EarthquakeEvent`
+- `EarthquakeEventEnvelope`
 - `EarthquakeHypocenter`
-- `IntensityObservation`
-- `IntensityArea`
-- `MunicipalityIntensity`
-- `StationIntensity`
-- `LongPeriodObservation`
+- `EarthquakeIntensityArea`
+- `EarthquakeMunicipalityIntensity`
+- `EarthquakeStationIntensity`
+- `LongPeriodStationMetric`
 - `EarthquakeComment`
-- `EarthquakeNotice`
-- `NankaiEvent`
+- `EewForecastArea`
+- `EewDetail`
+- `EarthquakeSpecialInformation`
+- `EarthquakeSpecialTextBlock`
+- `EarthquakeNoticeItem`
+- `EarthquakeCountItem`
 
-Possible shared DTO reuse:
+Shared DTO reuse:
 
 - `FeedEntry`
 - `FeedEntryRef`
 - `ReportHead`
 
-## Suggested Earthquake SQL Model
+## Earthquake SQL Model
 
-Follow the volcano pattern: one core event table plus child tables.
+The SQL base has now been drafted as migrations and is broad enough to support the current scope.
 
-Suggested tables:
+Implemented migration files:
 
-- `jma_earthquake_event`
-- `jma_earthquake_hypocenter`
-- `jma_earthquake_intensity_area`
-- `jma_earthquake_municipality_intensity`
-- `jma_earthquake_station_intensity`
-- `jma_long_period_observation`
-- `jma_long_period_area`
-- `jma_earthquake_comment`
-- `jma_earthquake_notice`
+- `sql/04_jma_earthquake_schema.sql`
+- `sql/05_jma_earthquake_read_models.sql`
+- `sql/06_jma_earthquake_family_indexes.sql`
 
-Suggested event-core fields:
+Implemented schema coverage includes:
 
-- `event_id`
-- `entry_id`
-- `message_code`
-- `info_kind`
-- `info_type`
-- `serial`
-- `title`
-- `issued_at`
-- `target_date_time`
-- `earthquake_time`
-- `earthquake_time_utc`
-- `magnitude`
-- `max_intensity`
-- `domestic_tsunami`
-- `foreign_tsunami`
-- `is_cancelled`
-- `created_at`
+- core earthquake snapshots:
+  - `jma_earthquake_event`
+  - `jma_earthquake_hypocenter`
+- intensity and station detail:
+  - `jma_earthquake_intensity_area`
+  - `jma_earthquake_municipality_intensity`
+  - `jma_earthquake_station_intensity`
+  - `jma_long_period_station_metric`
+- text-heavy and narrative families:
+  - `jma_earthquake_comment`
+  - `jma_earthquake_special_information`
+  - `jma_earthquake_special_text_block`
+  - `jma_earthquake_notice_item`
+  - `jma_earthquake_count_item`
+- EEW support:
+  - `jma_eew_forecast_area`
+  - `jma_eew_detail`
+- read model support:
+  - `jma_earthquake_message_family`
+  - `jma_earthquake_station_master`
+  - `jma_earthquake_event_timeline`
+  - `jma_earthquake_latest_event_snapshot`
+  - `jma_earthquake_event_counter`
 
-Suggested hypocenter fields:
+Current note:
 
-- `event_id`
-- `name`
-- `code`
-- `latitude`
-- `longitude`
-- `depth_km`
-- `magnitude`
-- `free_text`
-
-Suggested intensity detail fields:
-
-- area-level intensity
-- municipality-level intensity
-- station-level intensity
-- observation code and display name
+- the schema is considered ready for parser implementation
+- some refinements may still be added later for stricter idempotency or richer read models
 
 ## Versioning and Lifecycle Rules
 
@@ -292,20 +332,23 @@ Do not model every XML as a completely separate business event. Multiple XMLs ma
 
 Use both fixture sources in a deliberate way.
 
-Recommended next step:
+Completed fixture work:
 
-1. build an earthquake sample index from `jmaxml_20260326_Samples/`
-2. classify fixtures by:
+1. earthquake sample inventory has been compiled in `docs/jma_earthquake_sample_index.md`
+2. fixtures are now classified in practice by:
    - `message_code`
    - `message_family`
    - `InfoType`
    - `source_type` (`official_sample` or `real_world`)
-3. create parser tests per family
-4. ensure at least one `発表` case per family
-5. ensure `取消` cases are covered where available
-6. validate DTO mapping
-7. validate SQL-ready normalized output
-8. run regression tests against downloaded real-world XML
+
+Recommended next step:
+
+1. create parser tests per family
+2. ensure at least one `発表` case per family
+3. ensure `取消` cases are covered where available
+4. validate DTO mapping
+5. validate SQL-ready normalized output
+6. run regression tests against downloaded real-world XML
 
 Current observed fixture advantage:
 
@@ -338,11 +381,11 @@ Because `VXSE42/43/44/45` already exist in the official sample pack, they can be
 
 ## Deliverables Checklist
 
-- [ ] Earthquake DTO design
-- [ ] Earthquake SQL draft
+- [x] Earthquake DTO design
+- [x] Earthquake SQL draft
+- [x] Earthquake sample index for official and real-world fixtures
 - [ ] Message family dispatcher design
 - [ ] Phase 1 parser interfaces
-- [ ] Earthquake sample index for official and real-world fixtures
 - [ ] Parser tests for `VXSE51/52/53/56/60/61/62`
 - [ ] Cancellation-case coverage from official sample pack
 - [ ] Lifecycle/versioning rules documented in code
@@ -352,9 +395,10 @@ Because `VXSE42/43/44/45` already exist in the official sample pack, they can be
 
 The most practical next implementation step is:
 
-1. draft earthquake SQL schema
-2. create earthquake DTOs
-3. build a sample index from `jmaxml_20260326_Samples/`
-4. implement `VXSE52` and `VXSE53` first
+1. create a message family dispatcher design
+2. scaffold parser interfaces for `VXSE52` and `VXSE53`
+3. implement `VXSE52` and `VXSE53` first
+4. expand to `VXSE51`, `VXSE61`, `VXSE62`, `VXSE60`, `VXSE56`
+5. add parser tests using the fixtures listed in `docs/jma_earthquake_sample_index.md`
 
 These two message families will define the base event model for the rest of the earthquake pipeline.

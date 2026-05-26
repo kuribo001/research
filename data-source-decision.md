@@ -1,55 +1,48 @@
-# Data Source Decision
+# Quyết Định Nguồn Dữ Liệu
 
-Cap nhat: 2026-05-26
+Cập nhật: 2026-05-26
 
-## Decision
+## 1. Station Catalog
 
-### 1. Station catalog
+Dùng `MLIT N02 + N03`.
 
-Dung `MLIT N02 + N03`.
+Lý do:
 
-Ly do:
+- Bao phủ toàn quốc.
+- Phù hợp với scope theo prefecture.
+- Ổn định và chính thống.
 
-- Bao phu toan quoc
-- Phu hop voi scope theo prefecture
-- On dinh va chinh thong
+## 2. Railway Lines Trên Cesium
 
-### 2. Railway lines tren Cesium
+Dùng `MLIT N02 RailroadSection` cho demo hiện tại.
 
-Dung `MLIT N02 RailroadSection` cho demo hien tai.
+Lý do:
 
-Ly do:
+- Vẽ line được ngay theo prefecture scope.
+- Không cần chốt operator trước.
 
-- Ve line duoc ngay theo prefecture scope
-- Khong can chot operator truoc
+Có thể nâng cấp sau sang `ODPT GTFS/GTFS-JP` nếu cần geometry theo operator/trip chi tiết hơn.
 
-Co the nang cap sau sang `ODPT GTFS/GTFS-JP` neu can geometry theo operator/trip chi tiet hon.
+## 3. Trip Và Realtime
 
-### 3. Trip va realtime
+- `Tokyo`: chốt `Toei`, dùng `ODPT GTFS/GTFS-JP`, `Train Location`, `GTFS-RT`.
+- `Miyazaki`: `GTFS Data Repository` hoạt động nhưng trả rỗng cho `pref=45`; ưu tiên `JR Kyushu timetable portal/PDF` cho `trip static`.
+- `Shimane`: tập trung `JR West`; dùng JR West timetable/route pages cho `trip static`, không dùng ODPT vì chưa tìm thấy dataset `jrwest` / `西日本旅客鉄道`.
 
-- `Tokyo`
-  - chot `Toei`
-  - dung `ODPT GTFS/GTFS-JP`, `Train Location`, `GTFS-RT`
-- `Miyazaki`
-  - `GTFS Data Repository` API hoat dong nhung tra rong cho `pref=45`
-  - uu tien `JR Kyushu timetable portal/PDF` cho `trip static`
-  - `realtime` moi xac minh duoc o muc web/app service, chua xac minh public machine-readable feed
-- `Shimane`
-  - uu tien `GTFS Data Repository` hoac local/operator source
-  - rieng `JR West` co web running-position service dang chu y
+## Rule Of Thumb
 
-## Rule of thumb
+- Cần `ga theo prefecture` -> dùng `MLIT`.
+- Cần `line demo nhanh` -> dùng `MLIT RailroadSection`.
+- Cần `trip/realtime ở Tokyo` -> dùng `ODPT` và bắt đầu bằng `Toei`.
+- Cần `trip ở Miyazaki` -> dùng `JR Kyushu timetable portal/PDF`.
+- Cần `trip ở Shimane` -> dùng `JR West timetable/route pages`.
 
-- Can `ga theo prefecture` -> dung `MLIT`
-- Can `line demo nhanh` -> dung `MLIT RailroadSection`
-- Can `trip/realtime o Tokyo` -> dung `ODPT` va bat dau bang `Toei`
-- Can `trip o Miyazaki` -> dung `JR Kyushu timetable portal/PDF`
-
-## Links chinh
+## Links Chính
 
 - MLIT N02: https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N02-2025.html
 - MLIT N03: https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N03-2026.html
 - ODPT developer: https://developer.odpt.org/
 - GTFS Data Repository docs: https://docs.gtfs-data.jp/api.v2.html
 - JR Kyushu timetable portal: https://www.jrkyushu-timetable.jp/
-- JR Kyushu operation info: https://www.jrkyushu.co.jp/trains/info/
+- JR West timetable: https://www.westjr.co.jp/global/en/timetable/
+- JR West train-guide: https://www.train-guide.westjr.co.jp/area_sanin.html

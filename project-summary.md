@@ -1,56 +1,43 @@
-# Project Summary
+# Tổng Hợp Project
 
-Cap nhat: 2026-05-26
+Cập nhật: 2026-05-26
 
-## Tong quan
+## Tổng Quan
 
-Scope hien tai gom 3 prefecture: `Tokyo`, `Miyazaki`, `Shimane`.
+Scope hiện tại gồm 3 prefecture: `Tokyo`, `Miyazaki`, `Shimane`.
 
-Muc tieu:
+Mục tiêu:
 
-1. Lay station catalog
-2. Ve railway lines va stations len `Cesium`
-3. Lay `trip` va `realtime train position` neu nguon du lieu cho phep
+1. Lấy station catalog.
+2. Vẽ railway lines và stations lên `Cesium`.
+3. Lấy `trip` và `realtime train position` nếu nguồn dữ liệu cho phép.
 
-## Quyet dinh du lieu
+## Quyết Định Dữ Liệu
 
-- `Station catalog`
-  - dung `MLIT N02 + N03`
-- `Line de ve Cesium`
-  - dang dung `MLIT N02 RailroadSection`
-  - co the nang cap sang `ODPT GTFS/GTFS-JP` neu can geometry theo operator/trip
-- `Trip va realtime`
-  - `Tokyo`: chot `Toei` voi `ODPT GTFS/GTFS-JP`, `Train Location`, `GTFS-RT`
-  - `Miyazaki`: `GTFS Data Repository` hien khong usable cho `pref=45`; uu tien `JR Kyushu timetable portal/PDF`
-  - `Shimane`: tap trung `JR West`; trip static di theo JR West timetable/route pages, khong phai ODPT
+- `Station catalog`: dùng `MLIT N02 + N03`.
+- `Line để vẽ Cesium`: đang dùng `MLIT N02 RailroadSection`; có thể nâng cấp sang `ODPT GTFS/GTFS-JP` nếu cần geometry theo operator/trip.
+- `Tokyo`: chốt `Toei`, dùng `ODPT GTFS/GTFS-JP`, `Train Location`, `GTFS-RT`.
+- `Miyazaki`: `GTFS Data Repository` hiện không usable cho `pref=45`; ưu tiên `JR Kyushu timetable portal/PDF`.
+- `Shimane`: tập trung `JR West`; trip static đi theo JR West timetable/route pages, không phải ODPT.
 
-## Muc do dam bao
+## Mức Độ Đảm Bảo
 
-- `Station`: cao
-- `Line tren Cesium`: cao cho demo scope hien tai
-- `Trip`: trung binh den cao, phu thuoc operator/source
-- `Realtime`: trung binh, khong nen cam ket moi operator deu co `real position`
+- `Station`: cao.
+- `Line trên Cesium`: cao cho demo scope hiện tại.
+- `Trip`: trung bình đến cao, phụ thuộc operator/source.
+- `Realtime`: trung bình, không nên cam kết mọi operator đều có `real position`.
 
-## Trang thai hien tai
+## Trạng Thái Hiện Tại
 
-- Da co station export JSON:
-  - [station_export_tool/stations_tokyo_miyazaki_shimane.json](/Users/account/Desktop/works/FPT/research/station_export_tool/stations_tokyo_miyazaki_shimane.json:1)
-- Da co line export JSON va Cesium viewer:
-  - [line_export_tool/rail_lines_tokyo_miyazaki_shimane.json](/Users/account/Desktop/works/FPT/research/line_export_tool/rail_lines_tokyo_miyazaki_shimane.json:1)
-  - [line_export_tool/viewer.html](/Users/account/Desktop/works/FPT/research/line_export_tool/viewer.html:1)
-- Chua co pipeline `trip/realtime` da implement
-- Operator dau tien da duoc chot cho `Tokyo trip/realtime` la `Toei`
+- Đã có station export JSON: [station_export_tool/stations_tokyo_miyazaki_shimane.json](/Users/account/Desktop/works/FPT/research/station_export_tool/stations_tokyo_miyazaki_shimane.json:1)
+- Đã có line export JSON: [line_export_tool/rail_lines_tokyo_miyazaki_shimane.json](/Users/account/Desktop/works/FPT/research/line_export_tool/rail_lines_tokyo_miyazaki_shimane.json:1)
+- Đã có Cesium viewer: [line_export_tool/viewer.html](/Users/account/Desktop/works/FPT/research/line_export_tool/viewer.html:1)
+- Chưa có pipeline `trip/realtime` đã implement.
+- Operator đầu tiên cho `Tokyo trip/realtime` là `Toei`.
 
-## Ghi chu quan trong
+## Ghi Chú Quan Trọng
 
-- Kiem tra ngay `2026-05-26`:
-  - `https://api.gtfs-data.jp/v2/files?pref=45` -> `[]`
-  - `https://api.gtfs-data.jp/v2/feeds?pref=45` -> `[]`
-- Vi vay, `JR Kyushu / Miyazaki` hien chua co GTFS public feed usable da xac minh duoc trong research nay
-- ODPT search ngay `2026-05-26` khong tim thay `JR West` dataset cho `jrwest` hoac `西日本旅客鉄道`
-- Sau khi mo rong tim kiem, bo nguon chinh thuc kha dung nhat cho `JR Kyushu / Miyazaki` hien la:
-  - timetable portal: https://www.jrkyushu-timetable.jp/
-  - station directory: https://www.jrkyushu.co.jp/railway/station/
-  - route map: https://www.jrkyushu.co.jp/routemap/index.jsp
-  - operation info: https://www.jrkyushu.co.jp/trains/info/
-  - app / Train Navi: https://www.jrkyushu.co.jp/app/lp/
+- Kiểm tra ngày `2026-05-26`: `https://api.gtfs-data.jp/v2/files?pref=45` và `https://api.gtfs-data.jp/v2/feeds?pref=45` đều trả `[]`.
+- `JR Kyushu / Miyazaki` chưa có GTFS public feed usable đã xác minh được.
+- ODPT search ngày `2026-05-26` không tìm thấy `JR West` dataset cho `jrwest` hoặc `西日本旅客鉄道`.
+- Bộ nguồn chính thức khả dụng nhất cho `JR Kyushu / Miyazaki`: timetable portal, station directory, route map, operation info, app / Train Navi.

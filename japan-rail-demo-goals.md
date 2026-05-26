@@ -1,42 +1,36 @@
-# Japan Rail Demo Goals
+# Mục Tiêu Demo Japan Rail
 
-Cap nhat: 2026-05-26
+Cập nhật: 2026-05-26
 
-## Muc tieu
+## Mục Tiêu
 
-1. Lay danh sach tram/ga cua `Tokyo`, `Miyazaki`, `Shimane`.
-2. Ve duoc cac tuyen duong sat va tram/ga len `Cesium`.
-3. Lay duoc `trip` va thong tin `realtime` cua tau o muc du lieu nguon cho phep.
+1. Lấy danh sách trạm/ga của `Tokyo`, `Miyazaki`, `Shimane`.
+2. Vẽ các tuyến đường sắt và trạm/ga lên `Cesium`.
+3. Lấy `trip` và thông tin `realtime` của tàu ở mức dữ liệu nguồn cho phép.
 
-## Ket qua can dat
+## Kết Quả Cần Đạt
 
-- `Station`
-  - co danh sach ga, ten ga, toa do, prefecture, line/operator co lien quan
-- `Line`
-  - co geometry de ve polyline tren Cesium
-  - co the hien thi line va station tren cung mot map
-- `Trip va realtime`
-  - co `trip`, `route`, `stop sequence`
-  - co active trains
-  - co trang thai `real position`, `estimated position`, hoac `status only`
+- `Station`: có danh sách ga, tên ga, tọa độ, prefecture, line/operator liên quan.
+- `Line`: có geometry để vẽ polyline trên Cesium và hiển thị line + station cùng lúc.
+- `Trip và realtime`: có `trip`, `route`, `stop sequence`, active trains, và trạng thái `real position`, `estimated position`, hoặc `status only`.
 
-## In scope
+## In Scope
 
-- Station catalog theo `Tokyo`, `Miyazaki`, `Shimane`
-- Railway lines va stations tren map 3D
-- Trip va realtime trong pham vi nguon du lieu kha dung
+- Station catalog theo `Tokyo`, `Miyazaki`, `Shimane`.
+- Railway lines và stations trên map 3D.
+- Trip và realtime trong phạm vi nguồn dữ liệu khả dụng.
 
-## Out of scope
+## Out Of Scope
 
-- Cover all Japan
-- Route planning cho end-user
-- ETA/prediction phuc tap
-- Cam ket GPS that cho moi operator
+- Cover toàn bộ Nhật Bản.
+- Route planning cho end-user.
+- ETA/prediction phức tạp.
+- Cam kết GPS thật cho mọi operator.
 
-## Ghi chu
+## Ghi Chú
 
-- `MLIT N02 + N03` cho station catalog theo prefecture
-- `MLIT N02 RailroadSection` dang dung de ve line demo
-- `ODPT` la huong uu tien cho `trip/realtime` o `Tokyo`
-- `Toei` la operator da duoc chot cho `Tokyo`
-- `Miyazaki` va mot phan `Shimane` co the can timetable/local source thay vi GTFS/GTFS-RT cong khai
+- `MLIT N02 + N03` dùng cho station catalog theo prefecture.
+- `MLIT N02 RailroadSection` đang dùng để vẽ line demo.
+- `ODPT` là hướng ưu tiên cho `trip/realtime` ở `Tokyo`.
+- `Toei` là operator đã được chốt cho `Tokyo`.
+- `Miyazaki` và `Shimane` có thể cần timetable/local source thay vì GTFS/GTFS-RT công khai.

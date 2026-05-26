@@ -4,12 +4,12 @@ Cập nhật: 2026-05-26
 
 ## 1. Kết Luận Tổng Quan
 
-Không có một nguồn dữ liệu duy nhất đáp ứng tốt toàn bộ mục tiêu demo.
+Không có một nguồn dữ liệu duy nhất đáp ứng tốt toàn bộ mục tiêu.
 
 Chiến lược phù hợp hiện tại:
 
 - `MLIT N02 + N03` cho station catalog theo prefecture.
-- `MLIT N02 RailroadSection` cho line geometry demo trên Cesium.
+- `MLIT N02 RailroadSection` cho line geometry trên Cesium.
 - `ODPT` cho `Tokyo / Toei` trip và realtime.
 - `JR Kyushu` timetable/source chính thức cho `Miyazaki`.
 - `JR West` timetable/train-guide cho `Shimane`.
@@ -33,7 +33,7 @@ Dùng `MLIT N02/N03` khi:
 Kết luận thực tế:
 
 - `Station catalog theo prefecture`: dùng `MLIT N02 + N03`.
-- `Line demo trên Cesium`: dùng `MLIT N02 RailroadSection`.
+- `Line trên Cesium`: dùng `MLIT N02 RailroadSection`.
 - `Tokyo trip/realtime`: dùng `ODPT`, chốt operator `Toei`.
 - `Miyazaki trip`: dùng nguồn chính thức của `JR Kyushu`, không dựa vào ODPT.
 - `Shimane trip/realtime`: dùng nguồn chính thức của `JR West`, không dựa vào ODPT.
@@ -81,7 +81,7 @@ Lý do:
 
 - Có geometry tuyến sẵn.
 - Lọc được theo prefecture.
-- Dùng được ngay cho Cesium demo.
+- Dùng được ngay cho Cesium.
 
 Output hiện tại:
 
@@ -91,7 +91,7 @@ Output hiện tại:
 Ghi chú:
 
 - Nếu cần geometry gắn với trip/operator chi tiết hơn, có thể chuyển sang `GTFS shapes.txt`.
-- Với demo hiện tại, MLIT đủ tốt để vẽ line trên Cesium.
+- Với hiện tại, MLIT đủ tốt để vẽ line trên Cesium.
 
 ## 6. Tokyo / Toei
 
@@ -188,7 +188,7 @@ Kết luận:
 Hướng khả thi nhất:
 
 - `MLIT N02 + N03` cho station catalog.
-- `MLIT N02 RailroadSection` cho line demo trên Cesium.
+- `MLIT N02 RailroadSection` cho line trên Cesium.
 - `Tokyo / Toei` cho `trip/realtime` qua ODPT.
 - `Miyazaki / JR Kyushu` cho `trip static` qua timetable parser.
 - `Shimane / JR West` cho `trip static` qua timetable và realtime reference qua train-guide.

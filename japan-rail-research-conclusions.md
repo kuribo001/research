@@ -445,6 +445,7 @@ Huong kha thi nhat cho demo la:
 - Dung `MLIT N02 RailroadSection` cho line demo tren Cesium
 - Dung `ODPT GTFS/GTFS-JP` cho `trip` o `Tokyo`, cu the la `Toei`
 - Dung timetable chinh thuc/local source cho `Miyazaki` neu chua tim thay GTFS feed usable
+- Dung JR West official timetable / route pages cho `Shimane / JR West`; ODPT khong co dataset `jrwest` / `西日本旅客鉄道` da xac minh
 - Dung `Train location / GTFS-RT` cho tracking tau dang hoat dong
 - Chap nhan mo hinh `real position` va `estimated position` thay vi cam ket GPS chinh xac cho tat ca
 

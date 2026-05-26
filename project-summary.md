@@ -22,7 +22,7 @@ Muc tieu:
 - `Trip va realtime`
   - `Tokyo`: chot `Toei` voi `ODPT GTFS/GTFS-JP`, `Train Location`, `GTFS-RT`
   - `Miyazaki`: `GTFS Data Repository` hien khong usable cho `pref=45`; uu tien `JR Kyushu timetable portal/PDF`
-  - `Shimane`: uu tien `GTFS Data Repository` hoac local/operator source, tuy operator
+  - `Shimane`: tap trung `JR West`; trip static di theo JR West timetable/route pages, khong phai ODPT
 
 ## Muc do dam bao
 
@@ -47,6 +47,7 @@ Muc tieu:
   - `https://api.gtfs-data.jp/v2/files?pref=45` -> `[]`
   - `https://api.gtfs-data.jp/v2/feeds?pref=45` -> `[]`
 - Vi vay, `JR Kyushu / Miyazaki` hien chua co GTFS public feed usable da xac minh duoc trong research nay
+- ODPT search ngay `2026-05-26` khong tim thay `JR West` dataset cho `jrwest` hoac `西日本旅客鉄道`
 - Sau khi mo rong tim kiem, bo nguon chinh thuc kha dung nhat cho `JR Kyushu / Miyazaki` hien la:
   - timetable portal: https://www.jrkyushu-timetable.jp/
   - station directory: https://www.jrkyushu.co.jp/railway/station/

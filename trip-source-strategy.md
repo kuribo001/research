@@ -99,6 +99,7 @@ Ket qua tim kiem mo rong:
 
 - `Trip static`
   - uu tien `JR West` official timetable / route pages
+  - khong dung `ODPT` cho `JR West` vi khong tim thay dataset `jrwest` / `西日本旅客鉄道` tren ODPT
 - `Realtime`
   - `JR West` co official running-position web service dang chu y
 - `Do san sang`
@@ -111,6 +112,19 @@ Links:
 - JR West running position: https://global.trafficinfo.westjr.co.jp/en/
 - JR West Sanin area: https://www.train-guide.westjr.co.jp/area_sanin.html
 - JR West Sanin line page: https://www.train-guide.westjr.co.jp/sanin4.html?st=0031
+- ODPT search `jrwest`: https://ckan.odpt.org/dataset/?q=jrwest
+- ODPT search `西日本旅客鉄道`: https://ckan.odpt.org/dataset/?q=%E8%A5%BF%E6%97%A5%E6%9C%AC%E6%97%85%E5%AE%A2%E9%89%84%E9%81%93
+
+Ket qua kiem tra ODPT ngay `2026-05-26`:
+
+- `jrwest` -> khong tim thay dataset
+- `西日本旅客鉄道` -> khong tim thay dataset
+- ODPT organization listing co `JR East`, khong thay `JR West`
+
+Ket luan:
+
+- `JR West` hien khong co `trip static` tu ODPT trong research nay
+- `Shimane / JR West` phai di theo official timetable / train-guide sources
 
 ## Ket luan
 

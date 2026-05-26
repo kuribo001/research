@@ -124,7 +124,7 @@ Them nua:
 
 | Operator | Internal key | Trip source de xuat | Realtime source de xuat | Nguon / Link | Muc san sang | Ghi chu |
 | --- | --- | --- | --- | --- | --- | --- |
-| 西日本旅客鉄道 | `mlit:jr_west` | JR West official timetable / route pages | JR West running-position web service | Timetable: https://www.westjr.co.jp/global/en/timetable/ ; Train info: https://www.westjr.co.jp/global/en/travel_support/traininfo.html ; Running position: https://global.trafficinfo.westjr.co.jp/en/ ; Sanin area: https://www.train-guide.westjr.co.jp/area_sanin.html ; Sanin line: https://www.train-guide.westjr.co.jp/sanin4.html?st=0031 | Trip = trung binh den cao, realtime = trung binh den cao | Operator duoc tap trung trong Shimane scope hien tai |
+| 西日本旅客鉄道 | `mlit:jr_west` | JR West official timetable / route pages; khong co ODPT trip dataset da xac minh | JR West running-position web service | Timetable: https://www.westjr.co.jp/global/en/timetable/ ; Train info: https://www.westjr.co.jp/global/en/travel_support/traininfo.html ; Running position: https://global.trafficinfo.westjr.co.jp/en/ ; Sanin area: https://www.train-guide.westjr.co.jp/area_sanin.html ; Sanin line: https://www.train-guide.westjr.co.jp/sanin4.html?st=0031 ; ODPT jrwest search: https://ckan.odpt.org/dataset/?q=jrwest ; ODPT Japanese search: https://ckan.odpt.org/dataset/?q=%E8%A5%BF%E6%97%A5%E6%9C%AC%E6%97%85%E5%AE%A2%E9%89%84%E9%81%93 | Trip = trung binh den cao, realtime = trung binh den cao | ODPT search ngay 2026-05-26 khong tim thay `jrwest` / `西日本旅客鉄道` dataset |
 
 ### Nguon chinh thuc da xac minh cho Shimane
 
@@ -138,8 +138,11 @@ Them nua:
     - https://www.train-guide.westjr.co.jp/area_sanin.html
     - https://www.train-guide.westjr.co.jp/sanin4.html?st=0031
     - https://www.train-guide.westjr.co.jp/terms.html
+  - ODPT search checked on `2026-05-26`:
+    - https://ckan.odpt.org/dataset/?q=jrwest
+    - https://ckan.odpt.org/dataset/?q=%E8%A5%BF%E6%97%A5%E6%9C%AC%E6%97%85%E5%AE%A2%E9%89%84%E9%81%93
   - Danh gia:
-    - Trip: `co co so de lam`
+    - Trip: `co co so de lam tu JR West timetable, khong phai tu ODPT`
     - Realtime: `co co so tot hon Miyazaki/Shimane local, nhung chua xac minh la public machine-readable API`
 
 ## De xuat operator cho phase trip/realtime

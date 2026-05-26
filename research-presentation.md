@@ -52,6 +52,8 @@ Huong dung:
 
 - tap trung vao `JR West`
 - co co so tot hon cho phan realtime
+- ODPT search ngay `2026-05-26` khong tim thay dataset `jrwest` / `西日本旅客鉄道`
+- `trip static` phai di theo JR West timetable / route pages, khong phai ODPT
 
 ## 5. Muc do dam bao
 

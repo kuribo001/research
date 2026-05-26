@@ -1,8 +1,0 @@
-https://www.data.jma.go.jp/developer/xml/data/20260422000431_0_VXSE52_010000.xml
-https://www.data.jma.go.jp/developer/xml/data/20260422174509_0_VXSE52_010000.xml
-https://www.data.jma.go.jp/developer/xml/data/20260429074748_0_VXSE52_010000.xml
-https://www.data.jma.go.jp/developer/xml/data/20260501172209_0_VXSE52_010000.xml
-https://www.data.jma.go.jp/developer/xml/data/20260426202750_0_VXSE52_010000.xml
-https://www.data.jma.go.jp/developer/xml/data/20260426224742_0_VXSE52_010000.xml
-https://www.data.jma.go.jp/developer/xml/data/20260426170029_0_VXSE52_010000.xml
-https://www.data.jma.go.jp/developer/xml/data/20260502093215_0_VXSE52_010000.xml

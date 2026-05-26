@@ -98,24 +98,23 @@ Ket qua tim kiem mo rong:
 ### Shimane
 
 - `Trip static`
-  - uu tien `GTFS Data Repository` hoac local/operator source
+  - uu tien `JR West` official timetable / route pages
 - `Realtime`
   - `JR West` co official running-position web service dang chu y
-  - `Ichibata` chua thay official realtime feed ro rang
 - `Do san sang`
   - trung binh
 
 Links:
 
-- GTFS Data Repository: https://gtfs-data.jp/
 - JR West train info: https://www.westjr.co.jp/global/en/travel_support/traininfo.html
+- JR West timetable: https://www.westjr.co.jp/global/en/timetable/
 - JR West running position: https://global.trafficinfo.westjr.co.jp/en/
 - JR West Sanin area: https://www.train-guide.westjr.co.jp/area_sanin.html
-- Ichibata timetable: https://railway.ichibata.co.jp/operate/timetable/list/
+- JR West Sanin line page: https://www.train-guide.westjr.co.jp/sanin4.html?st=0031
 
 ## Ket luan
 
 - `Tokyo` la prefecture tot nhat de bat dau pipeline `trip/realtime`
 - `Toei` la operator da duoc chot cho `Tokyo`
 - `Miyazaki` hien thuc te nhat la parser `JR Kyushu timetable` thanh JSON normalized
-- `Shimane` can tach theo operator, trong do `JR West` co tin hieu realtime tot hon `Ichibata`
+- `Shimane` hien tap trung vao `JR West`

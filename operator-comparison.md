@@ -114,43 +114,33 @@ Them nua:
 | Operator | Internal key | Stations in scope | Lines in station data | Lines in line data | Sections in line data | Trip/realtime priority | Ghi chu |
 | --- | --- | ---: | ---: | ---: | ---: | --- | --- |
 | 西日本旅客鉄道 | `mlit:jr_west` | 68 | 3 | 3 | 157 | High | Operator lon nhat trong Shimane scope hien tai |
-| 一畑電車 | `mlit:ichibata` | 26 | 2 | 2 | 54 | High | Local operator quan trong cho Shimane |
 
 ### Ket luan cho Shimane
 
-- Nen xet ca `JR West` va `Ichibata`
-- `JR West` lon hon theo scope du lieu hien tai
-- `Ichibata` rat quan trong vi la local operator dac trung cua Shimane
+- Tap trung vao `JR West`
+- `JR West` la operator duoc xet cho `trip/realtime` o Shimane trong scope hien tai
 
 ### Trip/realtime comparison cho Shimane
 
 | Operator | Internal key | Trip source de xuat | Realtime source de xuat | Nguon / Link | Muc san sang | Ghi chu |
 | --- | --- | --- | --- | --- | --- | --- |
-| 西日本旅客鉄道 | `mlit:jr_west` | `GTFS Data Repository` hoac local GTFS | Local realtime hoac ODPT neu co | GTFS repo: https://gtfs-data.jp/ ; API: https://docs.gtfs-data.jp/api.v2.html ; Official info: https://www.westjr.co.jp/global/en/travel_support/traininfo.html ; Realtime web: https://global.trafficinfo.westjr.co.jp/en/ ; https://www.train-guide.westjr.co.jp/area_sanin.html | Trip = trung binh, realtime = thap den trung binh | Operator lon nhat trong Shimane scope hien tai |
-| 一畑電車 | `mlit:ichibata` | Local GTFS hoac `GTFS Data Repository` | Feed local neu co | Official timetable: https://railway.ichibata.co.jp/operate/ ; https://railway.ichibata.co.jp/operate/timetable/list/ ; Example PDF: https://railway.ichibata.co.jp/wp-content/media/P20250401_timetable_holiday.pdf ; GTFS repo: https://gtfs-data.jp/ | Trip = trung binh, realtime = thap | Local operator dac trung cua Shimane |
+| 西日本旅客鉄道 | `mlit:jr_west` | JR West official timetable / route pages | JR West running-position web service | Timetable: https://www.westjr.co.jp/global/en/timetable/ ; Train info: https://www.westjr.co.jp/global/en/travel_support/traininfo.html ; Running position: https://global.trafficinfo.westjr.co.jp/en/ ; Sanin area: https://www.train-guide.westjr.co.jp/area_sanin.html ; Sanin line: https://www.train-guide.westjr.co.jp/sanin4.html?st=0031 | Trip = trung binh den cao, realtime = trung binh den cao | Operator duoc tap trung trong Shimane scope hien tai |
 
 ### Nguon chinh thuc da xac minh cho Shimane
 
 - `西日本旅客鉄道` / JR West
   - Official train service info:
     - https://www.westjr.co.jp/global/en/travel_support/traininfo.html
+  - Official timetable:
+    - https://www.westjr.co.jp/global/en/timetable/
   - Official train running position services:
     - https://global.trafficinfo.westjr.co.jp/en/
     - https://www.train-guide.westjr.co.jp/area_sanin.html
-    - https://www.train-guide.westjr.co.jp/sanin4.html
+    - https://www.train-guide.westjr.co.jp/sanin4.html?st=0031
     - https://www.train-guide.westjr.co.jp/terms.html
   - Danh gia:
     - Trip: `co co so de lam`
     - Realtime: `co co so tot hon Miyazaki/Shimane local, nhung chua xac minh la public machine-readable API`
-- `一畑電車` / Ichibata
-  - Official operation/timetable:
-    - https://railway.ichibata.co.jp/operate/
-    - https://railway.ichibata.co.jp/operate/timetable/list/
-  - Example official timetable PDF:
-    - https://railway.ichibata.co.jp/wp-content/media/P20250401_timetable_holiday.pdf
-  - Danh gia:
-    - Trip static: `co co so de lam`
-    - Realtime: `chua tim thay bang chung ro ve official realtime feed`
 
 ## De xuat operator cho phase trip/realtime
 
@@ -159,14 +149,12 @@ Thu tu uu tien de nghi:
 1. `東京都` / Toei
 2. `九州旅客鉄道` / JR Kyushu
 3. `西日本旅客鉄道` / JR West
-4. `一畑電車` / Ichibata
 
 Neu can toi gian hoa pha dau:
 
 1. `Toei`
 2. `JR Kyushu`
 3. `JR West`
-4. `Ichibata`
 
 ## Ket luan tong hop cho muc tieu visualize train 3D
 
@@ -176,5 +164,3 @@ Neu can toi gian hoa pha dau:
   - co co so cho trip static tu timetable chinh thuc, nhung realtime machine-readable chua du ro
 - `Shimane / JR West`:
   - co co so tot hon cho realtime via official running-position services
-- `Shimane / Ichibata`:
-  - trip static kha kha thi, nhung realtime chua du co so

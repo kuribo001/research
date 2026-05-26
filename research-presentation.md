@@ -29,7 +29,7 @@ Huong dung:
 - `Trip/realtime`
   - `Tokyo`: `Toei` qua `ODPT`
   - `Miyazaki`: `JR Kyushu timetable portal/PDF` + `Train Navi`
-  - `Shimane`: `GTFS Data Repository` hoac local/operator source; `JR West` co running-position web service
+  - `Shimane`: `JR West` timetable/pages + running-position web service
 
 ## 4. Diem can nho theo prefecture
 
@@ -50,9 +50,8 @@ Huong dung:
 
 ### Shimane
 
-- nen tach theo operator
-- `JR West` sang sua hon cho phan realtime
-- `Ichibata` hop hon cho `trip static` truoc
+- tap trung vao `JR West`
+- co co so tot hon cho phan realtime
 
 ## 5. Muc do dam bao
 
@@ -65,4 +64,4 @@ Huong dung:
 
 1. Bat dau `trip/realtime` o `Tokyo`
 2. Neu can `Miyazaki`, viet parser cho `JR Kyushu timetable`
-3. Neu can `Shimane`, tach rieng `JR West` va `Ichibata`
+3. Neu can `Shimane`, di sau vao `JR West`

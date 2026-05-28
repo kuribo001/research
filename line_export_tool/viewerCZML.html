@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tokyo Rail CZML Viewer</title>
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.141/Build/Cesium/Cesium.js"></script>
+    <link
+      href="https://cesium.com/downloads/cesiumjs/releases/1.141/Build/Cesium/Widgets/widgets.css"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body,
+      #app {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+      }
+
+      #toolbar {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        z-index: 10;
+        width: 380px;
+        padding: 12px;
+        border-radius: 10px;
+        background: rgba(20, 24, 33, 0.9);
+        color: #fff;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      }
+
+      #toolbar h1 {
+        margin: 0 0 8px;
+        font-size: 16px;
+      }
+
+      #toolbar p {
+        margin: 0 0 10px;
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      #toolbar .row {
+        margin-bottom: 10px;
+      }
+
+      #toolbar button,
+      #toolbar input[type="file"] {
+        width: 100%;
+        font-size: 13px;
+      }
+
+      #toolbar button {
+        border: 0;
+        border-radius: 6px;
+        padding: 10px 12px;
+        background: #2f6fed;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      #toolbar button.secondary {
+        background: #4a5568;
+      }
+
+      #toolbar code {
+        font-size: 12px;
+      }
+
+      #status {
+        font-size: 12px;
+        color: #d8dee9;
+        white-space: pre-line;
+      }
+
+      #cesiumContainer {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div id="toolbar">
+        <h1>Tokyo Rail CZML Viewer</h1>
+        <p>
+          Cach de mo nhanh:
+          <br />
+          1. Bam <code>Choose CZML file</code> de mo file <code>.czml</code> truc tiep tu may.
+          <br />
+          2. Hoac bam <code>Load bundled sample</code> neu ban dang chay file nay qua local server.
+        </p>
+        <div class="row">
+          <input id="fileInput" type="file" accept=".czml,.json,application/json" />
+        </div>
+        <div class="row">
+          <button id="loadSampleButton">Load bundled sample</button>
+        </div>
+        <div class="row">
+          <button id="clearButton" class="secondary">Clear CZML</button>
+        </div>
+        <div id="status">Chua load CZML.</div>
+      </div>
+      <div id="cesiumContainer"></div>
+    </div>
+
+    <script>
+      const statusEl = document.getElementById("status");
+      const fileInput = document.getElementById("fileInput");
+      const loadSampleButton = document.getElementById("loadSampleButton");
+      const clearButton = document.getElementById("clearButton");
+
+      const viewer = new Cesium.Viewer("cesiumContainer", {
+        animation: false,
+        timeline: false,
+        shouldAnimate: false,
+        terrainProvider: new Cesium.EllipsoidTerrainProvider(),
+        baseLayerPicker: false,
+        geocoder: false,
+        homeButton: true,
+        sceneModePicker: true,
+        navigationHelpButton: false,
+        infoBox: true,
+        selectionIndicator: true,
+      });
+
+      let activeDataSource = null;
+
+      viewer.scene.globe.depthTestAgainstTerrain = false;
+      viewer.camera.flyHome(0);
+
+      function setStatus(message) {
+        statusEl.textContent = message;
+      }
+
+      function setBaseLayer(provider) {
+        viewer.imageryLayers.removeAll();
+        const layer = viewer.imageryLayers.addImageryProvider(provider);
+        if (provider.errorEvent) {
+          provider.errorEvent.addEventListener((error) => {
+            setStatus(
+              [
+                "Basemap bi loi.",
+                `Chi tiet: ${error && error.message ? error.message : "unknown error"}`,
+              ].join("\n")
+            );
+          });
+        }
+        return layer;
+      }
+
+      function createOpenStreetMapProvider() {
+        return new Cesium.UrlTemplateImageryProvider({
+          url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+          credit: "© OpenStreetMap contributors",
+        });
+      }
+
+      function initializeBaseMap() {
+        try {
+          setBaseLayer(createOpenStreetMapProvider());
+          setStatus("Da khoi tao basemap: OpenStreetMap");
+        } catch (error) {
+          setStatus(
+            [
+              "Khong load duoc basemap.",
+              `Chi tiet: ${error.message}`,
+            ].join("\n")
+          );
+        }
+      }
+
+      async function clearCzml() {
+        if (activeDataSource) {
+          await viewer.dataSources.remove(activeDataSource, true);
+          activeDataSource = null;
+        } else {
+          viewer.dataSources.removeAll();
+        }
+        setStatus("Da clear CZML.");
+      }
+
+      function getDocumentPacket(czml) {
+        return Array.isArray(czml) ? czml.find((packet) => packet.id === "document") : null;
+      }
+
+      function summarizeCzml(czml, sourceLabel, entityCount) {
+        const documentPacket = getDocumentPacket(czml);
+        const props = (documentPacket && documentPacket.properties) || {};
+        const generatedPrefectures = props.generated_prefectures || [];
+        const operatorFiltersEn = props.operator_filters_en || [];
+
+        setStatus(
+          [
+            `Nguon: ${sourceLabel}`,
+            `Packets: ${Array.isArray(czml) ? czml.length : 0}`,
+            `Entities loaded: ${entityCount}`,
+            `Prefectures: ${generatedPrefectures.join(", ") || "n/a"}`,
+            `Operator filters: ${operatorFiltersEn.join(", ") || "all"}`,
+          ].join("\n")
+        );
+      }
+
+      async function loadCzmlData(czml, sourceLabel) {
+        if (activeDataSource) {
+          await viewer.dataSources.remove(activeDataSource, true);
+          activeDataSource = null;
+        }
+
+        const dataSource = await Cesium.CzmlDataSource.load(czml);
+        activeDataSource = dataSource;
+        await viewer.dataSources.add(dataSource);
+        await viewer.flyTo(dataSource);
+
+        summarizeCzml(czml, sourceLabel, dataSource.entities.values.length);
+      }
+
+      async function loadBundledSample() {
+        try {
+          const response = await fetch("./rail_lines_tokyo.czml");
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+          }
+          const data = await response.json();
+          await loadCzmlData(data, "bundled sample");
+        } catch (error) {
+          setStatus(
+            [
+              "Khong load duoc bundled CZML sample.",
+              "Neu ban dang mo file bang file://, hay dung Choose CZML file hoac chay local server.",
+              `Chi tiet: ${error.message}`,
+            ].join("\n")
+          );
+        }
+      }
+
+      fileInput.addEventListener("change", async (event) => {
+        const file = event.target.files && event.target.files[0];
+        if (!file) {
+          return;
+        }
+
+        try {
+          const text = await file.text();
+          const data = JSON.parse(text);
+          await loadCzmlData(data, file.name);
+        } catch (error) {
+          setStatus(`Doc file that bai: ${error.message}`);
+        }
+      });
+
+      loadSampleButton.addEventListener("click", loadBundledSample);
+      clearButton.addEventListener("click", clearCzml);
+      initializeBaseMap();
+    </script>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Export railway line sections for Tokyo to a Cesium-friendly JSON.
+Export railway line sections for Tokyo to a Cesium-friendly CZML.
 
 Data sources:
 - MLIT National Land Numerical Information railway data (N02)
@@ -10,6 +10,8 @@ Data sources:
 from __future__ import annotations
 
 import argparse
+import hashlib
+import html
 import json
 import sys
 import urllib.request
@@ -107,7 +109,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--output",
         default=None,
-        help="Output JSON file path.",
+        help="Output CZML file path.",
     )
     parser.add_argument(
         "--height",
@@ -248,6 +250,106 @@ def to_cesium_coords(coords: list[list[float]], height: float) -> list[list[floa
     return [[round(pt[0], 6), round(pt[1], 6), height] for pt in coords]
 
 
+def flatten_cartographic_degrees(coords: list[list[float]]) -> list[float]:
+    flattened = []
+    for lon, lat, height in coords:
+        flattened.extend([lon, lat, height])
+    return flattened
+
+
+def operator_color_rgba(operator_name: str | None) -> list[int]:
+    seed = (operator_name or "unknown").encode("utf-8")
+    digest = hashlib.sha1(seed).digest()
+    return [
+        64 + digest[0] % 160,
+        64 + digest[1] % 160,
+        64 + digest[2] % 160,
+        255,
+    ]
+
+
+def build_section_description(prefecture: dict, line: dict, section: dict) -> str:
+    operator_name = html.escape(line.get("operator_name") or "(unknown)")
+    operator_name_en = html.escape(line.get("operator_name_en") or "")
+    line_name = html.escape(line.get("line_name") or "(unknown)")
+    prefecture_name = html.escape(prefecture.get("prefecture_name") or "")
+    prefecture_name_ja = html.escape(prefecture.get("prefecture_name_ja") or "")
+    operator_label = operator_name if not operator_name_en else f"{operator_name} ({operator_name_en})"
+    return (
+        f"<h3>{line_name}</h3>"
+        f"<p><strong>Operator:</strong> {operator_label}</p>"
+        f"<p><strong>Prefecture:</strong> {prefecture_name} ({prefecture_name_ja})</p>"
+        f"<p><strong>Section ID:</strong> {html.escape(section['section_id'])}</p>"
+        f"<p><strong>Coordinate Count:</strong> {section['coordinate_count']}</p>"
+    )
+
+
+def build_document_packet(prefecture_keys: list[str], operators: list[str], prefectures_output: list[dict]) -> dict:
+    return {
+        "id": "document",
+        "version": "1.0",
+        "name": "Tokyo Rail Lines",
+        "description": "Railway line sections exported from MLIT datasets as CZML.",
+        "properties": {
+            "format": "cesium-rail-lines-czml-v1",
+            "generated_prefectures": prefecture_keys,
+            "prefecture_count": len(prefectures_output),
+            "configured_operator_filters": OPERATOR_FILTERS,
+            "operator_filters": operators,
+            "operator_filters_en": [operator_name_en(item) or item for item in operators],
+            "railroad_dataset_url": RAILROAD_DATASET_URL,
+            "railroad_dataset_member_path": RAILROAD_GEOJSON_PATH,
+            "prefecture_boundary_dataset_urls": [
+                PREFECTURE_DATASETS[key]["url"] for key in prefecture_keys
+            ],
+        },
+    }
+
+
+def build_section_packet(prefecture: dict, line: dict, section: dict) -> dict:
+    operator_display = line.get("operator_name_en") or line.get("operator_name") or "Unknown operator"
+    line_display = line.get("line_name") or "Unknown line"
+    return {
+        "id": section["section_id"],
+        "name": f"{operator_display} / {line_display}",
+        "description": build_section_description(prefecture, line, section),
+        "polyline": {
+            "positions": {
+                "cartographicDegrees": flatten_cartographic_degrees(section["coordinates"]),
+            },
+            "material": {
+                "solidColor": {
+                    "color": {
+                        "rgba": operator_color_rgba(line.get("operator_name")),
+                    }
+                }
+            },
+            "width": 3,
+        },
+        "properties": {
+            "prefecture_key": prefecture["prefecture_key"],
+            "prefecture_name": prefecture["prefecture_name"],
+            "prefecture_name_ja": prefecture["prefecture_name_ja"],
+            "line_name": line["line_name"],
+            "operator_name": line["operator_name"],
+            "operator_name_en": line["operator_name_en"],
+            "railway_type_codes": line["railway_type_codes"],
+            "operator_type_codes": line["operator_type_codes"],
+            "section_id": section["section_id"],
+            "coordinate_count": section["coordinate_count"],
+        },
+    }
+
+
+def build_czml_packets(prefecture_keys: list[str], operators: list[str], prefectures_output: list[dict]) -> list[dict]:
+    packets = [build_document_packet(prefecture_keys, operators, prefectures_output)]
+    for prefecture in prefectures_output:
+        for line in prefecture["lines"]:
+            for section in line["sections"]:
+                packets.append(build_section_packet(prefecture, line, section))
+    return packets
+
+
 def filter_rail_sections(
     railroad_geojson: dict, prefecture_geojson: dict, operator_filters: set[str] | None = None
 ) -> list[dict]:
@@ -355,7 +457,7 @@ def aggregate_sections(
     }
 
 
-def export_line_json(
+def export_line_czml(
     prefecture_keys: list[str], output_path: Path, height: float, operators: list[str]
 ) -> None:
     railroad_geojson = fetch_json_from_zip(RAILROAD_DATASET_URL, RAILROAD_GEOJSON_PATH)
@@ -371,30 +473,7 @@ def export_line_json(
         )
         prefectures_output.append(aggregate_sections(matched_features, prefecture_key, meta, height))
 
-    output = {
-        "format": "cesium-rail-lines-v1",
-        "coordinate_order": "[longitude, latitude, height]",
-        "configured_operator_filters": OPERATOR_FILTERS,
-        "operator_filters": operators,
-        "operator_filters_en": [operator_name_en(item) or item for item in operators],
-        "source": {
-            "railroad_dataset": {
-                "url": RAILROAD_DATASET_URL,
-                "member_path": RAILROAD_GEOJSON_PATH,
-            },
-            "prefecture_boundary_datasets": {
-                key: {
-                    "url": PREFECTURE_DATASETS[key]["url"],
-                    "member_path": PREFECTURE_DATASETS[key]["geojson_path"],
-                }
-                for key in prefecture_keys
-            },
-        },
-        "prefecture_count": len(prefectures_output),
-        "generated_prefectures": prefecture_keys,
-        "prefectures": prefectures_output,
-    }
-
+    output = build_czml_packets(prefecture_keys, operators, prefectures_output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n")
 
@@ -407,9 +486,9 @@ def main() -> int:
         output_path = (
             Path(args.output)
             if args.output
-            else Path(__file__).resolve().parent / "rail_lines_tokyo.json"
+            else Path(__file__).resolve().parent / "rail_lines_tokyo.czml"
         )
-        export_line_json(prefecture_keys, output_path, args.height, operators)
+        export_line_czml(prefecture_keys, output_path, args.height, operators)
     except Exception as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 1

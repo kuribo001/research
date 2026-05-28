@@ -18,6 +18,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
@@ -113,6 +114,87 @@ public class TokyoRailCzmlExportService {
 
     public void exportCzml(Path outputPath, double height, List<String> operatorFilters)
             throws IOException, InterruptedException {
+        ExportData exportData = loadExportData(operatorFilters);
+
+        ArrayNode czml = objectMapper.createArrayNode();
+        czml.add(buildDocumentPacket(exportData.resolvedOperatorFilters()));
+
+        int sectionIndex = 1;
+        for (RailSectionFeature feature : exportData.features()) {
+            String sectionId = TOKYO.key() + "-" + sectionIndex++;
+            czml.add(buildSectionPacket(
+                    sectionId,
+                    feature.operatorName(),
+                    feature.lineName(),
+                    feature.coordinates(),
+                    height
+            ));
+        }
+
+        Files.createDirectories(outputPath.toAbsolutePath().getParent());
+        objectMapper.writeValue(outputPath.toFile(), czml);
+    }
+
+    public List<Path> exportCzmlPerLine(Path outputDirectory, double height, List<String> operatorFilters)
+            throws IOException, InterruptedException {
+        ExportData exportData = loadExportData(operatorFilters);
+        Map<LineKey, List<RailSectionFeature>> groupedByLine = new LinkedHashMap<>();
+
+        for (RailSectionFeature feature : exportData.features()) {
+            LineKey lineKey = new LineKey(feature.operatorName(), feature.lineName());
+            groupedByLine.computeIfAbsent(lineKey, unused -> new ArrayList<>()).add(feature);
+        }
+
+        Files.createDirectories(outputDirectory);
+        List<Path> createdFiles = new ArrayList<>();
+        int fileIndex = 1;
+
+        for (Map.Entry<LineKey, List<RailSectionFeature>> entry : groupedByLine.entrySet()) {
+            LineKey lineKey = entry.getKey();
+            ArrayNode czml = objectMapper.createArrayNode();
+            czml.add(buildDocumentPacket(
+                    exportData.resolvedOperatorFilters(),
+                    lineKey.operatorName(),
+                    lineKey.lineName()
+            ));
+
+            int sectionIndex = 1;
+            for (RailSectionFeature feature : entry.getValue()) {
+                czml.add(buildSectionPacket(
+                        buildSectionId(lineKey, sectionIndex++),
+                        feature.operatorName(),
+                        feature.lineName(),
+                        feature.coordinates(),
+                        height
+                ));
+            }
+
+            Path outputPath = outputDirectory.resolve(buildLineFileName(fileIndex++, lineKey));
+            objectMapper.writeValue(outputPath.toFile(), czml);
+            createdFiles.add(outputPath);
+        }
+
+        return createdFiles;
+    }
+
+    public static void main(String[] args) throws Exception {
+        Path outputDirectory = args.length > 0
+                ? Path.of(args[0])
+                : Path.of("line_export_tool/rail_lines_tokyo_java_lines");
+        double height = args.length > 1 ? Double.parseDouble(args[1]) : 0.0;
+        List<String> operatorFilters = args.length > 2
+                ? Arrays.asList(Arrays.copyOfRange(args, 2, args.length))
+                : DEFAULT_OPERATOR_FILTERS;
+
+        TokyoRailCzmlExportService service = new TokyoRailCzmlExportService();
+        List<Path> files = service.exportCzmlPerLine(outputDirectory, height, operatorFilters);
+
+        System.out.println("CZML directory: " + outputDirectory.toAbsolutePath());
+        System.out.println("Files created: " + files.size());
+        System.out.println("Operator filters: " + operatorFilters);
+    }
+
+    private ExportData loadExportData(List<String> operatorFilters) throws IOException, InterruptedException {
         List<String> resolvedOperatorFilters = normalizeOperatorFilters(operatorFilters);
         Set<String> normalizedOperatorFilterKeys = new LinkedHashSet<>();
         for (String operator : resolvedOperatorFilters) {
@@ -127,39 +209,16 @@ public class TokyoRailCzmlExportService {
                 normalizedOperatorFilterKeys.isEmpty() ? null : normalizedOperatorFilterKeys
         );
 
-        ArrayNode czml = objectMapper.createArrayNode();
-        czml.add(buildDocumentPacket(resolvedOperatorFilters));
-
-        int sectionIndex = 1;
+        List<RailSectionFeature> features = new ArrayList<>();
         for (JsonNode feature : matchedFeatures) {
             JsonNode properties = feature.path("properties");
-            JsonNode coordinates = feature.path("geometry").path("coordinates");
-
-            String operatorName = properties.path("N02_004").asText("");
-            String lineName = properties.path("N02_003").asText("");
-            String sectionId = TOKYO.key() + "-" + sectionIndex++;
-
-            czml.add(buildSectionPacket(sectionId, operatorName, lineName, coordinates, height));
+            features.add(new RailSectionFeature(
+                    properties.path("N02_004").asText(""),
+                    properties.path("N02_003").asText(""),
+                    feature.path("geometry").path("coordinates")
+            ));
         }
-
-        Files.createDirectories(outputPath.toAbsolutePath().getParent());
-        objectMapper.writeValue(outputPath.toFile(), czml);
-    }
-
-    public static void main(String[] args) throws Exception {
-        Path outputPath = args.length > 0
-                ? Path.of(args[0])
-                : Path.of("line_export_tool/rail_lines_tokyo_java.czml");
-        double height = args.length > 1 ? Double.parseDouble(args[1]) : 0.0;
-        List<String> operatorFilters = args.length > 2
-                ? Arrays.asList(Arrays.copyOfRange(args, 2, args.length))
-                : DEFAULT_OPERATOR_FILTERS;
-
-        TokyoRailCzmlExportService service = new TokyoRailCzmlExportService();
-        service.exportCzml(outputPath, height, operatorFilters);
-
-        System.out.println("CZML exported to: " + outputPath.toAbsolutePath());
-        System.out.println("Operator filters: " + operatorFilters);
+        return new ExportData(resolvedOperatorFilters, features);
     }
 
     private JsonNode fetchJsonFromZip(String zipUrl, String memberPath) throws IOException, InterruptedException {
@@ -211,22 +270,43 @@ public class TokyoRailCzmlExportService {
     }
 
     private ObjectNode buildDocumentPacket(List<String> operatorFilters) {
+        return buildDocumentPacket(operatorFilters, null, null);
+    }
+
+    private ObjectNode buildDocumentPacket(List<String> operatorFilters, String operatorName, String lineName) {
         ObjectNode document = objectMapper.createObjectNode();
         document.put("id", "document");
         document.put("version", "1.0");
-        document.put("name", "Tokyo Rail Lines");
+        document.put("name", buildDocumentName(operatorName, lineName));
 
         ObjectNode properties = document.putObject("properties");
         properties.put("format", "cesium-rail-lines-czml-v1");
         ArrayNode prefectures = properties.putArray("generated_prefectures");
         prefectures.add(TOKYO.key());
         properties.put("prefecture_count", 1);
+        if (!isBlank(operatorName)) {
+            properties.put("operator_name", operatorName);
+            properties.put("operator_name_en", operatorNameEn(operatorName).orElse(operatorName));
+        }
+        if (!isBlank(lineName)) {
+            properties.put("line_name", lineName);
+        }
         ArrayNode operatorFiltersEn = properties.putArray("operator_filters_en");
         for (String operatorFilter : operatorFilters) {
             operatorFiltersEn.add(operatorNameEn(operatorFilter).orElse(operatorFilter));
         }
 
         return document;
+    }
+
+    private String buildDocumentName(String operatorName, String lineName) {
+        if (isBlank(lineName)) {
+            return "Tokyo Rail Lines";
+        }
+        String operatorDisplay = isBlank(operatorName)
+                ? "Unknown operator"
+                : operatorNameEn(operatorName).orElse(operatorName);
+        return operatorDisplay + " / " + lineName;
     }
 
     private ObjectNode buildSectionPacket(
@@ -283,6 +363,35 @@ public class TokyoRailCzmlExportService {
                 64 + Byte.toUnsignedInt(digest[2]) % 160,
                 255
         };
+    }
+
+    private String buildLineFileName(int index, LineKey lineKey) {
+        String operatorComponent = sanitizeFileNameComponent(
+                operatorNameEn(lineKey.operatorName()).orElse(lineKey.operatorName())
+        );
+        String lineComponent = sanitizeFileNameComponent(lineKey.lineName());
+        return String.format("%03d_%s_%s.czml", index, operatorComponent, lineComponent);
+    }
+
+    private String buildSectionId(LineKey lineKey, int sectionIndex) {
+        return sanitizeIdentifier(lineKey.operatorName())
+                + "-"
+                + sanitizeIdentifier(lineKey.lineName())
+                + "-"
+                + sectionIndex;
+    }
+
+    private String sanitizeFileNameComponent(String value) {
+        String sanitized = value == null ? "" : value.trim();
+        sanitized = sanitized.replaceAll("[\\\\/:*?\"<>|]+", "_");
+        sanitized = sanitized.replaceAll("\\s+", "_");
+        sanitized = sanitized.replaceAll("_+", "_");
+        sanitized = sanitized.replaceAll("^_+|_+$", "");
+        return sanitized.isBlank() ? "unknown" : sanitized;
+    }
+
+    private String sanitizeIdentifier(String value) {
+        return sanitizeFileNameComponent(value).toLowerCase(Locale.ROOT);
     }
 
     private List<JsonNode> filterRailSections(
@@ -494,6 +603,10 @@ public class TokyoRailCzmlExportService {
         return Math.round(value * 1_000_000d) / 1_000_000d;
     }
 
+    private boolean isBlank(String value) {
+        return value == null || value.isBlank();
+    }
+
     private java.util.Optional<String> operatorNameEn(String operatorName) {
         return java.util.Optional.ofNullable(OPERATOR_NAME_EN.get(operatorName));
     }
@@ -509,5 +622,14 @@ public class TokyoRailCzmlExportService {
     }
 
     private record BBox(double minX, double minY, double maxX, double maxY) {
+    }
+
+    private record RailSectionFeature(String operatorName, String lineName, JsonNode coordinates) {
+    }
+
+    private record ExportData(List<String> resolvedOperatorFilters, List<RailSectionFeature> features) {
+    }
+
+    private record LineKey(String operatorName, String lineName) {
     }
 }

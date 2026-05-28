@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Export railway line sections for selected Japanese prefectures to a Cesium-friendly JSON.
+Export railway line sections for Tokyo to a Cesium-friendly JSON.
 
 Data sources:
 - MLIT National Land Numerical Information railway data (N02)
@@ -29,49 +29,80 @@ PREFECTURE_DATASETS = {
         "code": "13",
         "url": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2026/N03-20260101_13_GML.zip",
         "geojson_path": "N03-20260101_13.geojson",
-    },
-    "miyazaki": {
-        "name": "Miyazaki",
-        "jp_name": "宮崎県",
-        "code": "45",
-        "url": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2026/N03-20260101_45_GML.zip",
-        "geojson_path": "N03-20260101_45.geojson",
-    },
-    "shimane": {
-        "name": "Shimane",
-        "jp_name": "島根県",
-        "code": "32",
-        "url": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2026/N03-20260101_32_GML.zip",
-        "geojson_path": "N03-20260101_32.geojson",
-    },
+    }
 }
 
 PREFECTURE_ALIASES = {
     "tokyo": "tokyo",
     "東京都": "tokyo",
     "13": "tokyo",
-    "miyazaki": "miyazaki",
-    "miyazki": "miyazaki",
-    "mitazaki": "miyazaki",
-    "宮崎": "miyazaki",
-    "宮崎県": "miyazaki",
-    "45": "miyazaki",
-    "shimane": "shimane",
-    "島根": "shimane",
-    "島根県": "shimane",
-    "32": "shimane",
 }
+
+OPERATOR_NAME_EN = {
+    "ゆりかもめ": "Yurikamome",
+    "京成電鉄": "Keisei",
+    "京浜急行電鉄": "Keikyu",
+    "京王電鉄": "Keio",
+    "北総鉄道": "Hokuso Railway",
+    "埼玉高速鉄道": "Saitama Railway",
+    "多摩都市モノレール": "Tama Monorail",
+    "小田急電鉄": "Odakyu",
+    "御岳登山鉄道": "Mitake Tozan Railway",
+    "東京モノレール": "Tokyo Monorail",
+    "東京地下鉄": "Tokyo Metro",
+    "東京臨海高速鉄道": "Tokyo Waterfront Area Rapid Transit",
+    "東京都": "Toei",
+    "東急電鉄": "Tokyu",
+    "東日本旅客鉄道": "JR East",
+    "東武鉄道": "Tobu",
+    "東海旅客鉄道": "JR Central",
+    "西武鉄道": "Seibu",
+    "首都圏新都市鉄道": "Tsukuba Express",
+    "高尾登山電鉄": "Takao Tozan Railway",
+}
+
+OPERATOR_FILTER_ALIASES = {
+    "toei": "東京都",
+    "tokyo metropolitan bureau of transportation": "東京都",
+    "tokyo metro": "東京地下鉄",
+    "jr east": "東日本旅客鉄道",
+    "jr central": "東海旅客鉄道",
+    "keio": "京王電鉄",
+    "keisei": "京成電鉄",
+    "keikyu": "京浜急行電鉄",
+    "odakyu": "小田急電鉄",
+    "tokyu": "東急電鉄",
+    "tobu": "東武鉄道",
+    "seibu": "西武鉄道",
+    "hokuso": "北総鉄道",
+    "hokuso railway": "北総鉄道",
+    "saitama railway": "埼玉高速鉄道",
+    "tsukuba express": "首都圏新都市鉄道",
+    "mitake tozan railway": "御岳登山鉄道",
+    "takao tozan railway": "高尾登山電鉄",
+    "tokyo monorail": "東京モノレール",
+    "tama monorail": "多摩都市モノレール",
+    "tokyo waterfront area rapid transit": "東京臨海高速鉄道",
+    "yurikamome": "ゆりかもめ",
+}
+
+# Leave empty to export all Tokyo operators.
+# Examples:
+OPERATOR_FILTERS = ["Toei"]
+# OPERATOR_FILTERS = ["Tokyo Metro", "Yurikamome"]
+# OPERATOR_FILTERS = [
+# ]
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Export railway line sections for Tokyo, Miyazaki, and Shimane."
+        description="Export railway line sections for Tokyo."
     )
     parser.add_argument(
         "--prefectures",
         nargs="+",
-        default=["tokyo", "miyazaki", "shimane"],
-        help="Prefectures to export. Supported: tokyo, miyazaki, shimane.",
+        default=["tokyo"],
+        help="Optional compatibility flag. Only tokyo is supported.",
     )
     parser.add_argument(
         "--output",
@@ -100,11 +131,38 @@ def normalize_prefecture_keys(requested: Iterable[str]) -> list[str]:
     for item in requested:
         key = PREFECTURE_ALIASES.get(item.strip().lower(), PREFECTURE_ALIASES.get(item))
         if key is None:
-            raise ValueError(
-                f"Unsupported prefecture '{item}'. Use one of: tokyo, miyazaki, shimane."
-            )
+            raise ValueError(f"Unsupported prefecture '{item}'. Only tokyo is supported.")
         if key not in normalized:
             normalized.append(key)
+    return normalized
+
+
+def normalize_operator_name(value: str) -> str:
+    return " ".join(value.strip().split()).casefold()
+
+
+def operator_name_en(operator_name: str | None) -> str | None:
+    if not operator_name:
+        return None
+    return OPERATOR_NAME_EN.get(operator_name)
+
+
+def resolve_operator_filter(value: str) -> str:
+    key = normalize_operator_name(value)
+    return OPERATOR_FILTER_ALIASES.get(key, value.strip())
+
+
+def normalize_operator_filters(requested: Iterable[str]) -> list[str]:
+    normalized = []
+    seen = set()
+    for item in requested:
+        value = resolve_operator_filter(item)
+        if not value:
+            raise ValueError("Operator filter cannot be empty.")
+        key = normalize_operator_name(value)
+        if key not in seen:
+            seen.add(key)
+            normalized.append(value)
     return normalized
 
 
@@ -190,7 +248,9 @@ def to_cesium_coords(coords: list[list[float]], height: float) -> list[list[floa
     return [[round(pt[0], 6), round(pt[1], 6), height] for pt in coords]
 
 
-def filter_rail_sections(railroad_geojson: dict, prefecture_geojson: dict) -> list[dict]:
+def filter_rail_sections(
+    railroad_geojson: dict, prefecture_geojson: dict, operator_filters: set[str] | None = None
+) -> list[dict]:
     prefecture_geometries = []
     prefecture_bboxes = []
     for feature in prefecture_geojson["features"]:
@@ -215,6 +275,10 @@ def filter_rail_sections(railroad_geojson: dict, prefecture_geojson: dict) -> li
     for feature in railroad_geojson["features"]:
         geometry = feature.get("geometry") or {}
         if geometry.get("type") != "LineString":
+            continue
+        props = feature.get("properties") or {}
+        operator_name = props.get("N02_004") or ""
+        if operator_filters and normalize_operator_name(operator_name) not in operator_filters:
             continue
         coords = geometry.get("coordinates") or []
         if len(coords) < 2:
@@ -247,6 +311,7 @@ def aggregate_sections(
                 "prefecture_name_ja": prefecture_meta["jp_name"],
                 "line_name": line_name,
                 "operator_name": operator_name,
+                "operator_name_en": operator_name_en(operator_name),
                 "railway_type_codes": set(),
                 "operator_type_codes": set(),
                 "sections": [],
@@ -271,6 +336,7 @@ def aggregate_sections(
                 "prefecture_name_ja": item["prefecture_name_ja"],
                 "line_name": item["line_name"],
                 "operator_name": item["operator_name"],
+                "operator_name_en": item["operator_name_en"],
                 "railway_type_codes": sorted(v for v in item["railway_type_codes"] if v),
                 "operator_type_codes": sorted(v for v in item["operator_type_codes"] if v),
                 "section_count": len(item["sections"]),
@@ -289,18 +355,28 @@ def aggregate_sections(
     }
 
 
-def export_line_json(prefecture_keys: list[str], output_path: Path, height: float) -> None:
+def export_line_json(
+    prefecture_keys: list[str], output_path: Path, height: float, operators: list[str]
+) -> None:
     railroad_geojson = fetch_json_from_zip(RAILROAD_DATASET_URL, RAILROAD_GEOJSON_PATH)
+    operator_filter_keys = {normalize_operator_name(item) for item in operators}
     prefectures_output = []
     for prefecture_key in prefecture_keys:
         meta = PREFECTURE_DATASETS[prefecture_key]
         prefecture_geojson = fetch_json_from_zip(meta["url"], meta["geojson_path"])
-        matched_features = filter_rail_sections(railroad_geojson, prefecture_geojson)
+        matched_features = filter_rail_sections(
+            railroad_geojson,
+            prefecture_geojson,
+            operator_filters=operator_filter_keys or None,
+        )
         prefectures_output.append(aggregate_sections(matched_features, prefecture_key, meta, height))
 
     output = {
         "format": "cesium-rail-lines-v1",
         "coordinate_order": "[longitude, latitude, height]",
+        "configured_operator_filters": OPERATOR_FILTERS,
+        "operator_filters": operators,
+        "operator_filters_en": [operator_name_en(item) or item for item in operators],
         "source": {
             "railroad_dataset": {
                 "url": RAILROAD_DATASET_URL,
@@ -327,12 +403,13 @@ def main() -> int:
     args = parse_args()
     try:
         prefecture_keys = normalize_prefecture_keys(args.prefectures)
+        operators = normalize_operator_filters(OPERATOR_FILTERS)
         output_path = (
             Path(args.output)
             if args.output
-            else Path(__file__).resolve().parent / "rail_lines_tokyo_miyazaki_shimane.json"
+            else Path(__file__).resolve().parent / "rail_lines_tokyo.json"
         )
-        export_line_json(prefecture_keys, output_path, args.height)
+        export_line_json(prefecture_keys, output_path, args.height, operators)
     except Exception as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 1

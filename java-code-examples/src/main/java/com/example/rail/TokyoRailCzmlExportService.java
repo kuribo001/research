@@ -355,7 +355,9 @@ public class TokyoRailCzmlExportService {
         String operatorComponent = sanitizeFileNameComponent(
                 operatorNameEn(lineKey.operatorName()).orElse(lineKey.operatorName())
         );
-        String lineComponent = sanitizeFileNameComponent(lineKey.lineName());
+        String lineComponent = sanitizeFileNameComponent(
+                lineNameEn(lineKey.lineName()).orElse(lineKey.lineName())
+        );
         return String.format("%03d_%s_%s.czml", index, operatorComponent, lineComponent);
     }
 
@@ -592,6 +594,10 @@ public class TokyoRailCzmlExportService {
 
     private java.util.Optional<String> operatorNameEn(String operatorName) {
         return java.util.Optional.ofNullable(TokyoRailCzmlExportConfig.OPERATOR_NAME_EN.get(operatorName));
+    }
+
+    private java.util.Optional<String> lineNameEn(String lineName) {
+        return java.util.Optional.ofNullable(TokyoRailCzmlExportConfig.LINE_NAME_EN.get(lineName));
     }
 
     private record BBox(double minX, double minY, double maxX, double maxY) {

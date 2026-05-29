@@ -60,6 +60,19 @@ public final class TokyoRailCzmlExportConfig {
             Map.entry("首都圏新都市鉄道", "Tsukuba Express"), // 13
             Map.entry("高尾登山電鉄", "Takao Tozan Railway") // 13
     );
+    public static final Map<String, String> LINE_NAME_EN = Map.ofEntries(
+            Map.entry("1号線浅草線", "Asakusa Line"),
+            Map.entry("6号線三田線", "Mita Line"),
+            Map.entry("10号線新宿線", "Shinjuku Line"),
+            Map.entry("12号線大江戸線", "Oedo Line"),
+            Map.entry("日暮里・舎人ライナー", "Nippori-Toneri Liner"),
+            Map.entry("荒川線", "Tokyo Sakura Tram (Arakawa Line)"),
+            Map.entry("浅草線", "Asakusa Line"),
+            Map.entry("三田線", "Mita Line"),
+            Map.entry("新宿線", "Shinjuku Line"),
+            Map.entry("大江戸線", "Oedo Line"),
+            Map.entry("東京さくらトラム（都電荒川線）", "Tokyo Sakura Tram (Arakawa Line)")
+    );
     public static final Map<String, String> OPERATOR_FILTER_ALIASES = Map.ofEntries(
             Map.entry("toei", "東京都"),
             Map.entry("tokyo metropolitan bureau of transportation", "東京都"),

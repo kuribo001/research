@@ -1,0 +1,4378 @@
+{
+  "source": {
+    "aggregated_station_file": "stations_tokyo_miyazaki_shimane.json",
+    "mapping_file": "mlit_to_odpt_route_mapping_toei.json"
+  },
+  "scope": {
+    "prefecture_key": "tokyo",
+    "prefecture_name": "Tokyo",
+    "prefecture_name_ja": "東京都",
+    "mlit_operator_name": "東京都",
+    "odpt_operator_name_en": "Toei",
+    "odpt_agency_id": "toei"
+  },
+  "notes": [
+    "Derived from the aggregated MLIT station export already grouped by station group code.",
+    "Stations are grouped by exact MLIT line name matched against Toei line mappings.",
+    "This output does not contain station sequence order for each line."
+  ],
+  "line_count": 6,
+  "lines": [
+    {
+      "mlit_operator_name": "東京都",
+      "mlit_line_name": "1号線浅草線",
+      "odpt_route_id": "1",
+      "odpt_route_long_name": "浅草線",
+      "station_count": 20,
+      "station_names": [
+        "三田",
+        "中延",
+        "五反田",
+        "人形町",
+        "大門",
+        "宝町",
+        "戸越",
+        "押上",
+        "新橋",
+        "日本橋",
+        "本所吾妻橋",
+        "東日本橋",
+        "東銀座",
+        "泉岳寺",
+        "浅草",
+        "浅草橋",
+        "蔵前",
+        "西馬込",
+        "馬込",
+        "高輪台"
+      ],
+      "stations": [
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "三田",
+          "station_code": "003987",
+          "station_group_code": "003986",
+          "longitude": 139.749344,
+          "latitude": 35.647842,
+          "source_records": 2,
+          "lines": [
+            "1号線浅草線",
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "中延",
+          "station_code": "004215",
+          "station_group_code": "004215",
+          "longitude": 139.71255,
+          "latitude": 35.605720000000005,
+          "source_records": 2,
+          "lines": [
+            "1号線浅草線",
+            "大井町線"
+          ],
+          "operators": [
+            "東京都",
+            "東急電鉄"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyu"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "五反田",
+          "station_code": "004117",
+          "station_group_code": "004110",
+          "longitude": 139.72406666666666,
+          "latitude": 35.62507,
+          "source_records": 3,
+          "lines": [
+            "1号線浅草線",
+            "山手線",
+            "池上線"
+          ],
+          "operators": [
+            "東京都",
+            "東急電鉄",
+            "東日本旅客鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:jr_east",
+            "mlit:toei",
+            "mlit:tokyu"
+          ],
+          "railway_type_codes": [
+            "11",
+            "12"
+          ],
+          "operator_type_codes": [
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "人形町",
+          "station_code": "003722",
+          "station_group_code": "003721",
+          "longitude": 139.782495,
+          "latitude": 35.686077499999996,
+          "source_records": 2,
+          "lines": [
+            "1号線浅草線",
+            "2号線日比谷線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "大門",
+          "station_code": "003940",
+          "station_group_code": "003939",
+          "longitude": 139.754682,
+          "latitude": 35.65672,
+          "source_records": 2,
+          "lines": [
+            "12号線大江戸線",
+            "1号線浅草線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "宝町",
+          "station_code": "003796",
+          "station_group_code": "003796",
+          "longitude": 139.772092,
+          "latitude": 35.675666,
+          "source_records": 1,
+          "lines": [
+            "1号線浅草線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "戸越",
+          "station_code": "004161",
+          "station_group_code": "004161",
+          "longitude": 139.716375,
+          "latitude": 35.614425,
+          "source_records": 1,
+          "lines": [
+            "1号線浅草線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "押上",
+          "station_code": "003527",
+          "station_group_code": "003526",
+          "longitude": 139.81241,
+          "latitude": 35.71022,
+          "source_records": 4,
+          "lines": [
+            "11号線半蔵門線",
+            "1号線浅草線",
+            "伊勢崎線",
+            "押上線"
+          ],
+          "operators": [
+            "京成電鉄",
+            "東京地下鉄",
+            "東京都",
+            "東武鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:keisei",
+            "mlit:tobu",
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "新橋",
+          "station_code": "003882",
+          "station_group_code": "003872",
+          "longitude": 139.75958666666668,
+          "latitude": 35.66558333333333,
+          "source_records": 5,
+          "lines": [
+            "1号線浅草線",
+            "3号線銀座線",
+            "東京臨海新交通臨海線",
+            "東海道線"
+          ],
+          "operators": [
+            "ゆりかもめ",
+            "東京地下鉄",
+            "東京都",
+            "東日本旅客鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:jr_east",
+            "mlit:toei",
+            "mlit:tokyo_metro",
+            "mlit:yurikamome"
+          ],
+          "railway_type_codes": [
+            "11",
+            "12",
+            "24"
+          ],
+          "operator_type_codes": [
+            "2",
+            "3",
+            "4",
+            "5"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "日本橋",
+          "station_code": "003759",
+          "station_group_code": "003756",
+          "longitude": 139.77335000000002,
+          "latitude": 35.68190333333333,
+          "source_records": 3,
+          "lines": [
+            "1号線浅草線",
+            "3号線銀座線",
+            "5号線東西線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "本所吾妻橋",
+          "station_code": "003538",
+          "station_group_code": "003538",
+          "longitude": 139.80447333333333,
+          "latitude": 35.70859333333333,
+          "source_records": 1,
+          "lines": [
+            "1号線浅草線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "東日本橋",
+          "station_code": "003676",
+          "station_group_code": "003676",
+          "longitude": 139.78477875,
+          "latitude": 35.69171,
+          "source_records": 1,
+          "lines": [
+            "1号線浅草線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "東銀座",
+          "station_code": "003843",
+          "station_group_code": "003838",
+          "longitude": 139.76741166666667,
+          "latitude": 35.66932333333333,
+          "source_records": 2,
+          "lines": [
+            "1号線浅草線",
+            "2号線日比谷線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "泉岳寺",
+          "station_code": "004043",
+          "station_group_code": "004042",
+          "longitude": 139.73973,
+          "latitude": 35.638130000000004,
+          "source_records": 2,
+          "lines": [
+            "1号線浅草線",
+            "本線"
+          ],
+          "operators": [
+            "京浜急行電鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:keikyu",
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "浅草",
+          "station_code": "003522",
+          "station_group_code": "003522",
+          "longitude": 139.79776666666666,
+          "latitude": 35.71073666666667,
+          "source_records": 3,
+          "lines": [
+            "1号線浅草線",
+            "3号線銀座線",
+            "伊勢崎線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都",
+            "東武鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:tobu",
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "浅草橋",
+          "station_code": "003636",
+          "station_group_code": "003636",
+          "longitude": 139.786455,
+          "latitude": 35.697604999999996,
+          "source_records": 2,
+          "lines": [
+            "1号線浅草線",
+            "総武線"
+          ],
+          "operators": [
+            "東京都",
+            "東日本旅客鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:jr_east",
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "11",
+            "12"
+          ],
+          "operator_type_codes": [
+            "2",
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "蔵前",
+          "station_code": "003583",
+          "station_group_code": "003571",
+          "longitude": 139.791065,
+          "latitude": 35.7033225,
+          "source_records": 2,
+          "lines": [
+            "12号線大江戸線",
+            "1号線浅草線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "西馬込",
+          "station_code": "004270",
+          "station_group_code": "004270",
+          "longitude": 139.70632,
+          "latitude": 35.587305,
+          "source_records": 1,
+          "lines": [
+            "1号線浅草線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "馬込",
+          "station_code": "004248",
+          "station_group_code": "004248",
+          "longitude": 139.71183666666667,
+          "latitude": 35.59636666666667,
+          "source_records": 1,
+          "lines": [
+            "1号線浅草線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "高輪台",
+          "station_code": "004079",
+          "station_group_code": "004079",
+          "longitude": 139.7301925,
+          "latitude": 35.631545,
+          "source_records": 1,
+          "lines": [
+            "1号線浅草線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        }
+      ]
+    },
+    {
+      "mlit_operator_name": "東京都",
+      "mlit_line_name": "6号線三田線",
+      "odpt_route_id": "2",
+      "odpt_route_long_name": "三田線",
+      "station_count": 27,
+      "station_names": [
+        "三田",
+        "内幸町",
+        "千石",
+        "大手町",
+        "巣鴨",
+        "御成門",
+        "志村三丁目",
+        "志村坂上",
+        "新板橋",
+        "新高島平",
+        "日比谷",
+        "春日",
+        "本蓮沼",
+        "板橋区役所前",
+        "板橋本町",
+        "水道橋",
+        "白山",
+        "白金台",
+        "白金高輪",
+        "目黒",
+        "神保町",
+        "芝公園",
+        "蓮根",
+        "西台",
+        "西巣鴨",
+        "西高島平",
+        "高島平"
+      ],
+      "stations": [
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "三田",
+          "station_code": "003987",
+          "station_group_code": "003986",
+          "longitude": 139.749344,
+          "latitude": 35.647842,
+          "source_records": 2,
+          "lines": [
+            "1号線浅草線",
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "内幸町",
+          "station_code": "003842",
+          "station_group_code": "003842",
+          "longitude": 139.75541,
+          "latitude": 35.669322,
+          "source_records": 1,
+          "lines": [
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "千石",
+          "station_code": "003415",
+          "station_group_code": "003415",
+          "longitude": 139.744745,
+          "latitude": 35.727965,
+          "source_records": 1,
+          "lines": [
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "大手町",
+          "station_code": "003717",
+          "station_group_code": "003719",
+          "longitude": 139.76617666666667,
+          "latitude": 35.68677,
+          "source_records": 5,
+          "lines": [
+            "11号線半蔵門線",
+            "4号線丸ノ内線",
+            "5号線東西線",
+            "6号線三田線",
+            "9号線千代田線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "巣鴨",
+          "station_code": "003354",
+          "station_group_code": "003354",
+          "longitude": 139.738035,
+          "latitude": 35.733779999999996,
+          "source_records": 2,
+          "lines": [
+            "6号線三田線",
+            "山手線"
+          ],
+          "operators": [
+            "東京都",
+            "東日本旅客鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:jr_east",
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "11",
+            "12"
+          ],
+          "operator_type_codes": [
+            "2",
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "御成門",
+          "station_code": "003911",
+          "station_group_code": "003911",
+          "longitude": 139.75148666666666,
+          "latitude": 35.66097666666667,
+          "source_records": 1,
+          "lines": [
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "志村三丁目",
+          "station_code": "003158",
+          "station_group_code": "003158",
+          "longitude": 139.68586,
+          "latitude": 35.777465,
+          "source_records": 1,
+          "lines": [
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "志村坂上",
+          "station_code": "003165",
+          "station_group_code": "003165",
+          "longitude": 139.69473,
+          "latitude": 35.77634,
+          "source_records": 1,
+          "lines": [
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "新板橋",
+          "station_code": "003268",
+          "station_group_code": "003268",
+          "longitude": 139.71936499999998,
+          "latitude": 35.74884,
+          "source_records": 1,
+          "lines": [
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "新高島平",
+          "station_code": "003112",
+          "station_group_code": "003112",
+          "longitude": 139.65433000000002,
+          "latitude": 35.79022,
+          "source_records": 1,
+          "lines": [
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "日比谷",
+          "station_code": "003802",
+          "station_group_code": "003802",
+          "longitude": 139.7606925,
+          "latitude": 35.6742075,
+          "source_records": 3,
+          "lines": [
+            "2号線日比谷線",
+            "6号線三田線",
+            "9号線千代田線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "春日",
+          "station_code": "003529",
+          "station_group_code": "003529",
+          "longitude": 139.75322799999998,
+          "latitude": 35.709998,
+          "source_records": 2,
+          "lines": [
+            "12号線大江戸線",
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "本蓮沼",
+          "station_code": "003193",
+          "station_group_code": "003193",
+          "longitude": 139.70211,
+          "latitude": 35.768985,
+          "source_records": 1,
+          "lines": [
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "板橋区役所前",
+          "station_code": "003245",
+          "station_group_code": "003245",
+          "longitude": 139.710055,
+          "latitude": 35.751305,
+          "source_records": 1,
+          "lines": [
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "板橋本町",
+          "station_code": "003216",
+          "station_group_code": "003216",
+          "longitude": 139.705605,
+          "latitude": 35.7611,
+          "source_records": 1,
+          "lines": [
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "水道橋",
+          "station_code": "003580",
+          "station_group_code": "003580",
+          "longitude": 139.755102,
+          "latitude": 35.703704,
+          "source_records": 2,
+          "lines": [
+            "6号線三田線",
+            "中央線"
+          ],
+          "operators": [
+            "東京都",
+            "東日本旅客鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:jr_east",
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "11",
+            "12"
+          ],
+          "operator_type_codes": [
+            "2",
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "白山",
+          "station_code": "003461",
+          "station_group_code": "003461",
+          "longitude": 139.75229666666667,
+          "latitude": 35.72155,
+          "source_records": 1,
+          "lines": [
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "白金台",
+          "station_code": "004044",
+          "station_group_code": "004044",
+          "longitude": 139.72586,
+          "latitude": 35.63777,
+          "source_records": 2,
+          "lines": [
+            "6号線三田線",
+            "7号線南北線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "白金高輪",
+          "station_code": "004026",
+          "station_group_code": "004025",
+          "longitude": 139.734285,
+          "latitude": 35.643145000000004,
+          "source_records": 2,
+          "lines": [
+            "6号線三田線",
+            "7号線南北線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "目黒",
+          "station_code": "004074",
+          "station_group_code": "004072",
+          "longitude": 139.71566,
+          "latitude": 35.632485,
+          "source_records": 4,
+          "lines": [
+            "6号線三田線",
+            "7号線南北線",
+            "山手線",
+            "目黒線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都",
+            "東急電鉄",
+            "東日本旅客鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:jr_east",
+            "mlit:toei",
+            "mlit:tokyo_metro",
+            "mlit:tokyu"
+          ],
+          "railway_type_codes": [
+            "11",
+            "12"
+          ],
+          "operator_type_codes": [
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "神保町",
+          "station_code": "003652",
+          "station_group_code": "003651",
+          "longitude": 139.75782677097493,
+          "latitude": 35.69591476486272,
+          "source_records": 3,
+          "lines": [
+            "10号線新宿線",
+            "11号線半蔵門線",
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "芝公園",
+          "station_code": "003962",
+          "station_group_code": "003962",
+          "longitude": 139.749765,
+          "latitude": 35.6537475,
+          "source_records": 1,
+          "lines": [
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "蓮根",
+          "station_code": "003140",
+          "station_group_code": "003140",
+          "longitude": 139.67906,
+          "latitude": 35.784054999999995,
+          "source_records": 1,
+          "lines": [
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "西台",
+          "station_code": "003128",
+          "station_group_code": "003128",
+          "longitude": 139.67268,
+          "latitude": 35.78708,
+          "source_records": 1,
+          "lines": [
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "西巣鴨",
+          "station_code": "003293",
+          "station_group_code": "003293",
+          "longitude": 139.728725,
+          "latitude": 35.743415,
+          "source_records": 1,
+          "lines": [
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "西高島平",
+          "station_code": "003104",
+          "station_group_code": "003104",
+          "longitude": 139.64568500000001,
+          "latitude": 35.791895,
+          "source_records": 1,
+          "lines": [
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "高島平",
+          "station_code": "003117",
+          "station_group_code": "003117",
+          "longitude": 139.661295,
+          "latitude": 35.788934999999995,
+          "source_records": 1,
+          "lines": [
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        }
+      ]
+    },
+    {
+      "mlit_operator_name": "東京都",
+      "mlit_line_name": "10号線新宿線",
+      "odpt_route_id": "3",
+      "odpt_route_long_name": "新宿線",
+      "station_count": 20,
+      "station_names": [
+        "一之江",
+        "九段下",
+        "住吉",
+        "大島",
+        "小川町",
+        "岩本町",
+        "市ヶ谷",
+        "新宿",
+        "新宿三丁目",
+        "曙橋",
+        "東大島",
+        "森下",
+        "浜町",
+        "瑞江",
+        "神保町",
+        "篠崎",
+        "船堀",
+        "菊川",
+        "西大島",
+        "馬喰横山"
+      ],
+      "stations": [
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "一之江",
+          "station_code": "003724",
+          "station_group_code": "003724",
+          "longitude": 139.88289,
+          "latitude": 35.68594,
+          "source_records": 1,
+          "lines": [
+            "10号線新宿線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "九段下",
+          "station_code": "003650",
+          "station_group_code": "003657",
+          "longitude": 139.751265,
+          "latitude": 35.696085000000004,
+          "source_records": 3,
+          "lines": [
+            "10号線新宿線",
+            "11号線半蔵門線",
+            "5号線東西線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "住吉",
+          "station_code": "003705",
+          "station_group_code": "003704",
+          "longitude": 139.81568000000001,
+          "latitude": 35.6886025,
+          "source_records": 2,
+          "lines": [
+            "10号線新宿線",
+            "11号線半蔵門線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "大島",
+          "station_code": "003698",
+          "station_group_code": "003698",
+          "longitude": 139.834384,
+          "latitude": 35.689766,
+          "source_records": 1,
+          "lines": [
+            "10号線新宿線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "小川町",
+          "station_code": "003659",
+          "station_group_code": "003659",
+          "longitude": 139.766742,
+          "latitude": 35.695168,
+          "source_records": 1,
+          "lines": [
+            "10号線新宿線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "岩本町",
+          "station_code": "003655",
+          "station_group_code": "003655",
+          "longitude": 139.77528833333335,
+          "latitude": 35.695568333333334,
+          "source_records": 1,
+          "lines": [
+            "10号線新宿線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "市ヶ谷",
+          "station_code": "003670",
+          "station_group_code": "003671",
+          "longitude": 139.7364575,
+          "latitude": 35.693025,
+          "source_records": 4,
+          "lines": [
+            "10号線新宿線",
+            "7号線南北線",
+            "8号線有楽町線",
+            "中央線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都",
+            "東日本旅客鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:jr_east",
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "11",
+            "12"
+          ],
+          "operator_type_codes": [
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "新宿",
+          "station_code": "003700",
+          "station_group_code": "003700",
+          "longitude": 139.69921,
+          "latitude": 35.689985,
+          "source_records": 11,
+          "lines": [
+            "10号線新宿線",
+            "12号線大江戸線",
+            "4号線丸ノ内線",
+            "中央線",
+            "京王線",
+            "小田原線",
+            "山手線"
+          ],
+          "operators": [
+            "京王電鉄",
+            "小田急電鉄",
+            "東京地下鉄",
+            "東京都",
+            "東日本旅客鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:jr_east",
+            "mlit:keio",
+            "mlit:odakyu",
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "11",
+            "12"
+          ],
+          "operator_type_codes": [
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "新宿三丁目",
+          "station_code": "003684",
+          "station_group_code": "003689",
+          "longitude": 139.70421,
+          "latitude": 35.69118,
+          "source_records": 3,
+          "lines": [
+            "10号線新宿線",
+            "13号線副都心線",
+            "4号線丸ノ内線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "曙橋",
+          "station_code": "003673",
+          "station_group_code": "003673",
+          "longitude": 139.72258,
+          "latitude": 35.69233,
+          "source_records": 1,
+          "lines": [
+            "10号線新宿線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "東大島",
+          "station_code": "003695",
+          "station_group_code": "003695",
+          "longitude": 139.84728,
+          "latitude": 35.689864,
+          "source_records": 1,
+          "lines": [
+            "10号線新宿線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "森下",
+          "station_code": "003711",
+          "station_group_code": "003711",
+          "longitude": 139.7979775,
+          "latitude": 35.688050000000004,
+          "source_records": 2,
+          "lines": [
+            "10号線新宿線",
+            "12号線大江戸線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "浜町",
+          "station_code": "003706",
+          "station_group_code": "003706",
+          "longitude": 139.788125,
+          "latitude": 35.68859,
+          "source_records": 1,
+          "lines": [
+            "10号線新宿線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "瑞江",
+          "station_code": "003667",
+          "station_group_code": "003667",
+          "longitude": 139.89781,
+          "latitude": 35.69339,
+          "source_records": 1,
+          "lines": [
+            "10号線新宿線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "神保町",
+          "station_code": "003652",
+          "station_group_code": "003651",
+          "longitude": 139.75782677097493,
+          "latitude": 35.69591476486272,
+          "source_records": 3,
+          "lines": [
+            "10号線新宿線",
+            "11号線半蔵門線",
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "篠崎",
+          "station_code": "003565",
+          "station_group_code": "003565",
+          "longitude": 139.903885,
+          "latitude": 35.70612,
+          "source_records": 1,
+          "lines": [
+            "10号線新宿線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "船堀",
+          "station_code": "003745",
+          "station_group_code": "003745",
+          "longitude": 139.863855,
+          "latitude": 35.683785,
+          "source_records": 1,
+          "lines": [
+            "10号線新宿線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "菊川",
+          "station_code": "003709",
+          "station_group_code": "003709",
+          "longitude": 139.80610333333334,
+          "latitude": 35.688406666666666,
+          "source_records": 1,
+          "lines": [
+            "10号線新宿線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "西大島",
+          "station_code": "003702",
+          "station_group_code": "003702",
+          "longitude": 139.82629666666665,
+          "latitude": 35.68934333333333,
+          "source_records": 1,
+          "lines": [
+            "10号線新宿線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "馬喰横山",
+          "station_code": "003675",
+          "station_group_code": "003675",
+          "longitude": 139.782845,
+          "latitude": 35.692074999999996,
+          "source_records": 1,
+          "lines": [
+            "10号線新宿線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        }
+      ]
+    },
+    {
+      "mlit_operator_name": "東京都",
+      "mlit_line_name": "12号線大江戸線",
+      "odpt_route_id": "4",
+      "odpt_route_long_name": "大江戸線",
+      "station_count": 38,
+      "station_names": [
+        "上野御徒町",
+        "両国",
+        "中井",
+        "中野坂上",
+        "代々木",
+        "光が丘",
+        "六本木",
+        "勝どき",
+        "国立競技場",
+        "大門",
+        "新宿",
+        "新宿西口",
+        "新御徒町",
+        "新江古田",
+        "春日",
+        "月島",
+        "本郷三丁目",
+        "東中野",
+        "東新宿",
+        "森下",
+        "汐留",
+        "清澄白河",
+        "牛込柳町",
+        "牛込神楽坂",
+        "築地市場",
+        "練馬",
+        "練馬春日町",
+        "若松河田",
+        "落合南長崎",
+        "蔵前",
+        "西新宿五丁目",
+        "豊島園",
+        "赤羽橋",
+        "都庁前",
+        "門前仲町",
+        "青山一丁目",
+        "飯田橋",
+        "麻布十番"
+      ],
+      "stations": [
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "上野御徒町",
+          "station_code": "003543",
+          "station_group_code": "003543",
+          "longitude": 139.772914,
+          "latitude": 35.707974,
+          "source_records": 1,
+          "lines": [
+            "12号線大江戸線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "両国",
+          "station_code": "003646",
+          "station_group_code": "003646",
+          "longitude": 139.79742666666667,
+          "latitude": 35.69682,
+          "source_records": 1,
+          "lines": [
+            "12号線大江戸線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "中井",
+          "station_code": "003495",
+          "station_group_code": "003495",
+          "longitude": 139.686645,
+          "latitude": 35.71507,
+          "source_records": 2,
+          "lines": [
+            "12号線大江戸線",
+            "新宿線"
+          ],
+          "operators": [
+            "東京都",
+            "西武鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:seibu",
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "中野坂上",
+          "station_code": "003643",
+          "station_group_code": "003643",
+          "longitude": 139.682205,
+          "latitude": 35.697085,
+          "source_records": 3,
+          "lines": [
+            "12号線大江戸線",
+            "4号線丸ノ内線",
+            "4号線丸ノ内線分岐線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "代々木",
+          "station_code": "003746",
+          "station_group_code": "003743",
+          "longitude": 139.701525,
+          "latitude": 35.68378,
+          "source_records": 3,
+          "lines": [
+            "12号線大江戸線",
+            "中央線",
+            "山手線"
+          ],
+          "operators": [
+            "東京都",
+            "東日本旅客鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:jr_east",
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "11",
+            "12"
+          ],
+          "operator_type_codes": [
+            "2",
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "光が丘",
+          "station_code": "003225",
+          "station_group_code": "003225",
+          "longitude": 139.62923999999998,
+          "latitude": 35.75847,
+          "source_records": 1,
+          "lines": [
+            "12号線大江戸線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "六本木",
+          "station_code": "003897",
+          "station_group_code": "003892",
+          "longitude": 139.731155,
+          "latitude": 35.662800000000004,
+          "source_records": 2,
+          "lines": [
+            "12号線大江戸線",
+            "2号線日比谷線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "勝どき",
+          "station_code": "003927",
+          "station_group_code": "003927",
+          "longitude": 139.77713333333335,
+          "latitude": 35.65893333333333,
+          "source_records": 1,
+          "lines": [
+            "12号線大江戸線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "国立競技場",
+          "station_code": "003775",
+          "station_group_code": "003775",
+          "longitude": 139.71472,
+          "latitude": 35.67989333333333,
+          "source_records": 1,
+          "lines": [
+            "12号線大江戸線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "大門",
+          "station_code": "003940",
+          "station_group_code": "003939",
+          "longitude": 139.754682,
+          "latitude": 35.65672,
+          "source_records": 2,
+          "lines": [
+            "12号線大江戸線",
+            "1号線浅草線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "新宿",
+          "station_code": "003700",
+          "station_group_code": "003700",
+          "longitude": 139.69921,
+          "latitude": 35.689985,
+          "source_records": 11,
+          "lines": [
+            "10号線新宿線",
+            "12号線大江戸線",
+            "4号線丸ノ内線",
+            "中央線",
+            "京王線",
+            "小田原線",
+            "山手線"
+          ],
+          "operators": [
+            "京王電鉄",
+            "小田急電鉄",
+            "東京地下鉄",
+            "東京都",
+            "東日本旅客鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:jr_east",
+            "mlit:keio",
+            "mlit:odakyu",
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "11",
+            "12"
+          ],
+          "operator_type_codes": [
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "新宿西口",
+          "station_code": "003669",
+          "station_group_code": "003669",
+          "longitude": 139.69916,
+          "latitude": 35.693160000000006,
+          "source_records": 1,
+          "lines": [
+            "12号線大江戸線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "新御徒町",
+          "station_code": "003557",
+          "station_group_code": "003556",
+          "longitude": 139.78234,
+          "latitude": 35.70688,
+          "source_records": 2,
+          "lines": [
+            "12号線大江戸線",
+            "常磐新線"
+          ],
+          "operators": [
+            "東京都",
+            "首都圏新都市鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tx"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "5"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "新江古田",
+          "station_code": "003367",
+          "station_group_code": "003367",
+          "longitude": 139.67056666666667,
+          "latitude": 35.732490000000006,
+          "source_records": 1,
+          "lines": [
+            "12号線大江戸線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "春日",
+          "station_code": "003529",
+          "station_group_code": "003529",
+          "longitude": 139.75322799999998,
+          "latitude": 35.709998,
+          "source_records": 2,
+          "lines": [
+            "12号線大江戸線",
+            "6号線三田線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "月島",
+          "station_code": "003889",
+          "station_group_code": "003889",
+          "longitude": 139.78452333333334,
+          "latitude": 35.6646,
+          "source_records": 2,
+          "lines": [
+            "12号線大江戸線",
+            "8号線有楽町線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "本郷三丁目",
+          "station_code": "003559",
+          "station_group_code": "003546",
+          "longitude": 139.76011000000003,
+          "latitude": 35.70675333333333,
+          "source_records": 2,
+          "lines": [
+            "12号線大江戸線",
+            "4号線丸ノ内線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "東中野",
+          "station_code": "003549",
+          "station_group_code": "003549",
+          "longitude": 139.68325,
+          "latitude": 35.70737,
+          "source_records": 2,
+          "lines": [
+            "12号線大江戸線",
+            "中央線"
+          ],
+          "operators": [
+            "東京都",
+            "東日本旅客鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:jr_east",
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "11",
+            "12"
+          ],
+          "operator_type_codes": [
+            "2",
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "東新宿",
+          "station_code": "003630",
+          "station_group_code": "003612",
+          "longitude": 139.70769,
+          "latitude": 35.697895,
+          "source_records": 2,
+          "lines": [
+            "12号線大江戸線",
+            "13号線副都心線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "森下",
+          "station_code": "003711",
+          "station_group_code": "003711",
+          "longitude": 139.7979775,
+          "latitude": 35.688050000000004,
+          "source_records": 2,
+          "lines": [
+            "10号線新宿線",
+            "12号線大江戸線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "汐留",
+          "station_code": "003896",
+          "station_group_code": "003887",
+          "longitude": 139.760075,
+          "latitude": 35.662985,
+          "source_records": 2,
+          "lines": [
+            "12号線大江戸線",
+            "東京臨海新交通臨海線"
+          ],
+          "operators": [
+            "ゆりかもめ",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:yurikamome"
+          ],
+          "railway_type_codes": [
+            "12",
+            "24"
+          ],
+          "operator_type_codes": [
+            "3",
+            "5"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "清澄白河",
+          "station_code": "003757",
+          "station_group_code": "003754",
+          "longitude": 139.79974166666668,
+          "latitude": 35.682115,
+          "source_records": 2,
+          "lines": [
+            "11号線半蔵門線",
+            "12号線大江戸線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "牛込柳町",
+          "station_code": "003618",
+          "station_group_code": "003618",
+          "longitude": 139.72519,
+          "latitude": 35.69946,
+          "source_records": 1,
+          "lines": [
+            "12号線大江戸線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "牛込神楽坂",
+          "station_code": "003602",
+          "station_group_code": "003602",
+          "longitude": 139.73604,
+          "latitude": 35.700915,
+          "source_records": 1,
+          "lines": [
+            "12号線大江戸線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "築地市場",
+          "station_code": "003886",
+          "station_group_code": "003886",
+          "longitude": 139.76675,
+          "latitude": 35.66496,
+          "source_records": 1,
+          "lines": [
+            "12号線大江戸線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "練馬",
+          "station_code": "003328",
+          "station_group_code": "003328",
+          "longitude": 139.65444000000002,
+          "latitude": 35.737935,
+          "source_records": 4,
+          "lines": [
+            "12号線大江戸線",
+            "池袋線",
+            "西武有楽町線",
+            "豊島線"
+          ],
+          "operators": [
+            "東京都",
+            "西武鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:seibu",
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "練馬春日町",
+          "station_code": "003243",
+          "station_group_code": "003243",
+          "longitude": 139.64076,
+          "latitude": 35.751360000000005,
+          "source_records": 1,
+          "lines": [
+            "12号線大江戸線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "若松河田",
+          "station_code": "003623",
+          "station_group_code": "003623",
+          "longitude": 139.718185,
+          "latitude": 35.699164999999994,
+          "source_records": 1,
+          "lines": [
+            "12号線大江戸線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "落合南長崎",
+          "station_code": "003448",
+          "station_group_code": "003448",
+          "longitude": 139.6834575,
+          "latitude": 35.723435,
+          "source_records": 1,
+          "lines": [
+            "12号線大江戸線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "蔵前",
+          "station_code": "003583",
+          "station_group_code": "003571",
+          "longitude": 139.791065,
+          "latitude": 35.7033225,
+          "source_records": 2,
+          "lines": [
+            "12号線大江戸線",
+            "1号線浅草線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "西新宿五丁目",
+          "station_code": "003696",
+          "station_group_code": "003696",
+          "longitude": 139.684665,
+          "latitude": 35.689899999999994,
+          "source_records": 1,
+          "lines": [
+            "12号線大江戸線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "豊島園",
+          "station_code": "003305",
+          "station_group_code": "003305",
+          "longitude": 139.64802,
+          "latitude": 35.742035,
+          "source_records": 2,
+          "lines": [
+            "12号線大江戸線",
+            "豊島線"
+          ],
+          "operators": [
+            "東京都",
+            "西武鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:seibu",
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "赤羽橋",
+          "station_code": "003954",
+          "station_group_code": "003954",
+          "longitude": 139.744195,
+          "latitude": 35.654970000000006,
+          "source_records": 1,
+          "lines": [
+            "12号線大江戸線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "都庁前",
+          "station_code": "003690",
+          "station_group_code": "003690",
+          "longitude": 139.69262500000002,
+          "latitude": 35.69059,
+          "source_records": 1,
+          "lines": [
+            "12号線大江戸線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "門前仲町",
+          "station_code": "003824",
+          "station_group_code": "003818",
+          "longitude": 139.79624800000002,
+          "latitude": 35.671828000000005,
+          "source_records": 2,
+          "lines": [
+            "12号線大江戸線",
+            "5号線東西線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "青山一丁目",
+          "station_code": "003817",
+          "station_group_code": "003812",
+          "longitude": 139.72411666666667,
+          "latitude": 35.672779999999996,
+          "source_records": 3,
+          "lines": [
+            "11号線半蔵門線",
+            "12号線大江戸線",
+            "3号線銀座線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "飯田橋",
+          "station_code": "003596",
+          "station_group_code": "003595",
+          "longitude": 139.7466557142857,
+          "latitude": 35.70133285714286,
+          "source_records": 5,
+          "lines": [
+            "12号線大江戸線",
+            "5号線東西線",
+            "7号線南北線",
+            "8号線有楽町線",
+            "中央線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都",
+            "東日本旅客鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:jr_east",
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "11",
+            "12"
+          ],
+          "operator_type_codes": [
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "麻布十番",
+          "station_code": "003955",
+          "station_group_code": "003941",
+          "longitude": 139.73704500000002,
+          "latitude": 35.65481,
+          "source_records": 2,
+          "lines": [
+            "12号線大江戸線",
+            "7号線南北線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "12"
+          ],
+          "operator_type_codes": [
+            "3",
+            "4"
+          ]
+        }
+      ]
+    },
+    {
+      "mlit_operator_name": "東京都",
+      "mlit_line_name": "日暮里・舎人ライナー",
+      "odpt_route_id": "5",
+      "odpt_route_long_name": "日暮里・舎人ライナー",
+      "station_count": 13,
+      "station_names": [
+        "扇大橋",
+        "日暮里",
+        "江北",
+        "熊野前",
+        "舎人",
+        "舎人公園",
+        "西新井大師西",
+        "西日暮里",
+        "見沼代親水公園",
+        "谷在家",
+        "赤土小学校前",
+        "足立小台",
+        "高野"
+      ],
+      "stations": [
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "扇大橋",
+          "station_code": "003209",
+          "station_group_code": "003209",
+          "longitude": 139.77085,
+          "latitude": 35.764134999999996,
+          "source_records": 1,
+          "lines": [
+            "日暮里・舎人ライナー"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "24"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "日暮里",
+          "station_code": "003414",
+          "station_group_code": "003417",
+          "longitude": 139.77136666666667,
+          "latitude": 35.728123333333336,
+          "source_records": 5,
+          "lines": [
+            "常磐線",
+            "日暮里・舎人ライナー",
+            "本線",
+            "東北線"
+          ],
+          "operators": [
+            "京成電鉄",
+            "東京都",
+            "東日本旅客鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:jr_east",
+            "mlit:keisei",
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "11",
+            "12",
+            "24"
+          ],
+          "operator_type_codes": [
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "江北",
+          "station_code": "003171",
+          "station_group_code": "003171",
+          "longitude": 139.77034500000002,
+          "latitude": 35.773785000000004,
+          "source_records": 1,
+          "lines": [
+            "日暮里・舎人ライナー"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "24"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "熊野前",
+          "station_code": "003266",
+          "station_group_code": "003266",
+          "longitude": 139.76928,
+          "latitude": 35.749179999999996,
+          "source_records": 2,
+          "lines": [
+            "日暮里・舎人ライナー",
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21",
+            "24"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "舎人",
+          "station_code": "003078",
+          "station_group_code": "003078",
+          "longitude": 139.77013499999998,
+          "latitude": 35.80572,
+          "source_records": 1,
+          "lines": [
+            "日暮里・舎人ライナー"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "24"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "舎人公園",
+          "station_code": "003098",
+          "station_group_code": "003098",
+          "longitude": 139.77012,
+          "latitude": 35.796665000000004,
+          "source_records": 1,
+          "lines": [
+            "日暮里・舎人ライナー"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "24"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "西新井大師西",
+          "station_code": "003144",
+          "station_group_code": "003144",
+          "longitude": 139.77014,
+          "latitude": 35.78116,
+          "source_records": 1,
+          "lines": [
+            "日暮里・舎人ライナー"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "24"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "西日暮里",
+          "station_code": "003368",
+          "station_group_code": "003368",
+          "longitude": 139.76696333333334,
+          "latitude": 35.73239,
+          "source_records": 3,
+          "lines": [
+            "9号線千代田線",
+            "日暮里・舎人ライナー",
+            "東北線"
+          ],
+          "operators": [
+            "東京地下鉄",
+            "東京都",
+            "東日本旅客鉄道"
+          ],
+          "internal_operator_keys": [
+            "mlit:jr_east",
+            "mlit:toei",
+            "mlit:tokyo_metro"
+          ],
+          "railway_type_codes": [
+            "11",
+            "12",
+            "24"
+          ],
+          "operator_type_codes": [
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "見沼代親水公園",
+          "station_code": "003060",
+          "station_group_code": "003060",
+          "longitude": 139.7707,
+          "latitude": 35.814605,
+          "source_records": 1,
+          "lines": [
+            "日暮里・舎人ライナー"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "24"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "谷在家",
+          "station_code": "003120",
+          "station_group_code": "003120",
+          "longitude": 139.7701,
+          "latitude": 35.78868,
+          "source_records": 1,
+          "lines": [
+            "日暮里・舎人ライナー"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "24"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "赤土小学校前",
+          "station_code": "003298",
+          "station_group_code": "003298",
+          "longitude": 139.76913000000002,
+          "latitude": 35.74306,
+          "source_records": 1,
+          "lines": [
+            "日暮里・舎人ライナー"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "24"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "足立小台",
+          "station_code": "003235",
+          "station_group_code": "003235",
+          "longitude": 139.770205,
+          "latitude": 35.754635,
+          "source_records": 1,
+          "lines": [
+            "日暮里・舎人ライナー"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "24"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "高野",
+          "station_code": "003196",
+          "station_group_code": "003196",
+          "longitude": 139.77071999999998,
+          "latitude": 35.768254999999996,
+          "source_records": 1,
+          "lines": [
+            "日暮里・舎人ライナー"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "24"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        }
+      ]
+    },
+    {
+      "mlit_operator_name": "東京都",
+      "mlit_line_name": "荒川線",
+      "odpt_route_id": "6",
+      "odpt_route_long_name": "東京さくらトラム（都電荒川線）",
+      "station_count": 30,
+      "station_names": [
+        "三ノ輪橋",
+        "向原",
+        "大塚駅前",
+        "学習院下",
+        "宮ノ前",
+        "小台",
+        "巣鴨新田",
+        "庚申塚",
+        "新庚申塚",
+        "早稲田",
+        "東尾久三丁目",
+        "東池袋四丁目",
+        "栄町",
+        "梶原",
+        "滝野川一丁目",
+        "熊野前",
+        "王子駅前",
+        "町屋二丁目",
+        "町屋駅前",
+        "荒川一中前",
+        "荒川七丁目",
+        "荒川二丁目",
+        "荒川区役所前",
+        "荒川車庫前",
+        "荒川遊園地前",
+        "西ヶ原四丁目",
+        "都電雑司ヶ谷",
+        "面影橋",
+        "飛鳥山",
+        "鬼子母神前"
+      ],
+      "stations": [
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "三ノ輪橋",
+          "station_code": "003370",
+          "station_group_code": "003370",
+          "longitude": 139.791505,
+          "latitude": 35.73222,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "向原",
+          "station_code": "003407",
+          "station_group_code": "003407",
+          "longitude": 139.724805,
+          "latitude": 35.728764999999996,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "大塚駅前",
+          "station_code": "003378",
+          "station_group_code": "003378",
+          "longitude": 139.729455,
+          "latitude": 35.73162,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "学習院下",
+          "station_code": "003490",
+          "station_group_code": "003490",
+          "longitude": 139.71231,
+          "latitude": 35.71575,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "宮ノ前",
+          "station_code": "003259",
+          "station_group_code": "003259",
+          "longitude": 139.765765,
+          "latitude": 35.749885,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "小台",
+          "station_code": "003255",
+          "station_group_code": "003255",
+          "longitude": 139.761735,
+          "latitude": 35.75049,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "巣鴨新田",
+          "station_code": "003351",
+          "station_group_code": "003351",
+          "longitude": 139.72791,
+          "latitude": 35.73516,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "庚申塚",
+          "station_code": "003319",
+          "station_group_code": "003319",
+          "longitude": 139.729555,
+          "latitude": 35.739125,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "新庚申塚",
+          "station_code": "003310",
+          "station_group_code": "003310",
+          "longitude": 139.73035,
+          "latitude": 35.741105000000005,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "早稲田",
+          "station_code": "003514",
+          "station_group_code": "003514",
+          "longitude": 139.719055,
+          "latitude": 35.711875,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "東尾久三丁目",
+          "station_code": "003284",
+          "station_group_code": "003284",
+          "longitude": 139.77381666666668,
+          "latitude": 35.745646666666666,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "東池袋四丁目",
+          "station_code": "003436",
+          "station_group_code": "003436",
+          "longitude": 139.720735,
+          "latitude": 35.7255,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "栄町",
+          "station_code": "003253",
+          "station_group_code": "003253",
+          "longitude": 139.74222,
+          "latitude": 35.75084,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "梶原",
+          "station_code": "003246",
+          "station_group_code": "003246",
+          "longitude": 139.7473,
+          "latitude": 35.75107,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "滝野川一丁目",
+          "station_code": "003276",
+          "station_group_code": "003276",
+          "longitude": 139.735415,
+          "latitude": 35.747299999999996,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "熊野前",
+          "station_code": "003266",
+          "station_group_code": "003266",
+          "longitude": 139.76928,
+          "latitude": 35.749179999999996,
+          "source_records": 2,
+          "lines": [
+            "日暮里・舎人ライナー",
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21",
+            "24"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "王子駅前",
+          "station_code": "003239",
+          "station_group_code": "003239",
+          "longitude": 139.73822666666666,
+          "latitude": 35.75273000000001,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "町屋二丁目",
+          "station_code": "003291",
+          "station_group_code": "003291",
+          "longitude": 139.776425,
+          "latitude": 35.743915,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "町屋駅前",
+          "station_code": "003299",
+          "station_group_code": "003299",
+          "longitude": 139.780775,
+          "latitude": 35.742775,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "荒川一中前",
+          "station_code": "003357",
+          "station_group_code": "003357",
+          "longitude": 139.788805,
+          "latitude": 35.733689999999996,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "荒川七丁目",
+          "station_code": "003306",
+          "station_group_code": "003306",
+          "longitude": 139.784045,
+          "latitude": 35.742000000000004,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "荒川二丁目",
+          "station_code": "003322",
+          "station_group_code": "003322",
+          "longitude": 139.78469,
+          "latitude": 35.738600000000005,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "荒川区役所前",
+          "station_code": "003350",
+          "station_group_code": "003350",
+          "longitude": 139.78601,
+          "latitude": 35.735365,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "荒川車庫前",
+          "station_code": "003252",
+          "station_group_code": "003252",
+          "longitude": 139.752805,
+          "latitude": 35.75086,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "荒川遊園地前",
+          "station_code": "003254",
+          "station_group_code": "003254",
+          "longitude": 139.75745333333333,
+          "latitude": 35.75065,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "西ヶ原四丁目",
+          "station_code": "003289",
+          "station_group_code": "003289",
+          "longitude": 139.732685,
+          "latitude": 35.744235,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "都電雑司ヶ谷",
+          "station_code": "003443",
+          "station_group_code": "003443",
+          "longitude": 139.71781666666666,
+          "latitude": 35.724066666666666,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "面影橋",
+          "station_code": "003509",
+          "station_group_code": "003509",
+          "longitude": 139.714675,
+          "latitude": 35.712855,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "飛鳥山",
+          "station_code": "003256",
+          "station_group_code": "003256",
+          "longitude": 139.73732,
+          "latitude": 35.750065,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        },
+        {
+          "prefecture_key": "tokyo",
+          "prefecture_name": "Tokyo",
+          "prefecture_name_ja": "東京都",
+          "station_name": "鬼子母神前",
+          "station_code": "003468",
+          "station_group_code": "003468",
+          "longitude": 139.715155,
+          "latitude": 35.72058,
+          "source_records": 1,
+          "lines": [
+            "荒川線"
+          ],
+          "operators": [
+            "東京都"
+          ],
+          "internal_operator_keys": [
+            "mlit:toei"
+          ],
+          "railway_type_codes": [
+            "21"
+          ],
+          "operator_type_codes": [
+            "3"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "mapping_version": "2026-05-28",
+  "scope": {
+    "prefecture": "tokyo",
+    "mlit_operator_name": "東京都",
+    "odpt_operator_name_en": "Toei",
+    "odpt_agency_id": "toei"
+  },
+  "notes": [
+    "This is a hard-coded mapping for Toei lines only.",
+    "MLIT line names come from N02_003 in MLIT N02 RailroadSection data.",
+    "ODPT route IDs come from Toei GTFS routes.txt in this repository.",
+    "The mapping is intended for line-to-route and line-to-trip association.",
+    "The tram line requires an alias because MLIT uses 荒川線 while ODPT GTFS uses 東京さくらトラム（都電荒川線）."
+  ],
+  "routes": [
+    {
+      "mlit_operator_name": "東京都",
+      "mlit_line_name": "1号線浅草線",
+      "odpt_route_id": "1",
+      "odpt_route_long_name": "浅草線",
+      "match_confidence": "high",
+      "matching_method": "manual_name_mapping"
+    },
+    {
+      "mlit_operator_name": "東京都",
+      "mlit_line_name": "6号線三田線",
+      "odpt_route_id": "2",
+      "odpt_route_long_name": "三田線",
+      "match_confidence": "high",
+      "matching_method": "manual_name_mapping"
+    },
+    {
+      "mlit_operator_name": "東京都",
+      "mlit_line_name": "10号線新宿線",
+      "odpt_route_id": "3",
+      "odpt_route_long_name": "新宿線",
+      "match_confidence": "high",
+      "matching_method": "manual_name_mapping"
+    },
+    {
+      "mlit_operator_name": "東京都",
+      "mlit_line_name": "12号線大江戸線",
+      "odpt_route_id": "4",
+      "odpt_route_long_name": "大江戸線",
+      "match_confidence": "high",
+      "matching_method": "manual_name_mapping"
+    },
+    {
+      "mlit_operator_name": "東京都",
+      "mlit_line_name": "日暮里・舎人ライナー",
+      "odpt_route_id": "5",
+      "odpt_route_long_name": "日暮里・舎人ライナー",
+      "match_confidence": "high",
+      "matching_method": "exact_name_mapping"
+    },
+    {
+      "mlit_operator_name": "東京都",
+      "mlit_line_name": "荒川線",
+      "odpt_route_id": "6",
+      "odpt_route_long_name": "東京さくらトラム（都電荒川線）",
+      "match_confidence": "high",
+      "matching_method": "manual_alias_mapping"
+    }
+  ]
+}

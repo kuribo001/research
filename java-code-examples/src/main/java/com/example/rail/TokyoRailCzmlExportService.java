@@ -17,7 +17,6 @@ import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -37,69 +36,6 @@ import java.util.zip.ZipInputStream;
  * - stable color per line
  */
 public class TokyoRailCzmlExportService {
-    private static final String RAILROAD_DATASET_URL =
-            "https://nlftp.mlit.go.jp/ksj/gml/data/N02/N02-24/N02-24_GML.zip";
-    private static final String RAILROAD_GEOJSON_PATH = "UTF-8/N02-24_RailroadSection.geojson";
-
-    private static final PrefectureDataset TOKYO = new PrefectureDataset(
-            "tokyo",
-            "Tokyo",
-            "東京都",
-            "13",
-            "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2026/N03-20260101_13_GML.zip",
-            "N03-20260101_13.geojson"
-    );
-
-    private static final List<String> DEFAULT_OPERATOR_FILTERS = List.of("Toei");
-
-    private static final Map<String, String> OPERATOR_NAME_EN = Map.ofEntries(
-            Map.entry("ゆりかもめ", "Yurikamome"),
-            Map.entry("京成電鉄", "Keisei"),
-            Map.entry("京浜急行電鉄", "Keikyu"),
-            Map.entry("京王電鉄", "Keio"),
-            Map.entry("北総鉄道", "Hokuso Railway"),
-            Map.entry("埼玉高速鉄道", "Saitama Railway"),
-            Map.entry("多摩都市モノレール", "Tama Monorail"),
-            Map.entry("小田急電鉄", "Odakyu"),
-            Map.entry("御岳登山鉄道", "Mitake Tozan Railway"),
-            Map.entry("東京モノレール", "Tokyo Monorail"),
-            Map.entry("東京地下鉄", "Tokyo Metro"),
-            Map.entry("東京臨海高速鉄道", "Tokyo Waterfront Area Rapid Transit"),
-            Map.entry("東京都", "Toei"),
-            Map.entry("東急電鉄", "Tokyu"),
-            Map.entry("東日本旅客鉄道", "JR East"),
-            Map.entry("東武鉄道", "Tobu"),
-            Map.entry("東海旅客鉄道", "JR Central"),
-            Map.entry("西武鉄道", "Seibu"),
-            Map.entry("首都圏新都市鉄道", "Tsukuba Express"),
-            Map.entry("高尾登山電鉄", "Takao Tozan Railway")
-    );
-
-    private static final Map<String, String> OPERATOR_FILTER_ALIASES = Map.ofEntries(
-            Map.entry("toei", "東京都"),
-            Map.entry("tokyo metropolitan bureau of transportation", "東京都"),
-            Map.entry("tokyo metro", "東京地下鉄"),
-            Map.entry("jr east", "東日本旅客鉄道"),
-            Map.entry("jr central", "東海旅客鉄道"),
-            Map.entry("keio", "京王電鉄"),
-            Map.entry("keisei", "京成電鉄"),
-            Map.entry("keikyu", "京浜急行電鉄"),
-            Map.entry("odakyu", "小田急電鉄"),
-            Map.entry("tokyu", "東急電鉄"),
-            Map.entry("tobu", "東武鉄道"),
-            Map.entry("seibu", "西武鉄道"),
-            Map.entry("hokuso", "北総鉄道"),
-            Map.entry("hokuso railway", "北総鉄道"),
-            Map.entry("saitama railway", "埼玉高速鉄道"),
-            Map.entry("tsukuba express", "首都圏新都市鉄道"),
-            Map.entry("mitake tozan railway", "御岳登山鉄道"),
-            Map.entry("takao tozan railway", "高尾登山電鉄"),
-            Map.entry("tokyo monorail", "東京モノレール"),
-            Map.entry("tama monorail", "多摩都市モノレール"),
-            Map.entry("tokyo waterfront area rapid transit", "東京臨海高速鉄道"),
-            Map.entry("yurikamome", "ゆりかもめ")
-    );
-
     private final ObjectMapper objectMapper;
     private final HttpClient httpClient;
 
@@ -109,7 +45,7 @@ public class TokyoRailCzmlExportService {
     }
 
     public void exportDefault(Path outputPath) throws IOException, InterruptedException {
-        exportCzml(outputPath, 0.0, DEFAULT_OPERATOR_FILTERS);
+        exportCzml(outputPath, 0.0, TokyoRailCzmlExportConfig.DEFAULT_OPERATOR_FILTERS);
     }
 
     public void exportCzml(Path outputPath, double height, List<String> operatorFilters)
@@ -121,7 +57,7 @@ public class TokyoRailCzmlExportService {
 
         int sectionIndex = 1;
         for (RailSectionFeature feature : exportData.features()) {
-            String sectionId = TOKYO.key() + "-" + sectionIndex++;
+            String sectionId = TokyoRailCzmlExportConfig.TOKYO.key() + "-" + sectionIndex++;
             czml.add(buildSectionPacket(
                     sectionId,
                     feature.operatorName(),
@@ -177,23 +113,6 @@ public class TokyoRailCzmlExportService {
         return createdFiles;
     }
 
-    public static void main(String[] args) throws Exception {
-        Path outputDirectory = args.length > 0
-                ? Path.of(args[0])
-                : Path.of("line_export_tool/rail_lines_tokyo_java_lines");
-        double height = args.length > 1 ? Double.parseDouble(args[1]) : 0.0;
-        List<String> operatorFilters = args.length > 2
-                ? Arrays.asList(Arrays.copyOfRange(args, 2, args.length))
-                : DEFAULT_OPERATOR_FILTERS;
-
-        TokyoRailCzmlExportService service = new TokyoRailCzmlExportService();
-        List<Path> files = service.exportCzmlPerLine(outputDirectory, height, operatorFilters);
-
-        System.out.println("CZML directory: " + outputDirectory.toAbsolutePath());
-        System.out.println("Files created: " + files.size());
-        System.out.println("Operator filters: " + operatorFilters);
-    }
-
     private ExportData loadExportData(List<String> operatorFilters) throws IOException, InterruptedException {
         List<String> resolvedOperatorFilters = normalizeOperatorFilters(operatorFilters);
         Set<String> normalizedOperatorFilterKeys = new LinkedHashSet<>();
@@ -201,8 +120,14 @@ public class TokyoRailCzmlExportService {
             normalizedOperatorFilterKeys.add(normalizeOperatorName(operator));
         }
 
-        JsonNode railroadGeoJson = fetchJsonFromZip(RAILROAD_DATASET_URL, RAILROAD_GEOJSON_PATH);
-        JsonNode prefectureGeoJson = fetchJsonFromZip(TOKYO.url(), TOKYO.geoJsonPath());
+        JsonNode railroadGeoJson = fetchJsonFromZip(
+                TokyoRailCzmlExportConfig.RAILROAD_DATASET_URL,
+                TokyoRailCzmlExportConfig.RAILROAD_GEOJSON_PATH
+        );
+        JsonNode prefectureGeoJson = fetchJsonFromZip(
+                TokyoRailCzmlExportConfig.TOKYO.url(),
+                TokyoRailCzmlExportConfig.TOKYO.geoJsonPath()
+        );
         List<JsonNode> matchedFeatures = filterRailSections(
                 railroadGeoJson,
                 prefectureGeoJson,
@@ -260,7 +185,10 @@ public class TokyoRailCzmlExportService {
 
     private String resolveOperatorFilter(String value) {
         String trimmed = value == null ? "" : value.trim();
-        return OPERATOR_FILTER_ALIASES.getOrDefault(normalizeOperatorName(trimmed), trimmed);
+        return TokyoRailCzmlExportConfig.OPERATOR_FILTER_ALIASES.getOrDefault(
+                normalizeOperatorName(trimmed),
+                trimmed
+        );
     }
 
     private String normalizeOperatorName(String value) {
@@ -282,7 +210,7 @@ public class TokyoRailCzmlExportService {
         ObjectNode properties = document.putObject("properties");
         properties.put("format", "cesium-rail-lines-czml-v1");
         ArrayNode prefectures = properties.putArray("generated_prefectures");
-        prefectures.add(TOKYO.key());
+        prefectures.add(TokyoRailCzmlExportConfig.TOKYO.key());
         properties.put("prefecture_count", 1);
         if (!isBlank(operatorName)) {
             properties.put("operator_name", operatorName);
@@ -608,17 +536,7 @@ public class TokyoRailCzmlExportService {
     }
 
     private java.util.Optional<String> operatorNameEn(String operatorName) {
-        return java.util.Optional.ofNullable(OPERATOR_NAME_EN.get(operatorName));
-    }
-
-    private record PrefectureDataset(
-            String key,
-            String name,
-            String jpName,
-            String code,
-            String url,
-            String geoJsonPath
-    ) {
+        return java.util.Optional.ofNullable(TokyoRailCzmlExportConfig.OPERATOR_NAME_EN.get(operatorName));
     }
 
     private record BBox(double minX, double minY, double maxX, double maxY) {

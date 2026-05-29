@@ -10,8 +10,9 @@ What it does:
 - can export one combined CZML or one CZML file per line
 - assigns one stable color per line
 
-Main class:
-- `com.example.rail.TokyoRailCzmlExportService`
+Classes:
+- `com.example.rail.TokyoRailCzmlExportMain`: CLI entry point
+- `com.example.rail.TokyoRailCzmlExportService`: export service logic
 
 Build:
 
@@ -24,7 +25,7 @@ Run from CLI:
 
 ```bash
 cd java-code-examples
-mvn -q exec:java -Dexec.mainClass=com.example.rail.TokyoRailCzmlExportService
+mvn -q exec:java -Dexec.mainClass=com.example.rail.TokyoRailCzmlExportMain
 ```
 
 Default CLI behavior:
@@ -36,7 +37,7 @@ Run with custom output directory and operators:
 ```bash
 cd java-code-examples
 mvn -q exec:java \
-  -Dexec.mainClass=com.example.rail.TokyoRailCzmlExportService \
+  -Dexec.mainClass=com.example.rail.TokyoRailCzmlExportMain \
   -Dexec.args="../line_export_tool/rail_lines_tokyo_java_lines 0.0 Toei"
 ```
 

@@ -92,7 +92,7 @@
           Cach de mo nhanh:
           <br />
           1. Bam <code>Choose JSON file</code> de mo
-          <code>rail_lines_tokyo_miyazaki_shimane.json</code> truc tiep tu may.
+          <code>rail_lines_tokyo.json</code> truc tiep tu may.
           <br />
           2. Hoac bam <code>Load bundled sample</code> neu ban dang chay file nay qua local server.
         </p>
@@ -265,7 +265,7 @@
 
       async function loadBundledSample() {
         try {
-          const response = await fetch("./rail_lines_tokyo_miyazaki_shimane.json");
+          const response = await fetch("./rail_lines_tokyo.json");
           if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);
           }

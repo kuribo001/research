@@ -1,6 +1,6 @@
 {
   "source": {
-    "aggregated_station_file": "stations_tokyo_miyazaki_shimane.json",
+    "aggregated_station_file": "stations_tokyo_kanagawa.json",
     "mapping_file": "mlit_to_odpt_route_mapping_toei.json"
   },
   "scope": {

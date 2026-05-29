@@ -27,10 +27,10 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 /**
- * Exports Tokyo rail sections to lightweight CZML.
+ * Exports Tokyo and Kanagawa rail sections to lightweight CZML.
  *
  * <p>This mirrors the current Python exporter:
- * - Tokyo boundary only
+ * - Tokyo and Kanagawa boundaries
  * - optional operator filtering using English aliases such as "Toei"
  * - one CZML polyline packet per rail section
  * - stable color per line
@@ -50,14 +50,15 @@ public class TokyoRailCzmlExportService {
 
     public void exportCzml(Path outputPath, double height, List<String> operatorFilters)
             throws IOException, InterruptedException {
-        ExportData exportData = loadExportData(operatorFilters);
+        Path cacheDirectory = resolveCacheDirectoryForFile(outputPath);
+        ExportData exportData = loadExportData(operatorFilters, cacheDirectory);
 
         ArrayNode czml = objectMapper.createArrayNode();
-        czml.add(buildDocumentPacket(exportData.resolvedOperatorFilters()));
+        czml.add(buildDocumentPacket(exportData.generatedPrefectureKeys(), exportData.resolvedOperatorFilters()));
 
         int sectionIndex = 1;
         for (RailSectionFeature feature : exportData.features()) {
-            String sectionId = TokyoRailCzmlExportConfig.TOKYO.key() + "-" + sectionIndex++;
+            String sectionId = "section-" + sectionIndex++;
             czml.add(buildSectionPacket(
                     sectionId,
                     feature.operatorName(),
@@ -73,7 +74,8 @@ public class TokyoRailCzmlExportService {
 
     public List<Path> exportCzmlPerLine(Path outputDirectory, double height, List<String> operatorFilters)
             throws IOException, InterruptedException {
-        ExportData exportData = loadExportData(operatorFilters);
+        Path cacheDirectory = resolveCacheDirectoryForDirectory(outputDirectory);
+        ExportData exportData = loadExportData(operatorFilters, cacheDirectory);
         Map<LineKey, List<RailSectionFeature>> groupedByLine = new LinkedHashMap<>();
 
         for (RailSectionFeature feature : exportData.features()) {
@@ -89,6 +91,7 @@ public class TokyoRailCzmlExportService {
             LineKey lineKey = entry.getKey();
             ArrayNode czml = objectMapper.createArrayNode();
             czml.add(buildDocumentPacket(
+                    exportData.generatedPrefectureKeys(),
                     exportData.resolvedOperatorFilters(),
                     lineKey.operatorName(),
                     lineKey.lineName()
@@ -113,7 +116,8 @@ public class TokyoRailCzmlExportService {
         return createdFiles;
     }
 
-    private ExportData loadExportData(List<String> operatorFilters) throws IOException, InterruptedException {
+    private ExportData loadExportData(List<String> operatorFilters, Path cacheDirectory)
+            throws IOException, InterruptedException {
         List<String> resolvedOperatorFilters = normalizeOperatorFilters(operatorFilters);
         Set<String> normalizedOperatorFilterKeys = new LinkedHashSet<>();
         for (String operator : resolvedOperatorFilters) {
@@ -122,15 +126,23 @@ public class TokyoRailCzmlExportService {
 
         JsonNode railroadGeoJson = fetchJsonFromZip(
                 TokyoRailCzmlExportConfig.RAILROAD_DATASET_URL,
-                TokyoRailCzmlExportConfig.RAILROAD_GEOJSON_PATH
+                TokyoRailCzmlExportConfig.RAILROAD_GEOJSON_PATH,
+                cacheDirectory
         );
-        JsonNode prefectureGeoJson = fetchJsonFromZip(
-                TokyoRailCzmlExportConfig.TOKYO.url(),
-                TokyoRailCzmlExportConfig.TOKYO.geoJsonPath()
-        );
+        List<PrefectureArea> prefectureAreas = new ArrayList<>();
+        List<String> generatedPrefectureKeys = new ArrayList<>();
+        for (TokyoRailCzmlExportConfig.PrefectureDataset prefecture : TokyoRailCzmlExportConfig.PREFECTURES) {
+            JsonNode prefectureGeoJson = fetchJsonFromZip(
+                    prefecture.url(),
+                    prefecture.geoJsonPath(),
+                    cacheDirectory
+            );
+            generatedPrefectureKeys.add(prefecture.key());
+            collectPrefectureAreas(prefectureGeoJson, prefectureAreas);
+        }
         List<JsonNode> matchedFeatures = filterRailSections(
                 railroadGeoJson,
-                prefectureGeoJson,
+                prefectureAreas,
                 normalizedOperatorFilterKeys.isEmpty() ? null : normalizedOperatorFilterKeys
         );
 
@@ -143,17 +155,27 @@ public class TokyoRailCzmlExportService {
                     feature.path("geometry").path("coordinates")
             ));
         }
-        return new ExportData(resolvedOperatorFilters, features);
+        return new ExportData(generatedPrefectureKeys, resolvedOperatorFilters, features);
     }
 
-    private JsonNode fetchJsonFromZip(String zipUrl, String memberPath) throws IOException, InterruptedException {
-        HttpRequest request = HttpRequest.newBuilder(URI.create(zipUrl)).GET().build();
-        HttpResponse<InputStream> response = httpClient.send(request, HttpResponse.BodyHandlers.ofInputStream());
-        if (response.statusCode() < 200 || response.statusCode() >= 300) {
-            throw new IOException("Failed to fetch " + zipUrl + " (HTTP " + response.statusCode() + ")");
+    private JsonNode fetchJsonFromZip(String zipUrl, String memberPath, Path cacheDirectory)
+            throws IOException, InterruptedException {
+        Files.createDirectories(cacheDirectory);
+        Path cachedZipPath = cacheDirectory.resolve(cacheFileNameFromUrl(zipUrl));
+
+        if (!Files.exists(cachedZipPath)) {
+            HttpRequest request = HttpRequest.newBuilder(URI.create(zipUrl)).GET().build();
+            HttpResponse<InputStream> response = httpClient.send(request, HttpResponse.BodyHandlers.ofInputStream());
+            if (response.statusCode() < 200 || response.statusCode() >= 300) {
+                throw new IOException("Failed to fetch " + zipUrl + " (HTTP " + response.statusCode() + ")");
+            }
+            try (InputStream body = response.body()) {
+                Files.copy(body, cachedZipPath);
+            }
         }
 
-        try (InputStream body = response.body(); ZipInputStream zipInputStream = new ZipInputStream(body)) {
+        try (InputStream fileInputStream = Files.newInputStream(cachedZipPath);
+             ZipInputStream zipInputStream = new ZipInputStream(fileInputStream)) {
             ZipEntry entry;
             while ((entry = zipInputStream.getNextEntry()) != null) {
                 if (memberPath.equals(entry.getName())) {
@@ -162,7 +184,23 @@ public class TokyoRailCzmlExportService {
             }
         }
 
-        throw new IOException("ZIP member not found: " + memberPath + " in " + zipUrl);
+        throw new IOException("ZIP member not found: " + memberPath + " in " + cachedZipPath);
+    }
+
+    private Path resolveCacheDirectoryForFile(Path outputPath) {
+        Path absolutePath = outputPath.toAbsolutePath();
+        Path parent = absolutePath.getParent();
+        return parent == null ? Path.of(".").toAbsolutePath() : parent;
+    }
+
+    private Path resolveCacheDirectoryForDirectory(Path outputDirectory) {
+        return outputDirectory.toAbsolutePath();
+    }
+
+    private String cacheFileNameFromUrl(String zipUrl) {
+        String path = URI.create(zipUrl).getPath();
+        int slashIndex = path.lastIndexOf('/');
+        return slashIndex >= 0 ? path.substring(slashIndex + 1) : path;
     }
 
     private List<String> normalizeOperatorFilters(List<String> requested) {
@@ -197,21 +235,28 @@ public class TokyoRailCzmlExportService {
                 : value.trim().replaceAll("\\s+", " ").toLowerCase(Locale.ROOT);
     }
 
-    private ObjectNode buildDocumentPacket(List<String> operatorFilters) {
-        return buildDocumentPacket(operatorFilters, null, null);
+    private ObjectNode buildDocumentPacket(List<String> prefectureKeys, List<String> operatorFilters) {
+        return buildDocumentPacket(prefectureKeys, operatorFilters, null, null);
     }
 
-    private ObjectNode buildDocumentPacket(List<String> operatorFilters, String operatorName, String lineName) {
+    private ObjectNode buildDocumentPacket(
+            List<String> prefectureKeys,
+            List<String> operatorFilters,
+            String operatorName,
+            String lineName
+    ) {
         ObjectNode document = objectMapper.createObjectNode();
         document.put("id", "document");
         document.put("version", "1.0");
-        document.put("name", buildDocumentName(operatorName, lineName));
+        document.put("name", buildDocumentName(prefectureKeys, operatorName, lineName));
 
         ObjectNode properties = document.putObject("properties");
         properties.put("format", "cesium-rail-lines-czml-v1");
         ArrayNode prefectures = properties.putArray("generated_prefectures");
-        prefectures.add(TokyoRailCzmlExportConfig.TOKYO.key());
-        properties.put("prefecture_count", 1);
+        for (String prefectureKey : prefectureKeys) {
+            prefectures.add(prefectureKey);
+        }
+        properties.put("prefecture_count", prefectureKeys.size());
         if (!isBlank(operatorName)) {
             properties.put("operator_name", operatorName);
             properties.put("operator_name_en", operatorNameEn(operatorName).orElse(operatorName));
@@ -227,14 +272,27 @@ public class TokyoRailCzmlExportService {
         return document;
     }
 
-    private String buildDocumentName(String operatorName, String lineName) {
+    private String buildDocumentName(List<String> prefectureKeys, String operatorName, String lineName) {
         if (isBlank(lineName)) {
-            return "Tokyo Rail Lines";
+            return buildPrefectureLabel(prefectureKeys) + " Rail Lines";
         }
         String operatorDisplay = isBlank(operatorName)
                 ? "Unknown operator"
                 : operatorNameEn(operatorName).orElse(operatorName);
         return operatorDisplay + " / " + lineName;
+    }
+
+    private String buildPrefectureLabel(List<String> prefectureKeys) {
+        List<String> prefectureNames = new ArrayList<>();
+        for (String prefectureKey : prefectureKeys) {
+            for (TokyoRailCzmlExportConfig.PrefectureDataset prefecture : TokyoRailCzmlExportConfig.PREFECTURES) {
+                if (prefecture.key().equals(prefectureKey)) {
+                    prefectureNames.add(prefecture.name());
+                    break;
+                }
+            }
+        }
+        return prefectureNames.isEmpty() ? "Japan" : String.join(" + ", prefectureNames);
     }
 
     private ObjectNode buildSectionPacket(
@@ -324,27 +382,14 @@ public class TokyoRailCzmlExportService {
 
     private List<JsonNode> filterRailSections(
             JsonNode railroadGeoJson,
-            JsonNode prefectureGeoJson,
+            List<PrefectureArea> prefectureAreas,
             Set<String> operatorFilters
     ) {
-        List<JsonNode> prefectureGeometries = new ArrayList<>();
-        List<BBox> prefectureBboxes = new ArrayList<>();
-
-        for (JsonNode feature : prefectureGeoJson.path("features")) {
-            JsonNode geometry = feature.path("geometry");
-            BBox bbox = geometryBBox(geometry);
-            if (bbox == null) {
-                continue;
-            }
-            prefectureGeometries.add(geometry);
-            prefectureBboxes.add(bbox);
-        }
-
-        if (prefectureBboxes.isEmpty()) {
+        if (prefectureAreas.isEmpty()) {
             return List.of();
         }
 
-        BBox overallBbox = combineBBoxes(prefectureBboxes);
+        BBox overallBbox = combineBBoxes(prefectureAreas.stream().map(PrefectureArea::bbox).toList());
         List<JsonNode> matches = new ArrayList<>();
 
         for (JsonNode feature : railroadGeoJson.path("features")) {
@@ -370,9 +415,9 @@ public class TokyoRailCzmlExportService {
             }
 
             boolean matchesPrefecture = false;
-            for (int i = 0; i < prefectureGeometries.size(); i += 1) {
-                if (bboxIntersects(lineBBox, prefectureBboxes.get(i))
-                        && lineIntersectsGeometry(coordinates, prefectureGeometries.get(i))) {
+            for (PrefectureArea prefectureArea : prefectureAreas) {
+                if (bboxIntersects(lineBBox, prefectureArea.bbox())
+                        && lineIntersectsGeometry(coordinates, prefectureArea.geometry())) {
                     matchesPrefecture = true;
                     break;
                 }
@@ -384,6 +429,16 @@ public class TokyoRailCzmlExportService {
         }
 
         return matches;
+    }
+
+    private void collectPrefectureAreas(JsonNode prefectureGeoJson, List<PrefectureArea> prefectureAreas) {
+        for (JsonNode feature : prefectureGeoJson.path("features")) {
+            JsonNode geometry = feature.path("geometry");
+            BBox bbox = geometryBBox(geometry);
+            if (bbox != null) {
+                prefectureAreas.add(new PrefectureArea(geometry, bbox));
+            }
+        }
     }
 
     private boolean lineIntersectsGeometry(JsonNode coordinates, JsonNode geometry) {
@@ -542,10 +597,17 @@ public class TokyoRailCzmlExportService {
     private record BBox(double minX, double minY, double maxX, double maxY) {
     }
 
+    private record PrefectureArea(JsonNode geometry, BBox bbox) {
+    }
+
     private record RailSectionFeature(String operatorName, String lineName, JsonNode coordinates) {
     }
 
-    private record ExportData(List<String> resolvedOperatorFilters, List<RailSectionFeature> features) {
+    private record ExportData(
+            List<String> generatedPrefectureKeys,
+            List<String> resolvedOperatorFilters,
+            List<RailSectionFeature> features
+    ) {
     }
 
     private record LineKey(String operatorName, String lineName) {

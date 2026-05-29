@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Export railway stations for selected Japanese prefectures to JSON.
+Export railway stations for Tokyo and Kanagawa to JSON.
 
 Data sources:
 - MLIT National Land Numerical Information railway stations (N02)
@@ -37,19 +37,12 @@ PREFECTURE_DATASETS = {
         "url": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2026/N03-20260101_13_GML.zip",
         "geojson_path": "N03-20260101_13.geojson",
     },
-    "miyazaki": {
-        "name": "Miyazaki",
-        "jp_name": "宮崎県",
-        "code": "45",
-        "url": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2026/N03-20260101_45_GML.zip",
-        "geojson_path": "N03-20260101_45.geojson",
-    },
-    "shimane": {
-        "name": "Shimane",
-        "jp_name": "島根県",
-        "code": "32",
-        "url": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2026/N03-20260101_32_GML.zip",
-        "geojson_path": "N03-20260101_32.geojson",
+    "kanagawa": {
+        "name": "Kanagawa",
+        "jp_name": "神奈川県",
+        "code": "14",
+        "url": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2026/N03-20260101_14_GML.zip",
+        "geojson_path": "N03-20260101_14.geojson",
     },
 }
 
@@ -57,28 +50,22 @@ PREFECTURE_ALIASES = {
     "tokyo": "tokyo",
     "東京都": "tokyo",
     "13": "tokyo",
-    "miyazaki": "miyazaki",
-    "miyazki": "miyazaki",
-    "mitazaki": "miyazaki",
-    "宮崎": "miyazaki",
-    "宮崎県": "miyazaki",
-    "45": "miyazaki",
-    "shimane": "shimane",
-    "島根": "shimane",
-    "島根県": "shimane",
-    "32": "shimane",
+    "kanagawa": "kanagawa",
+    "神奈川": "kanagawa",
+    "神奈川県": "kanagawa",
+    "14": "kanagawa",
 }
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Export railway stations for Tokyo, Miyazaki, and Shimane."
+        description="Export railway stations for Tokyo and Kanagawa."
     )
     parser.add_argument(
         "--prefectures",
         nargs="+",
-        default=["tokyo", "miyazaki", "shimane"],
-        help="Prefectures to export. Supported: tokyo, miyazaki, shimane.",
+        default=["tokyo", "kanagawa"],
+        help="Prefectures to export. Supported: tokyo, kanagawa.",
     )
     parser.add_argument(
         "--output",
@@ -102,7 +89,7 @@ def normalize_prefecture_keys(requested: Iterable[str]) -> list[str]:
         key = PREFECTURE_ALIASES.get(item.strip().lower(), PREFECTURE_ALIASES.get(item))
         if key is None:
             raise ValueError(
-                f"Unsupported prefecture '{item}'. Use one of: tokyo, miyazaki, shimane."
+                f"Unsupported prefecture '{item}'. Use one of: tokyo, kanagawa."
             )
         if key not in normalized:
             normalized.append(key)
@@ -396,7 +383,7 @@ def main() -> int:
         output_path = (
             Path(args.output)
             if args.output
-            else Path(__file__).resolve().parent / "stations_tokyo_miyazaki_shimane.json"
+            else Path(__file__).resolve().parent / "stations_tokyo_kanagawa.json"
         )
         export_station_json(prefecture_keys, output_path)
     except Exception as exc:

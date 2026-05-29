@@ -31,5 +31,5 @@ async function loadRailLines(viewer, url) {
 Usage:
 
 const viewer = new Cesium.Viewer("cesiumContainer");
-loadRailLines(viewer, "./line_export_tool/rail_lines_tokyo_miyazaki_shimane.json");
+loadRailLines(viewer, "./line_export_tool/rail_lines_tokyo.json");
 */

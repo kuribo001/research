@@ -3,7 +3,7 @@
 Filter Tokyo Toei stations by MLIT line from an aggregated MLIT station export.
 
 This utility reads:
-- station_export_tool/stations_tokyo_miyazaki_shimane.json
+- station_export_tool/stations_tokyo_kanagawa.json
 - line_export_tool/mlit_to_odpt_route_mapping_toei.json
 
 and writes a Tokyo Toei-only JSON grouped by each mapped MLIT line.
@@ -21,7 +21,7 @@ from pathlib import Path
 
 
 DEFAULT_STATIONS_PATH = (
-    Path(__file__).resolve().parent / "stations_tokyo_miyazaki_shimane.json"
+    Path(__file__).resolve().parent / "stations_tokyo_kanagawa.json"
 )
 DEFAULT_MAPPING_PATH = (
     Path(__file__).resolve().parent.parent
@@ -84,7 +84,12 @@ def sort_stations(stations: list[dict]) -> list[dict]:
     )
 
 
-def build_output(station_payload: dict, mapping_payload: dict) -> dict:
+def build_output(
+    station_payload: dict,
+    mapping_payload: dict,
+    stations_path: Path,
+    mapping_path: Path,
+) -> dict:
     tokyo = find_tokyo_prefecture(station_payload)
     lines = []
     for route in mapping_payload.get("routes", []):
@@ -111,8 +116,8 @@ def build_output(station_payload: dict, mapping_payload: dict) -> dict:
 
     return {
         "source": {
-            "aggregated_station_file": str(DEFAULT_STATIONS_PATH.name),
-            "mapping_file": str(DEFAULT_MAPPING_PATH.name),
+            "aggregated_station_file": stations_path.name,
+            "mapping_file": mapping_path.name,
         },
         "scope": {
             "prefecture_key": tokyo.get("prefecture_key"),
@@ -140,7 +145,7 @@ def main() -> int:
 
     station_payload = load_json(stations_path)
     mapping_payload = load_json(mapping_path)
-    output = build_output(station_payload, mapping_payload)
+    output = build_output(station_payload, mapping_payload, stations_path, mapping_path)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(

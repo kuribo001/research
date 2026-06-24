@@ -7,7 +7,7 @@ Backend skeleton built with `Spring Boot 3.5` and `Java 17`, organized by `modul
 - Project name: `project-backend`
 - Language: `Java 17`
 - Framework: `Spring Boot 3.5.0`
-- Build tool: `Gradle`
+- Build tool: `Maven 3.9.x`
 - Database: `MariaDB`
 - Persistence: `Spring Data JPA`
 - Batch support: `Spring Batch`
@@ -53,7 +53,7 @@ Example:
 
 ## Technology Stack
 
-Main dependencies declared in [build.gradle](build.gradle):
+Main dependencies declared in [pom.xml](pom.xml):
 
 - `spring-boot-starter-web`
 - `spring-boot-starter-validation`
@@ -66,9 +66,7 @@ Main dependencies declared in [build.gradle](build.gradle):
 
 ```text
 .
-|- build.gradle
-|- settings.gradle
-|- gradle/
+|- pom.xml
 |- src/
 |  |- main/
 |  |  |- java/com/company/project/
@@ -187,18 +185,19 @@ Database connection is configured through Spring Boot auto-configuration. There 
 
 ### Prerequisites
 
+- `Maven 3.9.x`
 - `JDK 17`
 - running `MariaDB` instance
 
 ### Commands
 
 ```bash
-./gradlew run
-./gradlew runLocal
-./gradlew runDevelop
-./gradlew runProd
-./gradlew test
-./gradlew build
+mvn spring-boot:run
+mvn spring-boot:run -Plocal
+mvn spring-boot:run -Pdevelop
+mvn spring-boot:run -Pprod
+mvn test
+mvn clean package
 ```
 
 ### Active profile
@@ -208,17 +207,17 @@ By default, the application uses the `local` profile from [application.yml](src/
 Environment-specific run commands:
 
 ```bash
-./gradlew runLocal
-./gradlew runDevelop
-./gradlew runProd
+mvn spring-boot:run -Plocal
+mvn spring-boot:run -Pdevelop
+mvn spring-boot:run -Pprod
 ```
 
 Behavior:
 
-- `./gradlew run`: runs with the default profile configured in `application.yml`
-- `./gradlew runLocal`: runs with `spring.profiles.active=local`
-- `./gradlew runDevelop`: runs with `spring.profiles.active=develop`
-- `./gradlew runProd`: runs with `spring.profiles.active=prod`
+- `mvn spring-boot:run`: runs with the default profile configured in `application.yml`
+- `mvn spring-boot:run -Plocal`: runs with `spring.profiles.active=local`
+- `mvn spring-boot:run -Pdevelop`: runs with `spring.profiles.active=develop`
+- `mvn spring-boot:run -Pprod`: runs with `spring.profiles.active=prod`
 
 ## API Endpoints
 
@@ -294,7 +293,7 @@ Example:
 Run all tests with:
 
 ```bash
-./gradlew test
+mvn test
 ```
 
 ## Documentation
@@ -314,6 +313,6 @@ Vietnamese versions are available in [docs-vi](docs-vi).
 
 ## Notes
 
-- `build/` contains generated artifacts and reports, not hand-maintained source code.
+- `target/` contains generated artifacts and reports, not hand-maintained source code.
 - the repository is a skeleton project, so some modules intentionally contain placeholder implementations to demonstrate structure rather than full business behavior.
 - when adding a new module, keep the same `api`, `application`, `domain`, `infrastructure` split and expose cross-module access through an application facade.

@@ -261,3 +261,141 @@ com.company.project.batch
    |- processor
    `- writer
 ```
+
+- All configuration except secrets must be managed through `application-*.yml` and environment variables.
+- The system must expose `health`, `readiness`, and `liveness` endpoints.
+- All logs related to requests and batch jobs must include `traceId` or `requestId`.
+- Batch jobs must clearly separate `job`, `step`, `reader`, `processor`, and `writer`, and include retry / skip mechanisms when the business flow requires them.
+
+### Mandatory Module Boundaries
+
+- Shared utilities may only be created when at least 2 modules truly need them and the utilities are genuinely generic.
+- Do not create `common` too early and turn it into a place for ownerless code.
+- Relationships between modules must go through clear interfaces, events, or application facades.
+- Every module must have clear data, business, and transaction boundaries.
+- If a module starts containing too many unrelated use cases, the team must split the module.
+
+### Mandatory Testing Strategy by Module
+
+- `domain` must be tested with unit tests and should not require a Spring context.
+- `application` must be tested with service tests using mocked repository contracts and external ports.
+- `infrastructure` must be tested with integration tests against MariaDB or Testcontainers.
+- `api` must be tested with controller tests for validation, error format, and key contracts.
+- `batch` must have dedicated tests for jobs, steps, and idempotency of each processing flow.
+
+### Module Review Checklist
+
+- Does the module name correctly reflect the domain?
+- Are all 4 layers `api`, `application`, `domain`, and `infrastructure` present?
+- Is `domain` independent from frameworks?
+- Does the module expose a clear facade/interface for other modules?
+- Is anything bypassing boundaries to access another module's repository or infrastructure directly?
+- If a batch job exists, does it correctly reuse application services or domain rules?
+
+## Frontend (React + Vite 8.x + TypeScript + Tailwind CSS)
+
+### Mandatory Architecture
+
+The frontend must use `React`, `Vite 8.x`, `TypeScript`, and `feature-based architecture`. Frontend code must be organized by feature and must clearly separate presentation, state, and API layers:
+
+- `app`: bootstrap, app providers, app-level initialization.
+- `pages`: page-level composition.
+- `features`: business use cases.
+- `components`: reusable UI components.
+- `services`: API clients, adapters, integrations.
+- `hooks`: reusable custom hooks.
+- `shared`: shared constants, utilities, types, design tokens.
+
+### Mandatory Folder Structure
+
+```text
+src
+|- app
+|- pages
+|- features
+|- components
+|- services
+|- hooks
+|- shared
+|- assets
+|- config
+|- routes
+|- locales
+`- layouts
+```
+
+The frontend must be bootstrapped and built with `Vite 8.x`.
+
+The frontend must use `TypeScript` for all source code inside `src`. New plain JavaScript files must not be added to the frontend codebase, except tool configuration files when necessary.
+
+Types must be placed close to the feature or module that uses them. Do not create a shared `types` folder unless there is a clear boundary and ownership model for it.
+
+Folder boundaries must be understood as follows:
+
+- `pages` may only compose pages, route-level layouts, and multiple features.
+- `features` must contain the UI, hooks, services, and types related to a business use case.
+- `components` may only contain reusable shared components and must not contain domain-specific business logic.
+- `shared` may only contain truly generic pieces such as constants, utilities, base UI, tokens, and shared types.
+- `services` may only contain shared API clients, interceptors, transport wrappers, or app-level integrations.
+- `hooks` may only contain reusable app-level custom hooks; business-specific hooks must live in the relevant feature.
+- `config` may only contain app-level frontend configuration such as env mapping, app settings, and runtime config parsers.
+- `routes` may only contain route declarations, route guards, route metadata, and app-level route composition.
+- `locales` may only contain i18n resources such as dictionaries, translation files, and locale configuration.
+- `layouts` may only contain page-level or app-level layouts and must not contain feature business logic.
+
+### Mandatory Design Rules
+
+- Pages are only responsible for composition and must not contain business logic.
+- Business logic must be moved into custom hooks or services.
+- API responses must be adapted into FE models before rendering.
+- Reusable components must remain presentation-first and should minimize dependence on global state.
+- Server data state and UI state must be clearly separated.
+- Components inside `features` must not be imported back into `shared` or `components`.
+- Each feature must manage its own types, hooks, services, and components unless they clearly qualify to move into `shared`.
+
+### Performance and Maintainability
+
+- The frontend must use `Vite 8.x` for bootstrap, the dev server, and build.
+- Use `Tailwind CSS` for utility-first styling; shared components must use consistent color, spacing, and typography tokens.
+- Large routes must use lazy loading.
+- Avoid prop drilling across more than 2-3 component levels when a hook, local context, or composition can express the structure better.
+- Critical application areas must have error boundaries.
+- Loading states, empty states, error states, cache behavior, refetch behavior, and optimistic updates must be designed from the beginning for data-driven screens.
+
+### Example Feature Structure
+
+```text
+src/features/order-create
+|- api
+|  `- order-create.service.ts
+|- components
+|  |- order-create-form.tsx
+|  `- order-item-table.tsx
+|- hooks
+|  `- use-order-create.ts
+|- types
+|  |- order-create-command.ts
+|  `- order-create-view-model.ts
+`- index.ts
+```
+
+Feature rules:
+
+- A feature must encapsulate the UI, hooks, services, and types related to that use case.
+- `index.ts` may only expose the parts needed by `pages` or other features.
+- Pages must not access internal feature files directly if the feature already exposes them through `index.ts`.
+
+## BE and FE Collaboration Principles
+
+- The API contract must be agreed before implementation starts.
+- Backend DTOs and frontend view models do not have to match 1:1.
+- Error format, pagination, and auth flow must be consistent across the whole system.
+- Any breaking contract change must include versioning or a rollout plan.
+
+## Architecture Review Checklist
+
+- Are presentation, business, and data access clearly separated?
+- Is any framework leaking into business rules?
+- Does any module have circular dependencies?
+- Can each part be tested independently?
+- Were logging, security, configuration, and monitoring considered from the design stage?

@@ -307,11 +307,11 @@ Nguyên tắc bắt buộc cho batch:
 - Có thành phần nào đang đi tắt qua repository hoặc infrastructure của module khác không.
 - Batch job nếu có đã dùng lại application service hoặc domain rule đúng cách chưa.
 
-## Frontend (React + Vite + TypeScript + Tailwind CSS)
+## Frontend (React + Vite 8.x + TypeScript + Tailwind CSS)
 
 ### Kiến trúc bắt buộc
 
-Frontend bắt buộc sử dụng `React`, `Vite`, `TypeScript` và `feature-based architecture`. Code frontend phải được tổ chức theo feature, tách rõ giao diện, state và API layer:
+Frontend bắt buộc sử dụng `React`, `Vite 8.x`, `TypeScript` và `feature-based architecture`. Code frontend phải được tổ chức theo feature, tách rõ giao diện, state và API layer:
 
 - `app`: bootstrap, app provider, app-level initialization.
 - `pages`: page-level composition.
@@ -339,7 +339,7 @@ src
 `- layouts
 ```
 
-Frontend phải được khởi tạo và build bằng `Vite`.
+Frontend phải được khởi tạo và build bằng `Vite 8.x`.
 
 Frontend phải sử dụng `TypeScript` cho toàn bộ source code trong `src`. Không được tạo file mới bằng JavaScript thường trong codebase frontend, trừ các file config của tool nếu cần.
 
@@ -370,7 +370,7 @@ Ranh giới thư mục phải được hiểu như sau:
 
 ### Performance và maintainability
 
-- Frontend phải sử dụng `Vite` cho bootstrap, dev server và build.
+- Frontend phải sử dụng `Vite 8.x` cho bootstrap, dev server và build.
 - Sử dụng `Tailwind CSS` cho utility-first styling; component chung cần thống nhất token màu sắc, spacing và typography.
 - Route lớn phải có lazy loading.
 - Không để prop drilling kéo dài qua 2-3 tầng component nếu có thể tách bằng hook, context cục bộ hoặc composition.
